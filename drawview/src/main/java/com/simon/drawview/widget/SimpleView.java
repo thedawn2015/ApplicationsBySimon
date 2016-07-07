@@ -1,4 +1,4 @@
-package com.simon.drawview.widgets;
+package com.simon.drawview.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,6 +9,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.simon.drawview.model.PieData;
+import com.simon.drawview.util.DataCheckUtil;
+
+import java.util.List;
+
 /**
  * 简单的View，画简单的图
  * Created by xw on 2016/7/6
@@ -17,10 +22,18 @@ public class SimpleView extends View {
     public static String TAG = SimpleView.class.getSimpleName();
 
     private Paint mPaint;
+    // 颜色表
+    private int[] mColors = {0xFFCCFF00, 0xFF6495ED, 0xFFE32636, 0xFF800000, 0xFF808000, 0xFFFF8C69, 0xFF808080,
+            0xFFE6B800, 0xFF7CFC00};
+    // 饼状图初始绘制角度
+    private float mStartAngle = 0;
+    // 数据
+    private List<PieData> pieDataList;
+    // 宽高
+    private int mWidth, mHeight;
 
     public SimpleView(Context context) {
-        super(context);
-        initPaint();
+        super(context, null);
     }
 
     public SimpleView(Context context, AttributeSet attrs) {
@@ -38,6 +51,7 @@ public class SimpleView extends View {
         mPaint.setStyle(Paint.Style.FILL);
         //画笔宽度
         mPaint.setStrokeWidth(10f);
+        mPaint.setAntiAlias(true);
     }
 
     @Override
@@ -60,14 +74,68 @@ public class SimpleView extends View {
         mPaint.setColor(Color.RED);
         canvas.drawOval(rectF, mPaint);
 
-        rectF = new RectF(dp2px(10), dp2px(200), dp2px(210), dp2px(230));
+        rectF = new RectF(dp2px(10), dp2px(200), dp2px(210), dp2px(300));
         mPaint.setColor(Color.YELLOW);
         canvas.drawArc(rectF, dp2px(0), dp2px(90), false, mPaint);
+
+        mPaint.setColor(Color.MAGENTA);
+        mPaint.setStrokeWidth(20f);
+
+        // 描边
+        mPaint.setStyle(Paint.Style.STROKE);
+        canvas.drawCircle(200, 200, 100, mPaint);
+
+        // 填充
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(200, 500, 100, mPaint);
+
+        // 描边加填充
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        canvas.drawCircle(200, 800, 100, mPaint);
+
+        drawPie(canvas);
+
+    }
+
+    /**
+     * 画饼
+     *
+     * @param canvas
+     */
+    private void drawPie(Canvas canvas) {
+
+    }
+
+    // 设置数据
+    public void setData(List<PieData> pieDataList) {
+        this.pieDataList = pieDataList;
+        initDate(pieDataList);
+        // 刷新
+        invalidate();
+    }
+
+    /**
+     * 初始化数据
+     *
+     * @param pieDataList
+     */
+    private void initDate(List<PieData> pieDataList) {
+        if (DataCheckUtil.isListNull(pieDataList)) {
+            return;
+        }
+
     }
 
     private float dp2px(float dp) {
         float density = getResources().getDisplayMetrics().density;
         Log.i(TAG, "dp2px: density=" + density);
         return density * dp;
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mWidth = w;
+        mHeight = h;
     }
 }
