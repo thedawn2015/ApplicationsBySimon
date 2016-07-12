@@ -104,7 +104,7 @@ public class SimpleView extends View {
      * @param canvas
      */
     private void drawPie(Canvas canvas) {
-        if (DataCheckUtil.isListNull(pieDataList)) {
+        if (DataCheckUtil.isNullOrEmpty(pieDataList)) {
             return;
         }
         // 当前起始角度
@@ -161,7 +161,7 @@ public class SimpleView extends View {
 
     private float dp2px(float dp) {
         float density = getResources().getDisplayMetrics().density;
-//        Log.i(TAG, "dp2px: density=" + density);
+        //        Log.i(TAG, "dp2px: density=" + density);
         return density * dp;
     }
 
