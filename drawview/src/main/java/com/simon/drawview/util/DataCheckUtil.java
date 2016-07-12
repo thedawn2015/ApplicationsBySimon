@@ -14,7 +14,7 @@ public class DataCheckUtil {
      * @param list
      * @return
      */
-    public static boolean isListNull(List list) {
+    public static boolean isNullOrEmpty(List list) {
         if (list == null || list.size() == 0) {
             //            list = new ArrayList();
             return true;

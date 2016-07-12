@@ -120,7 +120,7 @@ public class SimpleView extends View {
      * @param pieDataList
      */
     private void initDate(List<PieData> pieDataList) {
-        if (DataCheckUtil.isListNull(pieDataList)) {
+        if (DataCheckUtil.isNullOrEmpty(pieDataList)) {
             return;
         }
 
