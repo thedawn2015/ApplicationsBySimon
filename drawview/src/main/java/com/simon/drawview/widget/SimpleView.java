@@ -93,6 +93,7 @@ public class SimpleView extends View {
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawCircle(200, 800, 100, mPaint);
 
+        mPaint.setStyle(Paint.Style.FILL);
         drawPie(canvas);
 
     }
@@ -103,7 +104,20 @@ public class SimpleView extends View {
      * @param canvas
      */
     private void drawPie(Canvas canvas) {
-
+        if (DataCheckUtil.isListNull(pieDataList)) {
+            return;
+        }
+        // 当前起始角度
+        float currentStartAngle = mStartAngle;
+        canvas.translate(mWidth / 2, mHeight / 2);
+        float r = (float) (Math.min(mWidth, mHeight) / 2 * 0.8);
+        RectF rectf = new RectF(-r, -r, r, r);
+        for (int i = 0; i < pieDataList.size(); i++) {
+            PieData pieData = pieDataList.get(i);
+            mPaint.setColor(pieData.getColor());
+            canvas.drawArc(rectf, currentStartAngle, pieData.getAngle(), true, mPaint);
+            currentStartAngle += pieData.getAngle();
+        }
     }
 
     // 设置数据
@@ -120,15 +134,34 @@ public class SimpleView extends View {
      * @param pieDataList
      */
     private void initDate(List<PieData> pieDataList) {
-        if (DataCheckUtil.isNullOrEmpty(pieDataList)) {
-            return;
+        float sumValue = 0;
+        for (int i = 0; i < pieDataList.size(); i++) {
+            PieData pieData = pieDataList.get(i);
+            sumValue += pieData.getValue();
+            int j = i % mColors.length;
+            pieData.setColor(mColors[j]);
         }
+        float sumAngle = 0;
+        for (int i = 0; i < pieDataList.size(); i++) {
+            PieData pieData = pieDataList.get(i);
+            float percentage = pieData.getValue() / sumValue;
+            float angle = percentage * 360;
+            pieData.setPercentage(percentage);
+            pieData.setAngle(angle);
+            sumAngle += angle;
+            Log.i(TAG, "initDate: angle=" + pieData.getAngle());
+        }
+    }
 
+    // 设置起始角度
+    public void setStartAngle(int mStartAngle) {
+        this.mStartAngle = mStartAngle;
+        invalidate();   // 刷新
     }
 
     private float dp2px(float dp) {
         float density = getResources().getDisplayMetrics().density;
-        Log.i(TAG, "dp2px: density=" + density);
+//        Log.i(TAG, "dp2px: density=" + density);
         return density * dp;
     }
 

@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView (R.id.main_simple_view)
+    @BindView(R.id.main_simple_view)
     SimpleView mainSimpleView;
 
     private List<PieData> pieDataList;
@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initPieData();
-        //        mainSimpleView.se
+        mainSimpleView.setData(pieDataList);
+        mainSimpleView.setStartAngle(10);
     }
 
     private void initPieData() {
