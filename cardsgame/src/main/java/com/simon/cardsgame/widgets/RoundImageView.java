@@ -132,9 +132,9 @@ public class RoundImageView extends ImageView {
             scale = mWidth * 1.0f / bSize;
 
         } else if (type == TYPE_ROUND) {
-            Log.e("TAG",
-                    "b'w = " + bmp.getWidth() + " , " + "b'h = "
-                            + bmp.getHeight());
+//            Log.e("TAG",
+//                    "b'w = " + bmp.getWidth() + " , " + "b'h = "
+//                            + bmp.getHeight());
             if (!(bmp.getWidth() == getWidth() && bmp.getHeight() == getHeight())) {
                 // 如果图片的宽或者高与view的宽高不匹配，计算出需要缩放的比例；缩放后的图片的宽高，一定要大于我们view的宽高；所以我们这里取大值；
                 scale = Math.max(getWidth() * 1.0f / bmp.getWidth(),
@@ -154,7 +154,7 @@ public class RoundImageView extends ImageView {
     protected void onDraw(Canvas canvas) {
         //重绘的时候，一定不要调用super，会重叠。
 //        super.onDraw(canvas);
-        Log.e("TAG", "onDraw");
+//        Log.e("TAG", "onDraw");
         if (getDrawable() == null) {
             return;
         }

@@ -5,7 +5,7 @@ package com.simon.cardsgame.datas;
  */
 public class CardType {
     private String typeName;
-    private boolean isFront;
+    private boolean isBack;
 
     public String getTypeName() {
         return typeName;
@@ -15,11 +15,11 @@ public class CardType {
         this.typeName = typeName;
     }
 
-    public boolean isFront() {
-        return isFront;
+    public boolean isBack() {
+        return isBack;
     }
 
-    public void setFront(boolean front) {
-        isFront = front;
+    public void setBack(boolean back) {
+        isBack = back;
     }
 }

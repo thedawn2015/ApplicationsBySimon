@@ -17,6 +17,7 @@
         app:type="round"/>
 
     <TextView
+        android:id="@+id/card_back_tv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

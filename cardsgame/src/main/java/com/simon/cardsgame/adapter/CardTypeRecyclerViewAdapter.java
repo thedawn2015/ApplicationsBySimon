@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.List;
  * Created by Simon on 2016/7/5.
  */
 public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRecyclerViewAdapter.ViewHolder> {
+    public static String TAG = CardTypeRecyclerViewAdapter.class.getSimpleName();
 
     private Context context;
     private List<CardType> cardTypeList;
@@ -73,7 +75,8 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindViews(cardTypeList.get(position));
+        Log.i(TAG, "onBindViewHolder: position=" + position);
+        holder.bindViews(cardTypeList.get(position), position);
     }
 
     @Override
@@ -93,6 +96,7 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
         private FrameLayout fragment_fl_card_back;
         private FrameLayout fragment_fl_card_front;
         private TextView card_front_tv_content;
+        private TextView card_back_tv_content;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -101,8 +105,30 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
             this.fragment_fl_card_back = (FrameLayout) itemView.findViewById(R.id.fragment_fl_card_back);
             this.fragment_fl_card_front = (FrameLayout) itemView.findViewById(R.id.fragment_fl_card_front);
             this.card_front_tv_content = (TextView) itemView.findViewById(R.id.card_front_tv_content);
+            this.card_back_tv_content = (TextView) itemView.findViewById(R.id.card_back_tv_content);
+            // 设置动画
+            setAnimators(itemView);
+            // 设置镜头距离
+            setCameraDistance(fragment_fl_card_back, fragment_fl_card_front);
+        }
 
-            this.itemView.setOnClickListener(new View.OnClickListener() {
+        public void bindViews(final CardType cardType, int position) {
+            card_front_tv_content.setText(cardType.getTypeName());
+            card_back_tv_content.setText(cardType.getTypeName() + "F");
+            /*if (cardType.isBack()) {
+                fragment_fl_card_front.setVisibility(View.GONE);
+                fragment_fl_card_back.setVisibility(View.VISIBLE);
+            } else {
+                fragment_fl_card_front.setVisibility(View.VISIBLE);
+                fragment_fl_card_back.setVisibility(View.GONE);
+            }*/
+            Log.i(TAG, "bindViews: position=" + position + " isBack=" + cardType.isBack());
+            /*if (cardType.isBack()) {
+                fragment_fl_card_front.setAlpha(0);
+                fragment_fl_card_back.setAlpha(1);
+            }*/
+
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     /*if (onCardTypeItemClickListener != null) {
@@ -111,23 +137,9 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
                     fragment_fl_card_back.setVisibility(View.VISIBLE);
                     fragment_fl_card_front.setVisibility(View.VISIBLE);
                     flipCard(fragment_fl_card_front, fragment_fl_card_back);
-
+                    cardType.setBack(true);
                 }
             });
-
-            // 设置动画
-            setAnimators(itemView);
-            // 设置镜头距离
-            setCameraDistance(fragment_fl_card_back, fragment_fl_card_front);
-        }
-
-        public void bindViews(CardType cardType) {
-            this.card_front_tv_content.setText(cardType.getTypeName());
-            if (cardType.isFront()) {
-                this.fragment_fl_card_back.setVisibility(View.GONE);
-            } else {
-                this.fragment_fl_card_front.setVisibility(View.GONE);
-            }
         }
 
         // 翻转卡片
