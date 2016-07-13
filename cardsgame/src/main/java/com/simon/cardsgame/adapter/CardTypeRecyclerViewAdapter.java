@@ -88,11 +88,11 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
 
         private boolean mIsShowBack;
 
-        View itemView;
-        FrameLayout item_card_type_fl;
-        FrameLayout fragment_fl_card_back;
-        FrameLayout fragment_fl_card_front;
-        TextView card_front_tv_content;
+        private View itemView;
+        private FrameLayout item_card_type_fl;
+        private FrameLayout fragment_fl_card_back;
+        private FrameLayout fragment_fl_card_front;
+        private TextView card_front_tv_content;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -108,18 +108,26 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
                     /*if (onCardTypeItemClickListener != null) {
                         onCardTypeItemClickListener.onItemClick();
                     }*/
+                    fragment_fl_card_back.setVisibility(View.VISIBLE);
+                    fragment_fl_card_front.setVisibility(View.VISIBLE);
                     flipCard(fragment_fl_card_front, fragment_fl_card_back);
+
                 }
             });
 
             // 设置动画
             setAnimators(itemView);
             // 设置镜头距离
-//            setCameraDistance(fragment_fl_card_back, fragment_fl_card_front);
+            setCameraDistance(fragment_fl_card_back, fragment_fl_card_front);
         }
 
         public void bindViews(CardType cardType) {
             this.card_front_tv_content.setText(cardType.getTypeName());
+            if (cardType.isFront()) {
+                this.fragment_fl_card_back.setVisibility(View.GONE);
+            } else {
+                this.fragment_fl_card_front.setVisibility(View.GONE);
+            }
         }
 
         // 翻转卡片
@@ -131,7 +139,8 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
                 mRightOutSet.start();
                 mLeftInSet.start();
                 mIsShowBack = true;
-            } else { // 背面朝上
+            } else {
+                // 背面朝上
                 mRightOutSet.setTarget(back);
                 mLeftInSet.setTarget(front);
                 mRightOutSet.start();
@@ -157,7 +166,7 @@ public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRe
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-//                  itemView.setClickable(true);
+                    //                  itemView.setClickable(true);
                 }
             });
         }
