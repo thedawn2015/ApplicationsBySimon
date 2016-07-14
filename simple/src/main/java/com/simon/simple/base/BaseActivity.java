@@ -37,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
             progressDialog = new ProgressDialog(context);
         }
         progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
         progressDialog.show();
     }
 
