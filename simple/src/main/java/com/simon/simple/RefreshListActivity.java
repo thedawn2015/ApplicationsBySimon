@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.simon.simple.adapter.RecyclerViewAdapter;
 import com.simon.simple.base.BaseActivity;
 import com.simon.simple.view.TitleBarView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +27,9 @@ public class RefreshListActivity extends BaseActivity {
     @BindView(R.id.activity_recycler_view)
     RecyclerView activityRecyclerView;
 
-    RecyclerViewAdapter recyclerViewAdapter;
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private List<String> adapterList;
+    private int intTag = 1;
 
     public static void launchForResult(Activity activity, int requestCode) {
         Intent intent = new Intent(activity, RefreshListActivity.class);
@@ -41,12 +47,17 @@ public class RefreshListActivity extends BaseActivity {
         setContentView(R.layout.activity_refresh_list);
         ButterKnife.bind(this);
 
+        initData();
         assignViews();
         refreshData();
     }
 
+    private void initData() {
+        adapterList = new ArrayList<>();
+    }
+
     private void assignViews() {
-        showProgressDialog(RefreshListActivity.this, "正在加载中...");
+//        showProgressDialog(RefreshListActivity.this, "正在加载中...");
 
         initTitleBar(RefreshListActivity.this, "下拉刷新页面", "菜单", new TitleBarView.OnTitleBarClickListener() {
             @Override
@@ -58,6 +69,7 @@ public class RefreshListActivity extends BaseActivity {
         activitySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                showProgressDialog(RefreshListActivity.this, "正在刷新数据...");
                 refreshData();
             }
         });
@@ -65,11 +77,30 @@ public class RefreshListActivity extends BaseActivity {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(RefreshListActivity.this);
         activityRecyclerView.setLayoutManager(manager);
 
+        // FIXME: 2016/7/15 
+        activityRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                recyclerView.getChildCount();
+            }
+        });
+
         recyclerViewAdapter = new RecyclerViewAdapter(RefreshListActivity.this);
         activityRecyclerView.setAdapter(recyclerViewAdapter);
     }
 
     private void refreshData() {
-
+        adapterList.clear();
+        recyclerViewAdapter.clear();
+        for (int i = 0; i < 30; i++) {
+            adapterList.add("这是第" + intTag + "轮，第" + i + "个");
+        }
+        intTag++;
+        recyclerViewAdapter.addItems(adapterList);
+        closeProgressDialog();
+        if (activitySwipeRefreshLayout.isRefreshing()) {
+            activitySwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

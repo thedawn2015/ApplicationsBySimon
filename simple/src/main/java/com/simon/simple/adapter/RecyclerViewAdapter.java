@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.simon.simple.R;
 
@@ -24,6 +25,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         adapterList = new ArrayList<>();
     }
 
+    public void addItems(List<String> items) {
+        int startIndex = adapterList.size();
+        adapterList.addAll(items);
+        notifyItemRangeChanged(startIndex, adapterList.size());
+    }
+
+    public void clear() {
+        adapterList.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
@@ -34,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.bindViews();
+        viewHolder.bindViews(adapterList.get(position));
     }
 
     @Override
@@ -43,13 +55,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            textView = (TextView) itemView.findViewById(R.id.item_tv);
         }
 
-        public void bindViews() {
-
+        public void bindViews(String item) {
+            textView.setText(item);
         }
     }
 }
