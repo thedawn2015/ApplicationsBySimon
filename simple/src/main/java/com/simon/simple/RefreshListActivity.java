@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.simon.simple.adapter.RecyclerViewAdapter;
 import com.simon.simple.base.BaseActivity;
 import com.simon.simple.view.TitleBarView;
 
@@ -20,6 +22,8 @@ public class RefreshListActivity extends BaseActivity {
     SwipeRefreshLayout activitySwipeRefreshLayout;
     @BindView(R.id.activity_recycler_view)
     RecyclerView activityRecyclerView;
+
+    RecyclerViewAdapter recyclerViewAdapter;
 
     public static void launchForResult(Activity activity, int requestCode) {
         Intent intent = new Intent(activity, RefreshListActivity.class);
@@ -57,6 +61,12 @@ public class RefreshListActivity extends BaseActivity {
                 refreshData();
             }
         });
+
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(RefreshListActivity.this);
+        activityRecyclerView.setLayoutManager(manager);
+
+        recyclerViewAdapter = new RecyclerViewAdapter(RefreshListActivity.this);
+        activityRecyclerView.setAdapter(recyclerViewAdapter);
     }
 
     private void refreshData() {
