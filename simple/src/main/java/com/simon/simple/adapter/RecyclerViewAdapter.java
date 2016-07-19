@@ -16,9 +16,14 @@ import java.util.List;
  * Created by TheDawn on 2016/7/15.
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter {
+    private final static int ITEM_TYPE_HEAD = 0;
+    private final static int ITEM_TYPE_CONTENT = 1;
+    private final static int ITEM_TYPE_BOTTOM = 2;
 
     private Context context;
     private List<String> adapterList;
+
+    private int headCount = 1;
 
     public RecyclerViewAdapter(Context context) {
         this.context = context;
@@ -37,21 +42,46 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+//        int itemCount = getItemCount();
+        if (headCount != 0 && position < headCount) {
+            return ITEM_TYPE_HEAD;
+        }
+//        else if (mBottomCount != 0 && position >= (headCount + dataItemCount)) {
+//            //底部View
+//            return ITEM_TYPE_BOTTOM;
+//        }
+        else {
+            return ITEM_TYPE_CONTENT;
+        }
+//        return super.getItemViewType(position);
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_recycler_view_adapter, parent, false);
-        return new ViewHolder(view);
+        View view;
+        if (viewType == ITEM_TYPE_HEAD) {
+            view = LayoutInflater.from(context)
+                    .inflate(R.layout.fragment_simple_condition, parent, false);
+            return new HeaderViewHolder(view);
+        } else {
+            view = LayoutInflater.from(context)
+                    .inflate(R.layout.item_recycler_view_adapter, parent, false);
+            return new ViewHolder(view);
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.bindViews(adapterList.get(position));
+        if (holder instanceof ViewHolder) {
+            ViewHolder viewHolder = (ViewHolder) holder;
+            viewHolder.bindViews(adapterList.get(position));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return adapterList.size();
+        return headCount + adapterList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -64,6 +94,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
         public void bindViews(String item) {
             textView.setText(item);
+        }
+    }
+
+    /**
+     * Header
+     */
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }
