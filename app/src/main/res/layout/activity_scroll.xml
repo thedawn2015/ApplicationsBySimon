@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.simon.applicationsbysimon.ScrollActivity">
 
-    <com.simon.applicationsbysimon.widget.MyScrollView
+    <com.simon.applicationsbysimon.widget.ScrollLinearLayout
         android:id="@+id/my_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:text="哈哈哈"/>
-    </com.simon.applicationsbysimon.widget.MyScrollView>
+    </com.simon.applicationsbysimon.widget.ScrollLinearLayout>
 
     <Button
         android:id="@+id/hide_view"

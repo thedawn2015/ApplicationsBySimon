@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 /**
  * Created by TheDawn on 2016/7/18.
  */
-public class MyScrollView extends LinearLayout {
-    public static final String TAG = MyScrollView.class.getSimpleName();
+public class ScrollLinearLayout extends LinearLayout {
+    public static final String TAG = ScrollLinearLayout.class.getSimpleName();
 
     int width;
     int height;
@@ -19,11 +19,11 @@ public class MyScrollView extends LinearLayout {
     int currentHeight;
     boolean isShowing = true;
 
-    public MyScrollView(Context context) {
+    public ScrollLinearLayout(Context context) {
         super(context, null);
     }
 
-    public MyScrollView(Context context, AttributeSet attrs) {
+    public ScrollLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
