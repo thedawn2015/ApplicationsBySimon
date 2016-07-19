@@ -1,20 +1,23 @@
 package com.simon.applicationsbysimon.widget;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.LinearLayout;
 
 /**
- * Created by xw on 2016/7/18.
+ * Created by TheDawn on 2016/7/18.
  */
 public class MyScrollView extends LinearLayout {
-    public static String TAG = MyScrollView.class.getSimpleName();
+    public static final String TAG = MyScrollView.class.getSimpleName();
 
-    private int width;
-    private int height;
-
-    MarginLayoutParams headerLayoutParams;
+    int width;
+    int height;
+    LayoutParams layoutParams;
+    int perPx = 20;
+    int currentHeight;
+    boolean isShowing = true;
 
     public MyScrollView(Context context) {
         super(context, null);
@@ -22,31 +25,102 @@ public class MyScrollView extends LinearLayout {
 
     public MyScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initView();
+        init();
     }
 
-    private void initView() {
+    private void init() {
 
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        width = MeasureSpec.getSize(widthMeasureSpec);   //获取ViewGroup宽度
-        height = MeasureSpec.getSize(heightMeasureSpec);  //获取ViewGroup高度
-        Log.i(TAG, "onMeasure: width="+width);
-        Log.i(TAG, "onMeasure: height="+height);
-        setMeasuredDimension(width, height);    //设置ViewGroup的宽高
-        headerLayoutParams = (MarginLayoutParams) getLayoutParams();
+        width = MeasureSpec.getSize(widthMeasureSpec);
+        height = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(width, height);
+        Log.i(TAG, "onMeasure: height=" + height);
+        layoutParams = (LayoutParams) getLayoutParams();
+//        layoutParams.topMargin = height;
+//        setLayoutParams(layoutParams);
     }
 
-    public void scrollHide() {
-        headerLayoutParams.topMargin = -height;
-        setLayoutParams(headerLayoutParams);
+    /**
+     * 隐藏的Task
+     */
+    class HideTask extends AsyncTask<Integer, Integer, String> {
+        @Override
+        protected String doInBackground(Integer... params) {
+            while (currentHeight > -height) {
+                currentHeight = currentHeight - perPx;
+                Log.i(TAG, "doInBackground: currentHeight=" + currentHeight);
+                if (currentHeight < -height) {
+                    currentHeight = -height;
+                }
+                layoutParams.topMargin = currentHeight;
+                publishProgress(currentHeight);
+                try {
+                    Thread.sleep(params[0]);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            isShowing = false;
+            return "执行完毕";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+//            layoutParams.topMargin = height;
+            setLayoutParams(layoutParams);
+        }
     }
 
-    public void scrollShow() {
-        headerLayoutParams.topMargin = 0;
-        setLayoutParams(headerLayoutParams);
+    /**
+     * 显示的Task
+     */
+    class ShowTask extends AsyncTask<Integer, Integer, String> {
+        @Override
+        protected String doInBackground(Integer... params) {
+            while (currentHeight < 0) {
+                currentHeight = currentHeight + perPx;
+                Log.i(TAG, "doInBackground: currentHeight=" + currentHeight);
+                if (currentHeight > 0) {
+                    currentHeight = 0;
+                }
+                layoutParams.topMargin = currentHeight;
+                publishProgress(currentHeight);
+                try {
+                    Thread.sleep(params[0]);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            isShowing = true;
+            return "执行完毕";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+//            layoutParams.topMargin = height;
+            setLayoutParams(layoutParams);
+        }
+    }
+
+    public void hideView() {
+        if (isShowing) {
+            currentHeight = 0;
+            HideTask hideTask = new HideTask();
+            hideTask.execute(20);
+        }
+    }
+
+    public void showView() {
+        if (!isShowing) {
+            currentHeight = -height;
+            ShowTask showTask = new ShowTask();
+            showTask.execute(20);
+        }
     }
 }
