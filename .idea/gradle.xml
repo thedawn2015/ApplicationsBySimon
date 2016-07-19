@@ -9,18 +9,22 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/autoactionbar" />
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/simple" />
+            <option value="$PROJECT_DIR$/simpleanimator" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/autoactionbar" />
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/simple" />
+            <option value="$PROJECT_DIR$/simpleanimator" />
           </set>
         </option>
       </GradleProjectSettings>

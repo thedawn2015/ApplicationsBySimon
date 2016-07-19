@@ -39,6 +39,7 @@ public class ScrollLinearLayout extends LinearLayout {
         height = MeasureSpec.getSize(heightMeasureSpec);
         setMeasuredDimension(width, height);
         Log.i(TAG, "onMeasure: height=" + height);
+        //Modified By xw at 2016/7/19 Explain：请求的是父类的布局
         layoutParams = (LayoutParams) getLayoutParams();
 //        layoutParams.topMargin = height;
 //        setLayoutParams(layoutParams);
