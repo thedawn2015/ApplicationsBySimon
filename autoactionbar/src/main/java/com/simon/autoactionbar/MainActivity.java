@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     public static String TAG = MainActivity.class.getSimpleName();
 
     private Toolbar mainToolbar;
-    //    View header;
+    View header;
     private ListView mainListView;
     private float mStartY = 0, mLastY = 0, mLastDeltaY;
     private ArrayAdapter<String> adapter;
@@ -31,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignViews() {
 //        mainToolbar = (Toolbar) findViewById(R.id.main_tool_bar);
-//        setSupportActionBar(mainToolbar);
+        //        setSupportActionBar(mainToolbar);
 
         mainListView = (ListView) findViewById(R.id.main_list_view);
 
-        //        header = LayoutInflater.from(this).inflate(R.layout.layout_header, null);
-        //        mainListView.addHeaderView(header);
+        header = LayoutInflater.from(this).inflate(R.layout.layout_header, mainListView,false);
+        mainListView.addHeaderView(header);
 
         mainListView.setAdapter(adapter);
 

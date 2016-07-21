@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyTheme" parent="Theme.AppCompat">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--Toolbar color-->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <!--status bar color-->
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--window color-->
+        <item name="android:windowBackground">@color/colorAccent</item>
+    </style>
+</resources>

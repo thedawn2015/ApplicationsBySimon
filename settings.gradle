@@ -1,1 +1,1 @@
-include ':app', ':drawview', ':cardsgame', ':simple', ':autoactionbar', ':simpleanimator'
+include ':app', ':drawview', ':cardsgame', ':simple', ':simpleanimator', ':mytoolbar'

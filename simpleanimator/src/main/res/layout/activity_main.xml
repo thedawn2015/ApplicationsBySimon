@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.simon.simpleanimator.MainActivity">
+    tools:context="com.simon.simpleanimator.MainActivity"
+    >
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="翻滚吧"/>
+    <LinearLayout
 
-    <Button
-        android:id="@+id/btn_transfer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="动一动"/>
-
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:cropToPadding="false"
-        android:src="@mipmap/ic_launcher"/>
-
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="生生世世生生世世生生世世生生世世生生世世"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="翻滚吧"/>
+
+        <Button
+            android:id="@+id/btn_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="动一动"/>
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text="生生世世生生世世生生世世生生世世生生世世"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text="生生世世生生世世生生世世生生世世生生世世"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text="生生世世生生世世生生世世生生世世生生世世"/>
+    </LinearLayout>
+</ScrollView>

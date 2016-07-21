@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.simon.drawview.model.PieData;
-import com.simon.drawview.widget.SimpleView;
+import com.simon.drawview.widget.SimpleViewDraw;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_simple_view)
-    SimpleView mainSimpleView;
+    SimpleViewDraw mainSimpleView;
 
     private List<PieData> pieDataList;
 

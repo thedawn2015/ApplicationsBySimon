@@ -49,7 +49,7 @@ public class MyAnimatorUtil {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                view.setVisibility(View.GONE);
+//                view.setVisibility(View.GONE);
             }
         });
     }

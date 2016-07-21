@@ -18,8 +18,8 @@ import java.util.List;
  * 简单的View，画简单的图
  * Created by xw on 2016/7/6
  */
-public class SimpleView extends View {
-    public static String TAG = SimpleView.class.getSimpleName();
+public class SimpleViewDraw extends View {
+    public static String TAG = SimpleViewDraw.class.getSimpleName();
 
     private Paint mPaint;
     // 颜色表
@@ -32,11 +32,11 @@ public class SimpleView extends View {
     // 宽高
     private int mWidth, mHeight;
 
-    public SimpleView(Context context) {
+    public SimpleViewDraw(Context context) {
         super(context, null);
     }
 
-    public SimpleView(Context context, AttributeSet attrs) {
+    public SimpleViewDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
         initPaint();
     }
