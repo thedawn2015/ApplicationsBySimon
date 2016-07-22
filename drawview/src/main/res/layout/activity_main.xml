@@ -11,6 +11,7 @@
         android:id="@+id/main_simple_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="1"/>
     <com.simon.drawview.widget.SimpleViewCanvas
         android:id="@+id/main_simple_canvas"
