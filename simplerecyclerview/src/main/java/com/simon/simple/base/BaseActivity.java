@@ -31,16 +31,31 @@ public class BaseActivity extends AppCompatActivity {
         titleBarView.setOnTitleBarClickListener(onTitleBarClickListener);
     }
 
-    public void showProgressDialog(String message) {
+    /**
+     * show a progress dialog with the given message.
+     */
+    public void showProgressDialog(String msg) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+        }
+        progressDialog.setMessage(msg);
+        progressDialog.show();
+    }
+
+    /**
+     * show a progress dialog with the given message.
+     */
+    public void showProgressDialog(String msg, boolean cancelable) {
         if (null == progressDialog) {
             progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(cancelable);
             progressDialog.setCanceledOnTouchOutside(false);
         }
 
         if (!progressDialog.isShowing()) {
             if (!isFinishing()) {
                 progressDialog.show();
-                progressDialog.setMessage(message);
+                progressDialog.setMessage(msg);
             }
         }
     }
