@@ -32,16 +32,21 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgressDialog(String message) {
-        if (progressDialog == null) {
+        if (null == progressDialog) {
             progressDialog = new ProgressDialog(this);
+            progressDialog.setCanceledOnTouchOutside(false);
         }
-        progressDialog.setMessage(message);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+
+        if (!progressDialog.isShowing()) {
+            if (!isFinishing()) {
+                progressDialog.show();
+                progressDialog.setMessage(message);
+            }
+        }
     }
 
     public void closeProgressDialog() {
-        if (progressDialog != null) {
+        if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }

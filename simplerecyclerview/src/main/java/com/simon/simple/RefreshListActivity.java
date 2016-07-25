@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
 import com.simon.simple.adapter.RecyclerViewAdapter;
@@ -22,9 +21,9 @@ import butterknife.ButterKnife;
 public class RefreshListActivity extends BaseActivity {
     public static final String TAG = RefreshListActivity.class.getSimpleName();
 
-    @BindView(R.id.activity_swipe_refresh_layout)
+    @BindView (R.id.activity_swipe_refresh_layout)
     SwipeRefreshLayout activitySwipeRefreshLayout;
-    @BindView(R.id.activity_recycler_view)
+    @BindView (R.id.activity_recycler_view)
     RecyclerView activityRecyclerView;
 
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -57,7 +56,7 @@ public class RefreshListActivity extends BaseActivity {
     }
 
     private void assignViews() {
-//        showProgressDialog(RefreshListActivity.this, "正在加载中...");
+        //        showProgressDialog(RefreshListActivity.this, "正在加载中...");
 
         initTitleBar(RefreshListActivity.this, "下拉刷新页面", "菜单", new TitleBarView.OnTitleBarClickListener() {
             @Override
@@ -69,7 +68,7 @@ public class RefreshListActivity extends BaseActivity {
         activitySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showProgressDialog( "正在刷新数据...");
+                showProgressDialog("正在刷新数据...");
                 refreshData();
             }
         });

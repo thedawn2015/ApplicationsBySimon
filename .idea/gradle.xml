@@ -12,8 +12,8 @@
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/mytoolbar" />
-            <option value="$PROJECT_DIR$/simple" />
             <option value="$PROJECT_DIR$/simpleanimator" />
+            <option value="$PROJECT_DIR$/simplerecyclerview" />
           </set>
         </option>
         <option name="myModules">
@@ -23,8 +23,8 @@
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/mytoolbar" />
-            <option value="$PROJECT_DIR$/simple" />
             <option value="$PROJECT_DIR$/simpleanimator" />
+            <option value="$PROJECT_DIR$/simplerecyclerview" />
           </set>
         </option>
       </GradleProjectSettings>
