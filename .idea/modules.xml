@@ -7,8 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/cardsgame/cardsgame.iml" filepath="$PROJECT_DIR$/cardsgame/cardsgame.iml" />
       <module fileurl="file://$PROJECT_DIR$/drawview/drawview.iml" filepath="$PROJECT_DIR$/drawview/drawview.iml" />
       <module fileurl="file://$PROJECT_DIR$/mytoolbar/mytoolbar.iml" filepath="$PROJECT_DIR$/mytoolbar/mytoolbar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/simple/simple.iml" filepath="$PROJECT_DIR$/simple/simple.iml" />
       <module fileurl="file://$PROJECT_DIR$/simpleanimator/simpleanimator.iml" filepath="$PROJECT_DIR$/simpleanimator/simpleanimator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simplerecyclerview/simple.iml" filepath="$PROJECT_DIR$/simplerecyclerview/simple.iml" />
     </modules>
   </component>
 </project>
