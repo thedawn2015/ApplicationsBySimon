@@ -69,7 +69,7 @@ public class RefreshListActivity extends BaseActivity {
         activitySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showProgressDialog(RefreshListActivity.this, "正在刷新数据...");
+                showProgressDialog( "正在刷新数据...");
                 refreshData();
             }
         });

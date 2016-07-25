@@ -2,7 +2,6 @@ package com.simon.simple.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -32,9 +31,9 @@ public class BaseActivity extends AppCompatActivity {
         titleBarView.setOnTitleBarClickListener(onTitleBarClickListener);
     }
 
-    public void showProgressDialog(Context context, String message) {
+    public void showProgressDialog(String message) {
         if (progressDialog == null) {
-            progressDialog = new ProgressDialog(context);
+            progressDialog = new ProgressDialog(this);
         }
         progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
