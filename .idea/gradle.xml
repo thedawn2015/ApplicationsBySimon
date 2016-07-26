@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/mytoolbar" />
             <option value="$PROJECT_DIR$/simpleanimator" />
             <option value="$PROJECT_DIR$/simplerecyclerview" />
+            <option value="$PROJECT_DIR$/simpleretrofit" />
           </set>
         </option>
         <option name="myModules">
@@ -25,6 +26,7 @@
             <option value="$PROJECT_DIR$/mytoolbar" />
             <option value="$PROJECT_DIR$/simpleanimator" />
             <option value="$PROJECT_DIR$/simplerecyclerview" />
+            <option value="$PROJECT_DIR$/simpleretrofit" />
           </set>
         </option>
       </GradleProjectSettings>
