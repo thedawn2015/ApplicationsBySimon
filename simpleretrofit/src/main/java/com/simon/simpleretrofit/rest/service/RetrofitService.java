@@ -22,6 +22,7 @@ public class RetrofitService {
     public final static String BASE_URL = DataCenter.HTTP_SERVICE_URL;
 
     private LoginInterface loginInterface;
+    private DownloadInterface downloadInterface;
 
     public RetrofitService() {
         initRetrofit();
@@ -48,9 +49,14 @@ public class RetrofitService {
                 .build();
 
         loginInterface = retrofit.create(LoginInterface.class);
+        downloadInterface = retrofit.create(DownloadInterface.class);
     }
 
     public LoginInterface getLoginInterface() {
         return loginInterface;
+    }
+
+    public DownloadInterface getDownloadInterface() {
+        return downloadInterface;
     }
 }
