@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.simon.simpleretrofit.base.listener.OnResponseListener;
+import com.simon.simpleretrofit.download.util.DownloadServiceUtil;
 import com.simon.simpleretrofit.rest.util.LoginServiceUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     Button request_http;
     EditText username;
     EditText password;
+    Button download;
+
+    String url = "http://download.fir.im/v2/app/install/572eec6fe75e2d7a05000008?download_token=572bcb03dad2eed7c758670fd23b5ac4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         request_http = (Button) findViewById(R.id.request_http);
+        download = (Button) findViewById(R.id.download);
 
         request_http.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "getResult: ");
                     }
                 });
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadServiceUtil.downloadApk(url);
             }
         });
     }

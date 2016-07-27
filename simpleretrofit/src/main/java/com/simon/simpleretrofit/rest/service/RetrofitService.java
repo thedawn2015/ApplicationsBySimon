@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Retrofit  Service
- * <p/>
+ * <p>
  * Created by xw on 2016/7/26.
  */
 public class RetrofitService {
@@ -21,8 +21,7 @@ public class RetrofitService {
 
     public final static String BASE_URL = DataCenter.HTTP_SERVICE_URL;
 
-    private LoginInterface loginInterface;
-    private DownloadInterface downloadInterface;
+    private LoginService loginInterface;
 
     public RetrofitService() {
         initRetrofit();
@@ -48,15 +47,11 @@ public class RetrofitService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        loginInterface = retrofit.create(LoginInterface.class);
-        downloadInterface = retrofit.create(DownloadInterface.class);
+        loginInterface = retrofit.create(LoginService.class);
     }
 
-    public LoginInterface getLoginInterface() {
+    public LoginService getLoginInterface() {
         return loginInterface;
     }
 
-    public DownloadInterface getDownloadInterface() {
-        return downloadInterface;
-    }
 }

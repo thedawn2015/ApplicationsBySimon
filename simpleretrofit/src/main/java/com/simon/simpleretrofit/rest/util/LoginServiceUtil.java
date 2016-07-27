@@ -6,7 +6,7 @@ import com.simon.simpleretrofit.base.data.DataCenter;
 import com.simon.simpleretrofit.base.listener.OnResponseListener;
 import com.simon.simpleretrofit.rest.model.LoginResponse;
 import com.simon.simpleretrofit.rest.model.User;
-import com.simon.simpleretrofit.rest.service.LoginInterface;
+import com.simon.simpleretrofit.rest.service.LoginService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +27,7 @@ public class LoginServiceUtil {
      */
     public static void getResult(String username, String password, OnResponseListener onResponseListener) {
 
-        LoginInterface loginInterface = ServiceInstance.getInstance().getRetrofitService()
+        LoginService loginInterface = ServiceProvider.getInstance().getRetrofitService()
                 .getLoginInterface();
 
         Call<LoginResponse> call = loginInterface.getTicket(username, password);
@@ -67,7 +67,7 @@ public class LoginServiceUtil {
      * @param onResponseListener
      */
     public static void getUser(OnResponseListener onResponseListener) {
-        Call<User> call = ServiceInstance.getInstance().getRetrofitService()
+        Call<User> call = ServiceProvider.getInstance().getRetrofitService()
                 .getLoginInterface()
                 .getUserInfo();
 

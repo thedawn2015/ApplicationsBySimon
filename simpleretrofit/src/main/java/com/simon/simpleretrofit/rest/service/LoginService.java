@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 /**
  * Created by xw on 2016/7/26.
  */
-public interface LoginInterface {
+public interface LoginService {
 
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter

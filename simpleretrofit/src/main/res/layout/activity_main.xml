@@ -23,5 +23,11 @@
         android:id="@+id/request_http"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="click me"/>
+        android:text="登录"/>
+
+    <Button
+        android:id="@+id/download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下载"/>
 </LinearLayout>
