@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadServiceUtil.downloadApk(url);
+                DownloadServiceUtil.getInstance().downloadApk(url);
             }
         });
     }
