@@ -17,10 +17,10 @@ public interface LoginInterface {
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter
     @FormUrlEncoded
-    @POST ("/auth/login/")
+    @POST ("auth/login/")
     Call<LoginResponse> getTicket(@Field ("username") String username,
                                   @Field ("password") String password);
 
-    @GET("/auth/info/")
+    @GET("auth/info/")
     Call<User> getUserInfo();
 }
