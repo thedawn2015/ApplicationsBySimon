@@ -1,10 +1,9 @@
-package com.simon.simpleretrofit.rest.util;
+package com.simon.simpleretrofit.rx;
 
 import android.util.Log;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
 
 /**
  * Created by xw on 2016/7/28.
@@ -22,7 +21,7 @@ public class SimpleRxJavaUtil {
             }
         });
 
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        observable.subscribe(new Subscriber<String>() {
             @Override
             public void onCompleted() {
                 Log.i(TAG, "onCompleted: ");
@@ -37,7 +36,9 @@ public class SimpleRxJavaUtil {
             public void onNext(String s) {
                 Log.i(TAG, "onNext: " + s);
             }
-        };
-        observable.subscribe(subscriber);
+        });
+
+        //        Subscriber<String> subscriber = ;
+        //        observable.subscribe(subscriber);
     }
 }

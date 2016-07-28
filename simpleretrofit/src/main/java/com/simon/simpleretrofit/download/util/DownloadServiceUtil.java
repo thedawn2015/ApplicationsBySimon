@@ -50,13 +50,18 @@ public class DownloadServiceUtil {
      */
     public void downloadApk(final Context context, String url) {
 
+        //        subscribeOn()主要改变的是订阅者的线程，即call()执行的线程
+        //        ObserveOn()主要改变的是发送的线程，即onNext()执行的线程
+
         ServiceProvider.getInstance().getRetrofitService()
                 .getDownloadService()
                 .download(url)
-                //子线程中进行下载
-                .observeOn(Schedulers.computation())
-                //                .observeOn(AndroidSchedulers.mainThread())
+                //订阅者的线程，因为是下载，耗时操作，放在子线程中
                 .subscribeOn(Schedulers.io())
+                //                .subscribeOn(AndroidSchedulers.mainThread())
+                //观察的线程，因为写文件，耗时操作，放在子线程中
+                .observeOn(Schedulers.io())
+                //                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
@@ -71,6 +76,7 @@ public class DownloadServiceUtil {
                     @Override
                     public void onNext(ResponseBody responseBody) {
                         Log.i(TAG, "onNext: ");
+                        //写文件
                         boolean writtenToDisk = writeResponseBodyToDisk(context, responseBody);
                     }
                 });
@@ -101,6 +107,7 @@ public class DownloadServiceUtil {
                     outputStream.write(fileReader, 0, read);
                     fileSizeDownloaded += read;
 
+                    //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
                     sendIntent(context, fileSizeDownloaded);
 
                     Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);

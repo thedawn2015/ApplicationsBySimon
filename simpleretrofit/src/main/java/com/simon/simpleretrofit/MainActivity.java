@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.simon.simpleretrofit.base.listener.OnResponseListener;
 import com.simon.simpleretrofit.download.util.DownloadServiceUtil;
 import com.simon.simpleretrofit.rest.util.LoginServiceUtil;
-import com.simon.simpleretrofit.rest.util.SimpleRxJavaUtil;
+import com.simon.simpleretrofit.rx.SimpleRxJavaUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static String TAG = MainActivity.class.getSimpleName();
