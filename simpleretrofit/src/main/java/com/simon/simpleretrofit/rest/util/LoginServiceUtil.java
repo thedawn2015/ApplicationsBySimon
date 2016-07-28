@@ -25,6 +25,7 @@ public class LoginServiceUtil {
 
     /**
      * 请求ticket
+     * 用最基本的Retrofit方式
      *
      * @param username
      * @param password
@@ -96,6 +97,7 @@ public class LoginServiceUtil {
 
     /**
      * 通过嵌套的方式请求用户信息（逻辑并不是很合理，只是用这个方法试一试）
+     * 此处是用Retrofit+RxJava的方式
      *
      * @param username
      * @param password

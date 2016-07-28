@@ -7,6 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.simon.simpleretrofit.MainActivity;
+import com.simon.simpleretrofit.download.model.DownloadItem;
 import com.simon.simpleretrofit.download.service.ServiceProvider;
 
 import java.io.File;
@@ -14,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 
 import okhttp3.ResponseBody;
 import rx.Subscriber;
@@ -26,6 +28,7 @@ public class DownloadServiceUtil {
     public static String TAG = DownloadServiceUtil.class.getSimpleName();
 
     private static final int READ_MAX_SIZE = 1024 * 4;
+    private DownloadItem downloadItem;
 
     private static DownloadServiceUtil instance = null;
 
@@ -98,7 +101,9 @@ public class DownloadServiceUtil {
 
                 inputStream = body.byteStream();
                 outputStream = new FileOutputStream(futureStudioIconFile);
-
+                //断点续传可能用到的方法
+                //                long downloaded = futureStudioIconFile.length();
+                //                inputStream.skip(downloaded);
                 while (true) {
                     int read = inputStream.read(fileReader);
                     if (read == -1) {
@@ -107,9 +112,10 @@ public class DownloadServiceUtil {
                     outputStream.write(fileReader, 0, read);
                     fileSizeDownloaded += read;
 
+                    updateDownloadItem(fileSize, fileSizeDownloaded);
                     //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
-                    sendIntent(context, fileSizeDownloaded);
-
+                    sendIntent(context, downloadItem);
+                    Thread.sleep(1);
                     Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
                 }
                 outputStream.flush();
@@ -130,7 +136,22 @@ public class DownloadServiceUtil {
         }
     }
 
-    private void sendIntent(Context context, long fileSizeDownloaded) {
+    private void updateDownloadItem(long fileSize, long fileSizeDownloaded) {
+        if (downloadItem == null) {
+            downloadItem = new DownloadItem();
+        }
+        downloadItem.setCurrentFileSize(fileSizeDownloaded);
+        downloadItem.setTotalFileSize(fileSize);
+        downloadItem.setProgress(transferProgress(fileSize, fileSizeDownloaded));
+    }
+
+    private float transferProgress(long fileSize, long fileSizeDownloaded) {
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        String progress = decimalFormat.format(fileSizeDownloaded * 1.0 / fileSize);
+        return Float.parseFloat(progress);
+    }
+
+    private void sendIntent(Context context, DownloadItem downloadItem) {
         //        使用LocalBroadcastManager有如下好处：
         //        1、发送的广播只会在自己App内传播，不会泄露给其他App，确保隐私数据不会泄露
         //        2、其他App也无法向你的App发送该广播，不用担心其他App会来搞破坏
@@ -140,7 +161,7 @@ public class DownloadServiceUtil {
         //        先通过LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this); 获取实例
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
         Intent intent = new Intent(MainActivity.LOCAL_ACTION);
-        intent.putExtra("current_size", fileSizeDownloaded);
+        intent.putExtra("download_item", downloadItem);
         localBroadcastManager.sendBroadcast(intent);
     }
 }

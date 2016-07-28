@@ -6,16 +6,16 @@ import android.os.Parcelable;
 /**
  * Created by xw on 2016/7/27.
  */
-public class Download implements Parcelable {
-    private int progress;
+public class DownloadItem implements Parcelable {
+    private float progress;
     private long currentFileSize;
     private long totalFileSize;
 
-    public int getProgress() {
+    public float getProgress() {
         return progress;
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(float progress) {
         this.progress = progress;
     }
 
@@ -35,6 +35,9 @@ public class Download implements Parcelable {
         this.totalFileSize = totalFileSize;
     }
 
+    public DownloadItem() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -42,29 +45,26 @@ public class Download implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.progress);
+        dest.writeFloat(this.progress);
         dest.writeLong(this.currentFileSize);
         dest.writeLong(this.totalFileSize);
     }
 
-    public Download() {
-    }
-
-    protected Download(Parcel in) {
-        this.progress = in.readInt();
+    protected DownloadItem(Parcel in) {
+        this.progress = in.readFloat();
         this.currentFileSize = in.readLong();
         this.totalFileSize = in.readLong();
     }
 
-    public static final Parcelable.Creator<Download> CREATOR = new Parcelable.Creator<Download>() {
+    public static final Creator<DownloadItem> CREATOR = new Creator<DownloadItem>() {
         @Override
-        public Download createFromParcel(Parcel source) {
-            return new Download(source);
+        public DownloadItem createFromParcel(Parcel source) {
+            return new DownloadItem(source);
         }
 
         @Override
-        public Download[] newArray(int size) {
-            return new Download[size];
+        public DownloadItem[] newArray(int size) {
+            return new DownloadItem[size];
         }
     };
 }
