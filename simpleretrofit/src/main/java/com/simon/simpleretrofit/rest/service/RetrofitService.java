@@ -9,11 +9,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Retrofit  Service
- * <p>
+ * <p/>
  * Created by xw on 2016/7/26.
  */
 public class RetrofitService {
@@ -21,7 +22,7 @@ public class RetrofitService {
 
     public final static String BASE_URL = DataCenter.HTTP_SERVICE_URL;
 
-    private LoginService loginInterface;
+    private LoginService loginService;
 
     public RetrofitService() {
         initRetrofit();
@@ -45,13 +46,13 @@ public class RetrofitService {
                 .baseUrl(BASE_URL)
                 .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        loginInterface = retrofit.create(LoginService.class);
+        loginService = retrofit.create(LoginService.class);
     }
 
-    public LoginService getLoginInterface() {
-        return loginInterface;
+    public LoginService getLoginService() {
+        return loginService;
     }
-
 }

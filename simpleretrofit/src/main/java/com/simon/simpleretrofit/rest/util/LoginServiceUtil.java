@@ -11,6 +11,11 @@ import com.simon.simpleretrofit.rest.service.LoginService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by xw on 2016/7/26.
@@ -25,10 +30,10 @@ public class LoginServiceUtil {
      * @param password
      * @param onResponseListener
      */
-    public static void getResult(String username, String password, OnResponseListener onResponseListener) {
+    public static void getResult(String username, String password, final OnResponseListener onResponseListener) {
 
         LoginService loginInterface = ServiceProvider.getInstance().getRetrofitService()
-                .getLoginInterface();
+                .getLoginService();
 
         Call<LoginResponse> call = loginInterface.getTicket(username, password);
 
@@ -41,6 +46,8 @@ public class LoginServiceUtil {
                 LoginResponse loginResponse = response.body();
                 DataCenter.TICKET = loginResponse.getTicket();
                 Log.i(TAG, "enqueue onResponse: ticket=" + loginResponse.getTicket());
+                // FIXME: 2016/7/28 by xw TODO: 请求之后嵌套访问用户信息，这种实现方式不好，完全没有用到RxJava嵌套请求方法
+                getUser(onResponseListener);
             }
 
             @Override
@@ -68,7 +75,7 @@ public class LoginServiceUtil {
      */
     public static void getUser(OnResponseListener onResponseListener) {
         Call<User> call = ServiceProvider.getInstance().getRetrofitService()
-                .getLoginInterface()
+                .getLoginService()
                 .getUserInfo();
 
         call.enqueue(new Callback<User>() {
@@ -85,5 +92,51 @@ public class LoginServiceUtil {
                 Log.i(TAG, "onFailure: ");
             }
         });
+    }
+
+    /**
+     * 通过嵌套的方式请求用户信息（逻辑并不是很合理，只是用这个方法试一试）
+     *
+     * @param username
+     * @param password
+     * @param onResponseListener
+     */
+    public static void loginWithRetrofit(String username, String password, OnResponseListener onResponseListener) {
+        ServiceProvider.getInstance().getRetrofitService()
+                .getLoginService()
+                .getTicketWithRetrofit(username, password)
+                //flatMap用于嵌套请求，可以实现逻辑转换
+                .flatMap(new Func1<LoginResponse, Observable<User>>() {
+                    @Override
+                    public Observable<User> call(LoginResponse loginResponse) {
+                        Log.i(TAG, "call: Observable<User> call");
+                        //请求到ticket之后，再进行用户信息的请求（嵌套请求）
+                        DataCenter.TICKET = loginResponse.getTicket();
+                        Observable<User> observableUser = ServiceProvider.getInstance().getRetrofitService()
+                                .getLoginService()
+                                .getUserInfoWithRetrofit();
+                        return observableUser;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Log.i(TAG, "onError: ");
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        Log.i(TAG, "onNext: user.name=" + user.getName());
+                    }
+                });
+
     }
 }

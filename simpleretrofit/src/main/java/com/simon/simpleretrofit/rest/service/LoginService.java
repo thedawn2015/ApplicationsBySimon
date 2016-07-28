@@ -8,6 +8,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import rx.Observable;
 
 /**
  * Created by xw on 2016/7/26.
@@ -21,6 +22,16 @@ public interface LoginService {
     Call<LoginResponse> getTicket(@Field ("username") String username,
                                   @Field ("password") String password);
 
-    @GET("auth/info/")
+    @GET ("auth/info/")
     Call<User> getUserInfo();
+
+    //retrofit请求
+    @FormUrlEncoded
+    @POST ("auth/login/")
+    Observable<LoginResponse> getTicketWithRetrofit(@Field ("username") String username,
+                                                    @Field ("password") String password);
+
+    @GET ("auth/info/")
+    Observable<User> getUserInfoWithRetrofit();
+
 }

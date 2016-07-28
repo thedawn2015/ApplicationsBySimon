@@ -69,7 +69,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.request_http:
-                LoginServiceUtil.getResult(username.getText().toString(), password.getText().toString(), new OnResponseListener() {
+//                                LoginServiceUtil.getResult(username.getText().toString(), password.getText().toString(), new OnResponseListener() {
+//                                    @Override
+//                                    public void getResult(Object o, String msg) {
+//                                        Log.i(TAG, "getResult: ");
+//                                    }
+//                                });
+                LoginServiceUtil.loginWithRetrofit(username.getText().toString(), password.getText().toString(), new OnResponseListener() {
                     @Override
                     public void getResult(Object o, String msg) {
                         Log.i(TAG, "getResult: ");
@@ -80,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 DownloadServiceUtil.getInstance().downloadApk(MainActivity.this, url);
                 break;
             case R.id.simple_rxjava:
-                SimpleRxJavaUtil.SimpleMethod();
+                SimpleRxJavaUtil.simpleMethod();
+                SimpleRxJavaUtil.nestMethod();
                 break;
         }
     }

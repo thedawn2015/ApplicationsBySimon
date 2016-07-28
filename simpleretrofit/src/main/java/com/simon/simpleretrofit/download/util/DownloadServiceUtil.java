@@ -56,7 +56,7 @@ public class DownloadServiceUtil {
         ServiceProvider.getInstance().getRetrofitService()
                 .getDownloadService()
                 .download(url)
-                //订阅者的线程，因为是下载，耗时操作，放在子线程中
+                //订阅者的线程，因为是网络请求，耗时操作，放在子线程中
                 .subscribeOn(Schedulers.io())
                 //                .subscribeOn(AndroidSchedulers.mainThread())
                 //观察的线程，因为写文件，耗时操作，放在子线程中

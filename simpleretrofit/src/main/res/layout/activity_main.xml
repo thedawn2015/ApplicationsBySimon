@@ -11,13 +11,15 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="帐号"/>
+        android:hint="帐号"
+        android:text="yanshi"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="密码"/>
+        android:hint="密码"
+        android:text="123456"/>
 
     <Button
         android:id="@+id/request_http"
