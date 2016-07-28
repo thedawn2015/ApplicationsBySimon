@@ -1,8 +1,12 @@
 package com.simon.simpleretrofit.download.util;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.simon.simpleretrofit.MainActivity;
 import com.simon.simpleretrofit.download.service.ServiceProvider;
 
 import java.io.File;
@@ -20,6 +24,8 @@ import rx.schedulers.Schedulers;
  */
 public class DownloadServiceUtil {
     public static String TAG = DownloadServiceUtil.class.getSimpleName();
+
+    private static final int READ_MAX_SIZE = 1024 * 4;
 
     private static DownloadServiceUtil instance = null;
 
@@ -42,7 +48,7 @@ public class DownloadServiceUtil {
      *
      * @param url
      */
-    public void downloadApk(String url) {
+    public void downloadApk(final Context context, String url) {
 
         ServiceProvider.getInstance().getRetrofitService()
                 .getDownloadService()
@@ -64,12 +70,13 @@ public class DownloadServiceUtil {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-                        boolean writtenToDisk = writeResponseBodyToDisk(responseBody);
+                        Log.i(TAG, "onNext: ");
+                        boolean writtenToDisk = writeResponseBodyToDisk(context, responseBody);
                     }
                 });
     }
 
-    private boolean writeResponseBodyToDisk(ResponseBody body) {
+    private boolean writeResponseBodyToDisk(Context context, ResponseBody body) {
         try {
             File futureStudioIconFile = new File(Environment.getExternalStoragePublicDirectory
                     (Environment.DIRECTORY_DOWNLOADS), "file.apk");
@@ -78,7 +85,7 @@ public class DownloadServiceUtil {
             OutputStream outputStream = null;
 
             try {
-                byte[] fileReader = new byte[4096];
+                byte[] fileReader = new byte[READ_MAX_SIZE];
 
                 long fileSize = body.contentLength();
                 long fileSizeDownloaded = 0;
@@ -93,6 +100,9 @@ public class DownloadServiceUtil {
                     }
                     outputStream.write(fileReader, 0, read);
                     fileSizeDownloaded += read;
+
+                    sendIntent(context, fileSizeDownloaded);
+
                     Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
                 }
                 outputStream.flush();
@@ -111,5 +121,19 @@ public class DownloadServiceUtil {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    private void sendIntent(Context context, long fileSizeDownloaded) {
+        //        使用LocalBroadcastManager有如下好处：
+        //        1、发送的广播只会在自己App内传播，不会泄露给其他App，确保隐私数据不会泄露
+        //        2、其他App也无法向你的App发送该广播，不用担心其他App会来搞破坏
+        //        3、比系统全局广播更加高效
+
+        //        和系统广播使用方式类似：
+        //        先通过LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this); 获取实例
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
+        Intent intent = new Intent(MainActivity.LOCAL_ACTION);
+        intent.putExtra("current_size", fileSizeDownloaded);
+        localBroadcastManager.sendBroadcast(intent);
     }
 }
