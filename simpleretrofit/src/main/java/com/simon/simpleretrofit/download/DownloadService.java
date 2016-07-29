@@ -194,7 +194,7 @@ public class DownloadService {
                     //断点续传可能用到的方法
                     //                long downloaded = outputFile.length();
                     //                inputStream.skip(downloaded);
-                    Log.i(TAG, "writeFileToSDCard: start");
+//                    Log.i(TAG, "writeFileToSDCard: start");
                     lastTime = System.currentTimeMillis();
                     while (true) {
                         int read = inputStream.read(fileReader);
@@ -215,9 +215,9 @@ public class DownloadService {
                         //                        sendIntent(context, downloadItem);
                         // 睡眠会让下载变慢
                         //                        Thread.sleep(1);
-                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
+//                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
                     }
-                    Log.i(TAG, "writeFileToSDCard: end");
+//                    Log.i(TAG, "writeFileToSDCard: end");
                     outputStream.flush();
                     onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);
                     return true;
