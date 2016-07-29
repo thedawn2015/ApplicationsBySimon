@@ -26,11 +26,11 @@ import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 /**
- * 下载管理类（下载、文件处理）
+ * 下载 相关服务（下载、文件处理）
  * Created by xw on 2016/7/27.
  */
-public class DownloadServiceUtil {
-    public static String TAG = DownloadServiceUtil.class.getSimpleName();
+public class DownloadService {
+    public static String TAG = DownloadService.class.getSimpleName();
 
     //路径
     public static String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
@@ -38,11 +38,11 @@ public class DownloadServiceUtil {
     public static String FILE_NAME = "download_file.apk";
 
     //缓存大小
-    private static final int READ_MAX_SIZE = 1024 * 4;
+    private static final int READ_MAX_SIZE = 1024;
 
-    private DownloadServiceUtil instance = null;
+    private DownloadService instance = null;
 
-    private DownloadServiceUtil() {
+    private DownloadService() {
     }
 
     /**----------------------------------构建Builder类，更方便地调用------------------------------**/
@@ -50,16 +50,16 @@ public class DownloadServiceUtil {
      * Builder类
      */
     public static class Builder {
-        private DownloadServiceUtil instance;
+        private DownloadService instance;
         private Context context;
         private OnDownloadProgressListener onDownloadProgressListener;
         private String url;
 
         public Builder(Context context) {
             if (instance == null) {
-                synchronized (DownloadServiceUtil.class) {
+                synchronized (DownloadService.class) {
                     if (instance == null) {
-                        instance = new DownloadServiceUtil();
+                        instance = new DownloadService();
                     }
                 }
             }
@@ -113,7 +113,7 @@ public class DownloadServiceUtil {
          *
          * @return
          */
-        public DownloadServiceUtil build() {
+        public DownloadService build() {
             downloadApk(context, url);
             return instance;
         }
@@ -174,24 +174,28 @@ public class DownloadServiceUtil {
                 InputStream inputStream = null;
                 OutputStream outputStream = null;
 
+                long lastTime = 0;
                 try {
                     byte[] fileReader = new byte[READ_MAX_SIZE];
 
                     long fileSizeTotal = body.contentLength();
 
                     //本地下载的文件和读取的文件大小一致，则直接进行安装，不用再下载了
-                    if (fileSizeTotal == outputFile.length()) {
+                    /*if (fileSizeTotal == outputFile.length()) {
                         Log.i(TAG, FILE_NAME + "已经下载完毕，直接进行安装");
                         return true;
-                    }
+                    }*/
 
                     long fileSizeDownloaded = 0;
 
                     inputStream = body.byteStream();
-                    outputStream = new FileOutputStream(outputFile);
+                    //Modified By xw at 2016/7/29 Explain：新建文件进行存储
+                    outputStream = new FileOutputStream(outputFile, false);
                     //断点续传可能用到的方法
-                    //                long downloaded = futureStudioIconFile.length();
+                    //                long downloaded = outputFile.length();
                     //                inputStream.skip(downloaded);
+                    Log.i(TAG, "writeFileToSDCard: start");
+                    lastTime = System.currentTimeMillis();
                     while (true) {
                         int read = inputStream.read(fileReader);
                         if (read == -1) {
@@ -200,14 +204,20 @@ public class DownloadServiceUtil {
                         outputStream.write(fileReader, 0, read);
                         fileSizeDownloaded += read;
 
-                        onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
+                        long currentTime = System.currentTimeMillis();
+                        //Modified By xw at 2016/7/29 Explain：每隔0.5秒发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
+                        if (currentTime - lastTime >= 500) {
+                            onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
+                            lastTime = currentTime;
+                        }
                         //                        updateDownloadItem(fileSizeTotal, fileSizeDownloaded);
                         //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
                         //                        sendIntent(context, downloadItem);
-                        // FIXME: 2016/7/29 by xw TODO: 睡眠会不会有什么影响？
-                        Thread.sleep(1);
-                        //                    Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
+                        // 睡眠会让下载变慢
+                        //                        Thread.sleep(1);
+                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
                     }
+                    Log.i(TAG, "writeFileToSDCard: end");
                     outputStream.flush();
                     onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);
                     return true;
@@ -245,15 +255,6 @@ public class DownloadServiceUtil {
             localIntent.setDataAndType(uri, "application/vnd.android.package-archive");
             context.startActivity(localIntent);
         }
-
-        /*private void updateDownloadItem(long fileSize, long fileSizeDownloaded) {
-            if (downloadItem == null) {
-                downloadItem = new DownloadItem();
-            }
-            downloadItem.setCurrentFileSize(fileSizeDownloaded);
-            downloadItem.setTotalFileSize(fileSize);
-            downloadItem.setProgress(transferProgress(fileSize, fileSizeDownloaded));
-        }*/
 
         public int transferProgress(long fileSizeDownloaded, long fileSizeTotal) {
             DecimalFormat decimalFormat = new DecimalFormat(".00");

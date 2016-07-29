@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.simon.simpleretrofit.base.listener.OnResponseListener;
-import com.simon.simpleretrofit.download.DownloadServiceUtil;
+import com.simon.simpleretrofit.download.DownloadService;
 import com.simon.simpleretrofit.download.broadcastreceiver.ProgressBroadcastReceiver;
 import com.simon.simpleretrofit.download.listener.OnDownloadProgressListener;
 import com.simon.simpleretrofit.rest.util.LoginServiceUtil;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerMyReceiver() {
+        // FIXME: 2016/7/29 by xw TODO: 用广播的方式接收，其实效率不高吧
         /*localBroadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
         downloadProgressReceiver = new ProgressBroadcastReceiver(new OnDownloadProgressListener() {
             @Override
@@ -99,22 +100,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
                 break;
             case R.id.download:
-                //                DownloadServiceUtil.getInstance().downloadApk(MainActivity.this, url);
-
-                DownloadServiceUtil downloadServiceUtil = new DownloadServiceUtil.Builder(MainActivity.this)
+                DownloadService downloadServiceUtil = new DownloadService.Builder(MainActivity.this)
                         //                        .setStoragePath("")
                         //                .setStorageFileName("myfile.apk")
                         .setOnDownloadProgressListener(new OnDownloadProgressListener() {
                             @Override
                             public void updateProgress(final long currentSize, final long totalSize, boolean done) {
+                                Log.i(TAG, "onReceive: currentSize=" + currentSize);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         download_progress.setProgress(transferProgress(currentSize, totalSize));
                                         downloaded_size.setText("当前下载量为：" + currentSize + "\n总量为：" + totalSize);
-                                        Log.i(TAG, "onReceive: currentSize=" + currentSize);
                                     }
                                 });
+                                //设置sleep会让下载进程也等待，影响下载速度，所以还是在下载里面，每隔0.5秒发送一次
+                                //                                try {
+                                //                                    Thread.sleep(500);
+                                //                                } catch (InterruptedException e) {
+                                //                                    e.printStackTrace();
+                                //                                }
                             }
                         })
                         .setUrl(url)
@@ -136,6 +141,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 转换百分比
+     *
+     * @param fileSizeDownloaded
+     * @param fileSizeTotal
+     * @return
+     */
     public int transferProgress(long fileSizeDownloaded, long fileSizeTotal) {
         DecimalFormat decimalFormat = new DecimalFormat(".00");
         String progress = decimalFormat.format(fileSizeDownloaded * 1.0 / fileSizeTotal);
