@@ -1,6 +1,5 @@
 package com.simon.simpleretrofit;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +11,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.simon.simpleretrofit.base.listener.OnResponseListener;
-import com.simon.simpleretrofit.download.broadcastreceiver.DownloadProgressReceiver;
-import com.simon.simpleretrofit.download.model.DownloadItem;
-import com.simon.simpleretrofit.download.util.DownloadServiceUtil;
+import com.simon.simpleretrofit.download.DownloadServiceUtil;
+import com.simon.simpleretrofit.download.broadcastreceiver.ProgressBroadcastReceiver;
+import com.simon.simpleretrofit.download.listener.OnDownloadProgressListener;
 import com.simon.simpleretrofit.rest.util.LoginServiceUtil;
 import com.simon.simpleretrofit.rx.SimpleRxJavaUtil;
+
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static String TAG = MainActivity.class.getSimpleName();
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String url = "http://p.gdown.baidu.com/7411f966a1f97a54b97258af68408d47555af78b73e95e0916097d3fbaf41af04ec36851ddf9491164e25a775501e6ebdeda6b3a604fff46925c9b01230fd0b157503f8f5e8bebc0fa96a3e860a70f091915f81dc08141206311e3a2747a3d4f0b68b44aeb93e13d8abd77b891e5cbf2386464e8631a48906d04d0d55dea9f2aba204c7ae78326ec5bbce8cfd8721dea42886ec744f3a9590d76c72d5d5287a2808e27f43388e7ab804a14cffb02ed27748d47c5f40729c6fd2a6045c9d4e2ca646bc8175679b29dcdbcbe0a6f19893d83ebf025ca4bf6a2c1250aa4f4faf971b93036c538c78b18140a419dde2db1adda72cfdf446dc6ee3b3c544e3f724ede7c49b4dcbc5c281098efa12e9d1de60e8325446168af956c4d4624ca148deea6";
 
     //下载进度的广播
-    DownloadProgressReceiver downloadProgressReceiver;
+    ProgressBroadcastReceiver downloadProgressReceiver;
     //本地广播管理者
     LocalBroadcastManager localBroadcastManager;
 
@@ -47,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerMyReceiver() {
-        localBroadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
-        downloadProgressReceiver = new DownloadProgressReceiver(new DownloadProgressReceiver.OnDownloadProgressListener() {
+        /*localBroadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
+        downloadProgressReceiver = new ProgressBroadcastReceiver(new OnDownloadProgressListener() {
             @Override
             public void updateProgress(DownloadItem downloadItem) {
 
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(DownloadProgressReceiver.DOWNLOAD_PROGRESS_ACTION);
-        localBroadcastManager.registerReceiver(downloadProgressReceiver, intentFilter);
+        intentFilter.addAction(ProgressBroadcastReceiver.DOWNLOAD_PROGRESS_ACTION);
+        localBroadcastManager.registerReceiver(downloadProgressReceiver, intentFilter);*/
     }
 
     private void assignViews() {
@@ -98,7 +99,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
                 break;
             case R.id.download:
-                DownloadServiceUtil.getInstance().downloadApk(MainActivity.this, url);
+                //                DownloadServiceUtil.getInstance().downloadApk(MainActivity.this, url);
+
+                DownloadServiceUtil downloadServiceUtil = new DownloadServiceUtil.Builder(MainActivity.this)
+                        //                        .setStoragePath("")
+                        //                .setStorageFileName("myfile.apk")
+                        .setOnDownloadProgressListener(new OnDownloadProgressListener() {
+                            @Override
+                            public void updateProgress(final long currentSize, final long totalSize, boolean done) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        download_progress.setProgress(transferProgress(currentSize, totalSize));
+                                        downloaded_size.setText("当前下载量为：" + currentSize + "\n总量为：" + totalSize);
+                                        Log.i(TAG, "onReceive: currentSize=" + currentSize);
+                                    }
+                                });
+                            }
+                        })
+                        .setUrl(url)
+                        .build();
+
                 break;
             case R.id.simple_rxjava:
                 SimpleRxJavaUtil.simpleMethod();
@@ -110,6 +131,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        localBroadcastManager.unregisterReceiver(downloadProgressReceiver);
+        if (downloadProgressReceiver != null) {
+            localBroadcastManager.unregisterReceiver(downloadProgressReceiver);
+        }
+    }
+
+    public int transferProgress(long fileSizeDownloaded, long fileSizeTotal) {
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        String progress = decimalFormat.format(fileSizeDownloaded * 1.0 / fileSizeTotal);
+        float progressFloat = Float.parseFloat(progress);
+        return (int) (progressFloat * 100);
     }
 }

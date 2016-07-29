@@ -6,6 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by xw on 2016/7/27.
  */
+@Deprecated
 public class DownloadItem implements Parcelable {
     private float progress;
     private long currentFileSize;
