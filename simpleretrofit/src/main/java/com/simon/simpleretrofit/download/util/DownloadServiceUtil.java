@@ -2,11 +2,14 @@ package com.simon.simpleretrofit.download.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.simon.simpleretrofit.MainActivity;
+import com.simon.simpleretrofit.download.broadcastreceiver.DownloadProgressReceiver;
 import com.simon.simpleretrofit.download.model.DownloadItem;
 import com.simon.simpleretrofit.download.service.ServiceProvider;
 
@@ -22,11 +25,18 @@ import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 /**
+ * 下载管理类（下载、文件处理）
  * Created by xw on 2016/7/27.
  */
 public class DownloadServiceUtil {
     public static String TAG = DownloadServiceUtil.class.getSimpleName();
 
+    //路径
+    public static final String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
+    //
+    public static final String APK_NAME = "download.apk";
+
+    //缓存大小
     private static final int READ_MAX_SIZE = 1024 * 4;
     private DownloadItem downloadItem;
 
@@ -52,10 +62,8 @@ public class DownloadServiceUtil {
      * @param url
      */
     public void downloadApk(final Context context, String url) {
-
         //        subscribeOn()主要改变的是订阅者的线程，即call()执行的线程
         //        ObserveOn()主要改变的是发送的线程，即onNext()执行的线程
-
         ServiceProvider.getInstance().getRetrofitService()
                 .getDownloadService()
                 .download(url)
@@ -81,14 +89,24 @@ public class DownloadServiceUtil {
                         Log.i(TAG, "onNext: ");
                         //写文件
                         boolean writtenToDisk = writeResponseBodyToDisk(context, responseBody);
+                        if (writtenToDisk) {
+                            onSmartInstall(context, FILE_STORE_PATH, APK_NAME);
+                        }
                     }
                 });
     }
 
+    /**
+     * 写文件
+     *
+     * @param context
+     * @param body
+     * @return
+     */
     private boolean writeResponseBodyToDisk(Context context, ResponseBody body) {
         try {
-            File futureStudioIconFile = new File(Environment.getExternalStoragePublicDirectory
-                    (Environment.DIRECTORY_DOWNLOADS), "file.apk");
+            initFilePath(FILE_STORE_PATH);
+            File futureStudioIconFile = new File(FILE_STORE_PATH, "download_file.apk");
 
             InputStream inputStream = null;
             OutputStream outputStream = null;
@@ -136,6 +154,24 @@ public class DownloadServiceUtil {
         }
     }
 
+    /**
+     * 调用系统自动安装
+     *
+     * @param context
+     * @param fileStorePath
+     * @param apkName
+     */
+    public void onSmartInstall(Context context, String fileStorePath, String apkName) {
+        if (TextUtils.isEmpty(fileStorePath) || TextUtils.isEmpty(apkName)) {
+            Toast.makeText(context, "请选择安装包！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Uri uri = Uri.fromFile(new File(fileStorePath, apkName));
+        Intent localIntent = new Intent(Intent.ACTION_VIEW);
+        localIntent.setDataAndType(uri, "application/vnd.android.package-archive");
+        context.startActivity(localIntent);
+    }
+
     private void updateDownloadItem(long fileSize, long fileSizeDownloaded) {
         if (downloadItem == null) {
             downloadItem = new DownloadItem();
@@ -151,7 +187,24 @@ public class DownloadServiceUtil {
         return Float.parseFloat(progress);
     }
 
+    /**
+     * 如果文件夹不存在，则创建
+     */
+    private void initFilePath(String path) {
+        File fileDirectory = new File(path);
+        if (!fileDirectory.exists() || !fileDirectory.isDirectory()) {
+            fileDirectory.mkdirs();
+        }
+    }
+
+    /**
+     * -------------------------通过广播将下载的进度传给UI------------------------------------
+     **/
+    private LocalBroadcastManager localBroadcastManager;
+    private Intent intent;
+
     private void sendIntent(Context context, DownloadItem downloadItem) {
+        initIntent(context);
         //        使用LocalBroadcastManager有如下好处：
         //        1、发送的广播只会在自己App内传播，不会泄露给其他App，确保隐私数据不会泄露
         //        2、其他App也无法向你的App发送该广播，不用担心其他App会来搞破坏
@@ -159,9 +212,19 @@ public class DownloadServiceUtil {
 
         //        和系统广播使用方式类似：
         //        先通过LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this); 获取实例
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
-        Intent intent = new Intent(MainActivity.LOCAL_ACTION);
-        intent.putExtra("download_item", downloadItem);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+        intent.putExtra(DownloadProgressReceiver.DOWNLOAD_ITEM_EXTRA, downloadItem);
         localBroadcastManager.sendBroadcast(intent);
     }
+
+    private void initIntent(Context context) {
+        if (localBroadcastManager == null) {
+            localBroadcastManager = LocalBroadcastManager.getInstance(context);
+        }
+        if (intent == null) {
+            intent = new Intent();
+            intent.setAction(DownloadProgressReceiver.DOWNLOAD_PROGRESS_ACTION);
+        }
+    }
+
 }
