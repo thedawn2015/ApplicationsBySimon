@@ -34,7 +34,7 @@ public class DownloadServiceUtil {
     //路径
     public static final String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
     //
-    public static final String APK_NAME = "download.apk";
+    public static final String APK_NAME = "download_file.apk";
 
     //缓存大小
     private static final int READ_MAX_SIZE = 1024 * 4;
@@ -106,7 +106,9 @@ public class DownloadServiceUtil {
     private boolean writeResponseBodyToDisk(Context context, ResponseBody body) {
         try {
             initFilePath(FILE_STORE_PATH);
-            File futureStudioIconFile = new File(FILE_STORE_PATH, "download_file.apk");
+            File outputFile = new File(FILE_STORE_PATH, APK_NAME);
+
+            Log.i(TAG, "writeResponseBodyToDisk: outputFile.length()=" + outputFile.length());
 
             InputStream inputStream = null;
             OutputStream outputStream = null;
@@ -115,10 +117,17 @@ public class DownloadServiceUtil {
                 byte[] fileReader = new byte[READ_MAX_SIZE];
 
                 long fileSize = body.contentLength();
+
+                //本地下载的文件和读取的文件大小一致，则直接进行安装，不用再下载了
+                if (fileSize == outputFile.length()) {
+                    Log.i(TAG, "writeResponseBodyToDisk: 已经下载完毕，直接进行安装吧~~~");
+                    return true;
+                }
+
                 long fileSizeDownloaded = 0;
 
                 inputStream = body.byteStream();
-                outputStream = new FileOutputStream(futureStudioIconFile);
+                outputStream = new FileOutputStream(outputFile);
                 //断点续传可能用到的方法
                 //                long downloaded = futureStudioIconFile.length();
                 //                inputStream.skip(downloaded);
@@ -150,6 +159,7 @@ public class DownloadServiceUtil {
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
