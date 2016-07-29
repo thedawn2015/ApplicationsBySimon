@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void registerMyReceiver() {
         localBroadcastManager = LocalBroadcastManager.getInstance(MainActivity.this);
-        downloadProgressReceiver = new DownloadProgressReceiver(new DownloadProgressReceiver.OnDownloadItenChangeListener() {
+        downloadProgressReceiver = new DownloadProgressReceiver(new DownloadProgressReceiver.OnDownloadProgressListener() {
             @Override
             public void updateProgress(DownloadItem downloadItem) {
 

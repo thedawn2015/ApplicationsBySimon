@@ -9,7 +9,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 public class RetrofitService {
     public static String TAG = RetrofitService.class.getSimpleName();
 
-    public static final String url = "http://hhhh";
+    public static final String url = "http://t.klicen.com/";
 
     private DownloadService downloadService;
     private static final int DEFAULT_TIMEOUT = 15;
