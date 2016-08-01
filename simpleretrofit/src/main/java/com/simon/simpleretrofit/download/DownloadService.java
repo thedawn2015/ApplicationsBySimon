@@ -23,6 +23,7 @@ import java.io.RandomAccessFile;
 import java.text.DecimalFormat;
 
 import okhttp3.ResponseBody;
+import rx.Observable;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
@@ -36,7 +37,7 @@ public class DownloadService {
     //路径
     public static String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
     //
-    public static String FILE_NAME = "download_file.apk";
+    public static String FILE_NAME = "download_file3.apk";
 
     //缓存大小
     private static final int READ_MAX_SIZE = 1024;
@@ -119,7 +120,7 @@ public class DownloadService {
             return instance;
         }
 
-        /**----------------------------------进行下载响应的任务------------------------------**/
+        /**----------------------------------进行下载任务------------------------------**/
         /**
          * 下载apk文件
          *
@@ -166,7 +167,7 @@ public class DownloadService {
         private OutputStream outputStream = null;
         private long fileSizeDownloaded;
         private long fileSizeTotal;
-        private byte[] fileBytesReader;
+        private byte[] buffer;
         //测试
         private static int downloadIndex = 1;
 
@@ -187,20 +188,26 @@ public class DownloadService {
             try {
                 //Modified By xw at 2016/8/1 Explain：新建文件
                 outputStream = new FileOutputStream(outputFile, false);
-                fileBytesReader = new byte[READ_MAX_SIZE];
+                buffer = new byte[READ_MAX_SIZE];
                 //断点续传可能用到的方法
                 inputStream = body.byteStream();
+
                 if (fileSizeTotal == 0) {
                     fileSizeTotal = body.contentLength();
                 }
+
+                if (fileSizeDownloaded < fileSizeTotal) {
+                    continueDownload();
+                }
+
                 Log.i(TAG, "writeFileToSDCard: fileSizeTotal=" + fileSizeTotal);
-                if (fileSizeDownloaded == 0) {
+                /*if (fileSizeDownloaded == 0) {
                     startDownload();
                 } else if (fileSizeDownloaded < fileSizeTotal) {
                     continueDownload();
                 } else if (fileSizeDownloaded > fileSizeTotal) {
                     Log.i(TAG, "writeFileToSDCard: error");
-                }
+                }*/
 
                 //                    Log.i(TAG, "writeFileToSDCard: end");
 
@@ -228,45 +235,43 @@ public class DownloadService {
         }
 
         /**
-         * 断点续传510000
+         * 断点续传
          */
         private void continueDownload() throws IOException {
             Log.i(TAG, "continueDownload: ");
 
-            //断点续传
             RandomAccessFile randomFile = new RandomAccessFile(FILE_STORE_PATH + File.separator + FILE_NAME, "rw");
             randomFile.seek(fileSizeDownloaded);
 
             long lastTime = System.currentTimeMillis();
             long currentTime;
-            int read;
+            int readLength;
             while (true) {
-                read = inputStream.read(fileBytesReader);
-                if (read == -1) {
+                readLength = inputStream.read(buffer);
+                if (readLength == -1) {
                     break;
                 }
-                randomFile.write(fileBytesReader, 0, read);
-                fileSizeDownloaded += read;
+                randomFile.write(buffer, 0, readLength);
+                fileSizeDownloaded += readLength;
                 currentTime = System.currentTimeMillis();
+                if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                    downloadIndex = downloadIndex + 1;
+                    break;
+                }
                 //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
                 if (currentTime - lastTime >= 1000) {
                     Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
                     onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
                     lastTime = currentTime;
                 }
-                //                        updateDownloadItem(fileSizeTotal, fileSizeDownloaded);
-                //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
-                //                        sendIntent(context, downloadItem);
-                // 睡眠会让下载变慢
-                //                        Thread.sleep(1);
-                //                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
             }
+            Log.i(TAG, "continueDownload: randomFile.length()=" + randomFile.length());
             randomFile.close();
         }
 
         /**
          * 第一次下载
-         */
+         *//*
         private void startDownload() throws IOException {
             Log.i(TAG, "startDownload: ");
             //Modified By xw at 2016/7/29 Explain：新建文件进行存储
@@ -275,11 +280,11 @@ public class DownloadService {
             long lastTime = System.currentTimeMillis();
             long currentTime;
             while (true) {
-                int read = inputStream.read(fileBytesReader);
+                int read = inputStream.read(buffer);
                 if (read == -1) {
                     break;
                 }
-                outputStream.write(fileBytesReader, 0, read);
+                outputStream.write(buffer, 0, read);
                 fileSizeDownloaded += read;
 
                 currentTime = System.currentTimeMillis();
@@ -301,7 +306,7 @@ public class DownloadService {
                 }
             }
             outputStream.flush();
-        }
+        }*/
 
         /**
          * 调用系统自动安装
