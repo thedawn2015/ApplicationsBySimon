@@ -22,10 +22,15 @@ public class ServiceProvider {
         return instance;
     }
 
-    public RetrofitService getRetrofitService() {
+    public RetrofitService getRetrofitService(long startPoint) {
         if (retrofitService == null) {
             retrofitService = new RetrofitService();
         }
+        retrofitService.setStartPoints(startPoint);
         return retrofitService;
+    }
+
+    private RetrofitService getRetrofitService() {
+        return getRetrofitService(0);
     }
 }

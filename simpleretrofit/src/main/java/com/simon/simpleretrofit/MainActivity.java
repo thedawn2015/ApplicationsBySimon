@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setOnDownloadProgressListener(new OnDownloadProgressListener() {
                             @Override
                             public void updateProgress(final long currentSize, final long totalSize, boolean done) {
-                                Log.i(TAG, "onReceive: currentSize=" + currentSize);
+//                                Log.i(TAG, "onReceive: currentSize=" + currentSize);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .setUrl(url)
-                        .build();
+                        .start();
 
                 break;
             case R.id.simple_rxjava:

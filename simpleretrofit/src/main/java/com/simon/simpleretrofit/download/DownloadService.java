@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.text.DecimalFormat;
 
 import okhttp3.ResponseBody;
@@ -113,7 +114,7 @@ public class DownloadService {
          *
          * @return
          */
-        public DownloadService build() {
+        public DownloadService start() {
             downloadApk(context, url);
             return instance;
         }
@@ -125,9 +126,10 @@ public class DownloadService {
          * @param url
          */
         public void downloadApk(final Context context, String url) {
+            initFile();
             //        subscribeOn()主要改变的是订阅者的线程，即call()执行的线程
             //        ObserveOn()主要改变的是发送的线程，即onNext()执行的线程
-            ServiceProvider.getInstance().getRetrofitService()
+            ServiceProvider.getInstance().getRetrofitService(fileSizeDownloaded)
                     .getDownloadService()
                     .download(url)
                     //订阅者的线程，因为是网络请求，耗时操作，放在子线程中
@@ -159,6 +161,22 @@ public class DownloadService {
                     });
         }
 
+        private File outputFile;
+        private InputStream inputStream = null;
+        private OutputStream outputStream = null;
+        private long fileSizeDownloaded;
+        private long fileSizeTotal;
+        private byte[] fileBytesReader;
+        //测试
+        private static int downloadIndex = 1;
+
+        private void initFile() {
+            initFilePath(FILE_STORE_PATH);
+            outputFile = new File(FILE_STORE_PATH, FILE_NAME);
+            fileSizeDownloaded = outputFile.length();
+            Log.i(TAG, "initFile: fileSizeDownloaded=" + fileSizeDownloaded);
+        }
+
         /**
          * 写文件
          *
@@ -167,75 +185,122 @@ public class DownloadService {
          */
         private boolean writeFileToSDCard(ResponseBody body) {
             try {
-                initFilePath(FILE_STORE_PATH);
-                File outputFile = new File(FILE_STORE_PATH, FILE_NAME);
-                //                Log.i(TAG, "writeFileToSDCard: outputFile.length()=" + outputFile.length());
-
-                InputStream inputStream = null;
-                OutputStream outputStream = null;
-
-                long lastTime = 0;
-                try {
-                    byte[] fileReader = new byte[READ_MAX_SIZE];
-
-                    long fileSizeTotal = body.contentLength();
-
-                    //本地下载的文件和读取的文件大小一致，则直接进行安装，不用再下载了
-                    /*if (fileSizeTotal == outputFile.length()) {
-                        Log.i(TAG, FILE_NAME + "已经下载完毕，直接进行安装");
-                        return true;
-                    }*/
-
-                    long fileSizeDownloaded = 0;
-
-                    inputStream = body.byteStream();
-                    //Modified By xw at 2016/7/29 Explain：新建文件进行存储
-                    outputStream = new FileOutputStream(outputFile, false);
-                    //断点续传可能用到的方法
-                    //                long downloaded = outputFile.length();
-                    //                inputStream.skip(downloaded);
-//                    Log.i(TAG, "writeFileToSDCard: start");
-                    lastTime = System.currentTimeMillis();
-                    while (true) {
-                        int read = inputStream.read(fileReader);
-                        if (read == -1) {
-                            break;
-                        }
-                        outputStream.write(fileReader, 0, read);
-                        fileSizeDownloaded += read;
-
-                        long currentTime = System.currentTimeMillis();
-                        //Modified By xw at 2016/7/29 Explain：每隔0.5秒发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
-                        if (currentTime - lastTime >= 500) {
-                            onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
-                            lastTime = currentTime;
-                        }
-                        //                        updateDownloadItem(fileSizeTotal, fileSizeDownloaded);
-                        //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
-                        //                        sendIntent(context, downloadItem);
-                        // 睡眠会让下载变慢
-                        //                        Thread.sleep(1);
-//                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
-                    }
-//                    Log.i(TAG, "writeFileToSDCard: end");
-                    outputStream.flush();
-                    onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);
-                    return true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
-                } finally {
-                    if (inputStream != null) {
-                        inputStream.close();
-                    }
-                    if (outputStream != null) {
-                        outputStream.close();
-                    }
+                //Modified By xw at 2016/8/1 Explain：新建文件
+                outputStream = new FileOutputStream(outputFile, false);
+                fileBytesReader = new byte[READ_MAX_SIZE];
+                //断点续传可能用到的方法
+                inputStream = body.byteStream();
+                if (fileSizeTotal == 0) {
+                    fileSizeTotal = body.contentLength();
                 }
+                Log.i(TAG, "writeFileToSDCard: fileSizeTotal=" + fileSizeTotal);
+                if (fileSizeDownloaded == 0) {
+                    startDownload();
+                } else if (fileSizeDownloaded < fileSizeTotal) {
+                    continueDownload();
+                } else if (fileSizeDownloaded > fileSizeTotal) {
+                    Log.i(TAG, "writeFileToSDCard: error");
+                }
+
+                //                    Log.i(TAG, "writeFileToSDCard: end");
+
+                onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);
+                return true;
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
+            } finally {
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (outputStream != null) {
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+        }
+
+        /**
+         * 断点续传510000
+         */
+        private void continueDownload() throws IOException {
+            Log.i(TAG, "continueDownload: ");
+
+            //断点续传
+            RandomAccessFile randomFile = new RandomAccessFile(FILE_STORE_PATH + File.separator + FILE_NAME, "rw");
+            randomFile.seek(fileSizeDownloaded);
+
+            long lastTime = System.currentTimeMillis();
+            long currentTime;
+            int read;
+            while (true) {
+                read = inputStream.read(fileBytesReader);
+                if (read == -1) {
+                    break;
+                }
+                randomFile.write(fileBytesReader, 0, read);
+                fileSizeDownloaded += read;
+                currentTime = System.currentTimeMillis();
+                //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
+                if (currentTime - lastTime >= 1000) {
+                    Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
+                    onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
+                    lastTime = currentTime;
+                }
+                //                        updateDownloadItem(fileSizeTotal, fileSizeDownloaded);
+                //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
+                //                        sendIntent(context, downloadItem);
+                // 睡眠会让下载变慢
+                //                        Thread.sleep(1);
+                //                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
+            }
+            randomFile.close();
+        }
+
+        /**
+         * 第一次下载
+         */
+        private void startDownload() throws IOException {
+            Log.i(TAG, "startDownload: ");
+            //Modified By xw at 2016/7/29 Explain：新建文件进行存储
+            outputStream = new FileOutputStream(outputFile, false);
+
+            long lastTime = System.currentTimeMillis();
+            long currentTime;
+            while (true) {
+                int read = inputStream.read(fileBytesReader);
+                if (read == -1) {
+                    break;
+                }
+                outputStream.write(fileBytesReader, 0, read);
+                fileSizeDownloaded += read;
+
+                currentTime = System.currentTimeMillis();
+                //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
+                if (currentTime - lastTime >= 1000) {
+                    Log.i(TAG, "startDownload: fileSizeDownloaded=" + fileSizeDownloaded);
+                    onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
+                    lastTime = currentTime;
+                }
+                //                        updateDownloadItem(fileSizeTotal, fileSizeDownloaded);
+                //Modified By xw at 2016/7/28 Explain：因为是在io线程里面做操作，所以不能直接用listener回调改变控件，而是用广播的方式
+                //                        sendIntent(context, downloadItem);
+                // 睡眠会让下载变慢
+                //                        Thread.sleep(1);
+                //                        Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSizeTotal);
+                if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                    downloadIndex = downloadIndex + 1;
+                    break;
+                }
+            }
+            outputStream.flush();
         }
 
         /**
