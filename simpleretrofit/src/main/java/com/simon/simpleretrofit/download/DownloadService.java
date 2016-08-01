@@ -20,10 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 
 import okhttp3.ResponseBody;
-import rx.Observable;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
@@ -37,7 +38,7 @@ public class DownloadService {
     //路径
     public static String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
     //
-    public static String FILE_NAME = "download_file3.apk";
+    public static String FILE_NAME = "download_file6.apk";
 
     //缓存大小
     private static final int READ_MAX_SIZE = 1024;
@@ -116,11 +117,37 @@ public class DownloadService {
          * @return
          */
         public DownloadService start() {
-            downloadApk(context, url);
+            //            downloadApk(context, url);
+            newTask(context, url);
             return instance;
         }
 
+        HttpURLConnection connection = null;
+
+        private void newTask(Context context, String str) {
+            // Open connection to URL.
+            try {
+                URL url = new URL(str);
+
+                RandomAccessFile randomFile = new RandomAccessFile(FILE_STORE_PATH + File.separator + FILE_NAME, "rw");
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("Range", "bytes=" + fileSizeDownloaded + "-");
+                // connection.setRequestMethod("GET");
+                connection.setConnectTimeout(1000 * 5);
+                connection.setReadTimeout(1000 * 3);
+                // connection.setUseCaches(true);
+                // Connect to server.
+                connection.connect();
+
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         /**----------------------------------进行下载任务------------------------------**/
+
         /**
          * 下载apk文件
          *
@@ -254,10 +281,10 @@ public class DownloadService {
                 randomFile.write(buffer, 0, readLength);
                 fileSizeDownloaded += readLength;
                 currentTime = System.currentTimeMillis();
-                if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                /*if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
                     downloadIndex = downloadIndex + 1;
                     break;
-                }
+                }*/
                 //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
                 if (currentTime - lastTime >= 1000) {
                     Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
