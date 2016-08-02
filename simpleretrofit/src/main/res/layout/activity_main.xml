@@ -51,4 +51,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="简单调用"/>
+
+    <Button
+        android:id="@+id/simple_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下载"/>
+
+    <Button
+        android:id="@+id/simple_pause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="暂停"/>
+
+    <Button
+        android:id="@+id/simple_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="继续"/>
+
+
 </LinearLayout>

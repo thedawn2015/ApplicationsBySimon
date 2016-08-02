@@ -38,7 +38,7 @@ public class DownloadService {
     //路径
     public static String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
     //
-    public static String FILE_NAME = "download_file6.apk";
+    public static String FILE_NAME = "download_file9.apk";
 
     //缓存大小
     private static final int READ_MAX_SIZE = 1024;
@@ -117,19 +117,24 @@ public class DownloadService {
          * @return
          */
         public DownloadService start() {
-            //            downloadApk(context, url);
-            newTask(context, url);
+                        downloadApk(context, url);
+            /*new Thread() {
+                @Override
+                public void run() {
+                    newTask(context, url);
+                }
+            }.start();*/
             return instance;
         }
 
         HttpURLConnection connection = null;
 
         private void newTask(Context context, String str) {
+            initFile();
             // Open connection to URL.
             try {
                 URL url = new URL(str);
 
-                RandomAccessFile randomFile = new RandomAccessFile(FILE_STORE_PATH + File.separator + FILE_NAME, "rw");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestProperty("Range", "bytes=" + fileSizeDownloaded + "-");
                 // connection.setRequestMethod("GET");
@@ -139,10 +144,61 @@ public class DownloadService {
                 // Connect to server.
                 connection.connect();
 
+                RandomAccessFile randomFile = new RandomAccessFile(FILE_STORE_PATH + File.separator + FILE_NAME, "rw");
+                inputStream = connection.getInputStream();
 
+                randomFile.seek(fileSizeDownloaded);
 
+                long lastTime = System.currentTimeMillis();
+                long currentTime;
+                int readLength;
+                buffer = new byte[READ_MAX_SIZE];
+                while (true) {
+                    readLength = inputStream.read(buffer);
+                    if (readLength == -1) {
+                        break;
+                    }
+                    randomFile.write(buffer, 0, readLength);
+                    fileSizeDownloaded += readLength;
+                    currentTime = System.currentTimeMillis();
+                /*if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                    downloadIndex = downloadIndex + 1;
+                    break;
+                }*/
+                    //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
+                    if (currentTime - lastTime >= 1000) {
+                        Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
+                        onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
+                        lastTime = currentTime;
+                    }
+
+                    if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                        downloadIndex = downloadIndex + 1;
+                        break;
+                    }
+                }
+                Log.i(TAG, "continueDownload: randomFile.length()=" + randomFile.length());
+                randomFile.close();
+
+                onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                connection.disconnect();
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (outputStream != null) {
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 
@@ -227,6 +283,10 @@ public class DownloadService {
                     continueDownload();
                 }
 
+                if (fileSizeDownloaded < fileSizeTotal) {
+                    return false;
+                }
+
                 Log.i(TAG, "writeFileToSDCard: fileSizeTotal=" + fileSizeTotal);
                 /*if (fileSizeDownloaded == 0) {
                     startDownload();
@@ -281,10 +341,10 @@ public class DownloadService {
                 randomFile.write(buffer, 0, readLength);
                 fileSizeDownloaded += readLength;
                 currentTime = System.currentTimeMillis();
-                /*if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
                     downloadIndex = downloadIndex + 1;
                     break;
-                }*/
+                }
                 //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
                 if (currentTime - lastTime >= 1000) {
                     Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
