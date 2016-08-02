@@ -38,7 +38,7 @@ public class DownloadService {
     //路径
     public static String FILE_STORE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
     //
-    public static String FILE_NAME = "download_file9.apk";
+    public static String FILE_NAME = "download_file23.apk";
 
     //缓存大小
     private static final int READ_MAX_SIZE = 1024;
@@ -117,8 +117,8 @@ public class DownloadService {
          * @return
          */
         public DownloadService start() {
-            downloadApk(context, url);
-            /*new Thread() {
+                        downloadApk(context, url);
+           /* new Thread() {
                 @Override
                 public void run() {
                     newTask(context, url);
@@ -162,10 +162,10 @@ public class DownloadService {
                     randomFile.write(buffer, 0, readLength);
                     fileSizeDownloaded += readLength;
                     currentTime = System.currentTimeMillis();
-                /*if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
-                    downloadIndex = downloadIndex + 1;
-                    break;
-                }*/
+                    if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                        downloadIndex = downloadIndex + 1;
+                        break;
+                    }
                     //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
                     if (currentTime - lastTime >= 1000) {
                         Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
@@ -350,6 +350,7 @@ public class DownloadService {
                 //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
                 if (currentTime - lastTime >= 1000) {
                     Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
+                    Log.i(TAG, "continueDownload: outputFile.length()=" + outputFile.length());
                     onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
                     lastTime = currentTime;
                 }

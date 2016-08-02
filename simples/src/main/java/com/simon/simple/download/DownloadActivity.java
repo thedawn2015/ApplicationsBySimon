@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
 public class DownloadActivity extends AppCompatActivity {
     public static String TAG = DownloadActivity.class.getSimpleName();
 
-    private final static String FILE_NAME = "sample.apk";
+    private final static String FILE_NAME = "simple7.apk";
     private final static String FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
 
     @BindView (R.id.download_progressBar)
@@ -45,8 +46,6 @@ public class DownloadActivity extends AppCompatActivity {
     String url = "http://p.gdown.baidu.com/7411f966a1f97a54b97258af68408d47555af78b73e95e0916097d3fbaf41af04ec36851ddf9491164e25a775501e6ebdeda6b3a604fff46925c9b01230fd0b157503f8f5e8bebc0fa96a3e860a70f091915f81dc08141206311e3a2747a3d4f0b68b44aeb93e13d8abd77b891e5cbf2386464e8631a48906d04d0d55dea9f2aba204c7ae78326ec5bbce8cfd8721dea42886ec744f3a9590d76c72d5d5287a2808e27f43388e7ab804a14cffb02ed27748d47c5f40729c6fd2a6045c9d4e2ca646bc8175679b29dcdbcbe0a6f19893d83ebf025ca4bf6a2c1250aa4f4faf971b93036c538c78b18140a419dde2db1adda72cfdf446dc6ee3b3c544e3f724ede7c49b4dcbc5c281098efa12e9d1de60e8325446168af956c4d4624ca148deea6";
     //    String url = "http://apk.hiapk.com/appdown/com.tencent.qqpimsecure?em=5&p=android&f_name=%E6%89%8B%E6%9C%BA%E7%AE%A1%E5%AE%B6";
 
-    private long breakPoints;
-    private ProgressDownloader downloader;
     private File file;
     private long downloadedBytes;
     private long totalBytes;
@@ -67,22 +66,53 @@ public class DownloadActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.download_btn_download:
-                // 新下载前清空断点信息
-                breakPoints = 0L;
+                // 新下载前检查文件内容大小
                 file = new File(FILE_PATH, FILE_NAME);
-                downloader = new ProgressDownloader(url, file, progressListener);
-                downloader.download(0L);
+                downloadedBytes = file.length();
+                Log.i(TAG, "onClick: startDownload downloadedBytes=" + downloadedBytes);
+                startDownload();
                 break;
             case R.id.download_btn_pause:
-                downloader.pause();
+                pauseDownload();
                 Toast.makeText(this, "下载暂停", Toast.LENGTH_SHORT).show();
-                // 存储此时的totalBytes，即断点位置。
-                breakPoints = downloadedBytes;
+                Log.i(TAG, "onClick: pauseDownload downloadedBytes=" + file.length());
                 break;
             case R.id.download_btn_continue:
-                downloader.download(breakPoints);
+                file = new File(FILE_PATH, FILE_NAME);
+                downloadedBytes = file.length();
+                Log.i(TAG, "onClick: continueDownload downloadedBytes=" + downloadedBytes);
+                continueDownload();
+
                 break;
         }
+    }
+
+    private ProgressDownloader.Builder downloadBuilder;
+
+    /**
+     * 开始下载
+     */
+    public void startDownload() {
+        downloadBuilder = new ProgressDownloader.Builder(DownloadActivity.this)
+                .setStoragePath(FILE_PATH)
+                .setStorageFileName(FILE_NAME)
+                .setProgressListener(progressListener)
+                .setUrl(url)
+                .startTask();
+    }
+
+    /**
+     * 暂停下载
+     */
+    public void pauseDownload() {
+        downloadBuilder.pauseTask();
+    }
+
+    /**
+     * 继续下载
+     */
+    public void continueDownload() {
+        downloadBuilder.cotinueTask();
     }
 
     /**
@@ -90,10 +120,10 @@ public class DownloadActivity extends AppCompatActivity {
      */
     ProgressListener progressListener = new ProgressListener() {
         @Override
-        public void update(long currentLength, long totalLength, boolean done) {
+        public void update(long currentLength, long totalLength, boolean isDownloaded) {
             // 注意加上断点的长度
-            downloadedBytes = currentLength + breakPoints;
-            totalBytes = totalLength + breakPoints;
+            downloadedBytes += currentLength;
+            totalBytes += totalLength;
 
             runOnUiThread(new Runnable() {
                 @Override
@@ -104,7 +134,7 @@ public class DownloadActivity extends AppCompatActivity {
                 }
             });
 
-            if (done) {
+            if (isDownloaded) {
                 smartInstall(DownloadActivity.this, FILE_PATH, FILE_NAME);
             }
 
