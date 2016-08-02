@@ -1,4 +1,4 @@
-package com.simon.mytoolbar;
+package com.simon.simple;
 
 import org.junit.Test;
 

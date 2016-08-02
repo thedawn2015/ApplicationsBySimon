@@ -1,4 +1,4 @@
-package com.simon.mytoolbar;
+package com.simon.simple;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
