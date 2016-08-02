@@ -47,10 +47,15 @@ public class DownloadActivity extends AppCompatActivity {
     String url = "http://p.gdown.baidu.com/7411f966a1f97a54b97258af68408d47555af78b73e95e0916097d3fbaf41af04ec36851ddf9491164e25a775501e6ebdeda6b3a604fff46925c9b01230fd0b157503f8f5e8bebc0fa96a3e860a70f091915f81dc08141206311e3a2747a3d4f0b68b44aeb93e13d8abd77b891e5cbf2386464e8631a48906d04d0d55dea9f2aba204c7ae78326ec5bbce8cfd8721dea42886ec744f3a9590d76c72d5d5287a2808e27f43388e7ab804a14cffb02ed27748d47c5f40729c6fd2a6045c9d4e2ca646bc8175679b29dcdbcbe0a6f19893d83ebf025ca4bf6a2c1250aa4f4faf971b93036c538c78b18140a419dde2db1adda72cfdf446dc6ee3b3c544e3f724ede7c49b4dcbc5c281098efa12e9d1de60e8325446168af956c4d4624ca148deea6";
     //    String url = "http://apk.hiapk.com/appdown/com.tencent.qqpimsecure?em=5&p=android&f_name=%E6%89%8B%E6%9C%BA%E7%AE%A1%E5%AE%B6";
 
-    private File file;
+    private File storeFile;
+    //目前文件的大小
     private long fileBytes;
+    //文件的当前下载量
     private long downloadedBytes;
+    //完整文件的大小
     private long totalBytes;
+    //通过时间来控制显示的速度
+    long lastMilles, currentMilles;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, DownloadActivity.class);
@@ -65,6 +70,8 @@ public class DownloadActivity extends AppCompatActivity {
 
         UUID uuid = UUID.randomUUID();
         FILE_NAME = uuid.toString().replace("-", "").substring(0, 16) + ".apk";
+
+        lastMilles = System.currentTimeMillis();
     }
 
     @OnClick ({R.id.download_btn_download, R.id.download_btn_pause, R.id.download_btn_continue})
@@ -79,7 +86,7 @@ public class DownloadActivity extends AppCompatActivity {
             case R.id.download_btn_pause:
                 //                pauseDownload();
                 //                Toast.makeText(this, "下载暂停", Toast.LENGTH_SHORT).show();
-                //                Log.i(TAG, "onClick: pauseDownload downloadedBytes=" + file.length());
+                //                Log.i(TAG, "onClick: pauseDownload downloadedBytes=" + storeFile.length());
                 break;
             case R.id.download_btn_continue:
                 //                continueDownload();
@@ -91,9 +98,9 @@ public class DownloadActivity extends AppCompatActivity {
      * 下载前先检查文件大小
      */
     private void checkFile() {
-        file = new File(FILE_PATH, FILE_NAME);
+        storeFile = new File(FILE_PATH, FILE_NAME);
         Log.i(TAG, "checkFile: FILE_NAME=" + FILE_NAME);
-        fileBytes = file.length();
+        fileBytes = storeFile.length();
         Log.i(TAG, "checkFile: startDownload fileBytes=" + fileBytes);
     }
 
@@ -137,15 +144,20 @@ public class DownloadActivity extends AppCompatActivity {
             downloadedBytes = currentLength + fileBytes;
             totalBytes = totalLength + fileBytes;
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    downloadProgressBar.setProgress(transfer2Percent(downloadedBytes, totalBytes));
-                    downloadTextCurrent.setText("已下载：" + downloadedBytes);
-                    downloadTextTotal.setText("总大小：" + totalBytes);
-                }
-            });
-
+            currentMilles = System.currentTimeMillis();
+            //每隔500ms，刷新一次页面
+            if (currentMilles - lastMilles > 500 || downloadedBytes == totalLength) {
+                lastMilles = currentMilles;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadProgressBar.setProgress(transfer2Percent(downloadedBytes, totalBytes));
+                        downloadTextCurrent.setText("已下载：" + downloadedBytes);
+                        downloadTextTotal.setText("总大小：" + totalBytes);
+                    }
+                });
+            }
+            //如果下载完成，自动调用安装
             if (isDownloaded) {
                 smartInstall(DownloadActivity.this, FILE_PATH, FILE_NAME);
             }

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 /**
- * 更新的工具类
+ * 对话框的工具类
  * Created by xw on 2016/8/2.
  */
 public class DialogUtil {

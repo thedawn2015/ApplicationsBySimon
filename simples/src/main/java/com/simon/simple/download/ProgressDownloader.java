@@ -2,7 +2,8 @@ package com.simon.simple.download;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
+
+import com.simon.simple.base.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -213,7 +214,6 @@ public class ProgressDownloader {
                     }
                     randomAccessFile.write(buffer, 0, len);
                     //                    mappedBuffer.put(buffer, 0, len);
-                    Log.i(TAG, "writeToSDCard: outputFile.length()=" + outputFile.length());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
