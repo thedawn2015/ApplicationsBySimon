@@ -117,7 +117,7 @@ public class DownloadService {
          * @return
          */
         public DownloadService start() {
-                        downloadApk(context, url);
+            downloadApk(context, url);
             /*new Thread() {
                 @Override
                 public void run() {
@@ -129,6 +129,7 @@ public class DownloadService {
 
         HttpURLConnection connection = null;
 
+        //Modified By xw at 2016/8/2 Explain：最基本的connection可以进行断点续传。已成功
         private void newTask(Context context, String str) {
             initFile();
             // Open connection to URL.
@@ -210,6 +211,7 @@ public class DownloadService {
          * @param url
          */
         public void downloadApk(final Context context, String url) {
+            // FIXME: 2016/8/2 by xw TODO: 断点续传一直没有搞定，字节数都是对的，但就是安装的时候解析错误，没搞清楚
             initFile();
             //        subscribeOn()主要改变的是订阅者的线程，即call()执行的线程
             //        ObserveOn()主要改变的是发送的线程，即onNext()执行的线程
