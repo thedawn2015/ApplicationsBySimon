@@ -59,11 +59,10 @@ public class ProgressResponseBody extends ResponseBody {
 
                 if (null != progressListener) {
                     progressListener.update(totalBytesRead, responseBody.contentLength(), bytesRead == -1);
-                    Log.i(TAG, "read: responseBody.contentLength()" + responseBody.contentLength());
+                    Log.i(TAG, "read: " + totalBytesRead + " / " + responseBody.contentLength());
                 }
                 return bytesRead;
             }
         };
-
     }
 }

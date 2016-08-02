@@ -90,17 +90,17 @@ public class DownloadActivity extends AppCompatActivity {
      */
     ProgressListener progressListener = new ProgressListener() {
         @Override
-        public void update(final long currentLength, final long totalLength, boolean done) {
+        public void update(long currentLength, long totalLength, boolean done) {
             // 注意加上断点的长度
             downloadedBytes = currentLength + breakPoints;
-            totalBytes = totalLength;
+            totalBytes = totalLength + breakPoints;
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    downloadProgressBar.setProgress(transfer2Percent(currentLength, totalLength));
-                    downloadTextCurrent.setText("已下载：" + currentLength);
-                    downloadTextTotal.setText("总大小：" + totalLength);
+                    downloadProgressBar.setProgress(transfer2Percent(downloadedBytes, totalBytes));
+                    downloadTextCurrent.setText("已下载：" + downloadedBytes);
+                    downloadTextTotal.setText("总大小：" + totalBytes);
                 }
             });
 
