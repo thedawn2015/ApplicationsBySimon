@@ -19,6 +19,7 @@ import com.simon.simple.R;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +28,7 @@ import butterknife.OnClick;
 public class DownloadActivity extends AppCompatActivity {
     public static String TAG = DownloadActivity.class.getSimpleName();
 
-    private final static String FILE_NAME = "simple7.apk";
+    private static String FILE_NAME;
     private final static String FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + "simple";
 
     @BindView (R.id.download_progressBar)
@@ -47,6 +48,7 @@ public class DownloadActivity extends AppCompatActivity {
     //    String url = "http://apk.hiapk.com/appdown/com.tencent.qqpimsecure?em=5&p=android&f_name=%E6%89%8B%E6%9C%BA%E7%AE%A1%E5%AE%B6";
 
     private File file;
+    private long fileBytes;
     private long downloadedBytes;
     private long totalBytes;
 
@@ -60,31 +62,39 @@ public class DownloadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
         ButterKnife.bind(this);
+
+        UUID uuid = UUID.randomUUID();
+        FILE_NAME = uuid.toString().replace("-", "").substring(0, 16) + ".apk";
     }
 
     @OnClick ({R.id.download_btn_download, R.id.download_btn_pause, R.id.download_btn_continue})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.download_btn_download:
-                // 新下载前检查文件内容大小
-                file = new File(FILE_PATH, FILE_NAME);
-                downloadedBytes = file.length();
-                Log.i(TAG, "onClick: startDownload downloadedBytes=" + downloadedBytes);
-                startDownload();
+                checkFile();
+                DialogUtil.showUpdateDialog(DownloadActivity.this, "发现新版本", "1、修复了一些bug\n2、优化一些功能",
+                        url, FILE_PATH, FILE_NAME, progressListener);
+                //                startDownload();
                 break;
             case R.id.download_btn_pause:
-                pauseDownload();
-                Toast.makeText(this, "下载暂停", Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "onClick: pauseDownload downloadedBytes=" + file.length());
+                //                pauseDownload();
+                //                Toast.makeText(this, "下载暂停", Toast.LENGTH_SHORT).show();
+                //                Log.i(TAG, "onClick: pauseDownload downloadedBytes=" + file.length());
                 break;
             case R.id.download_btn_continue:
-                file = new File(FILE_PATH, FILE_NAME);
-                downloadedBytes = file.length();
-                Log.i(TAG, "onClick: continueDownload downloadedBytes=" + downloadedBytes);
-                continueDownload();
-
+                //                continueDownload();
                 break;
         }
+    }
+
+    /**
+     * 下载前先检查文件大小
+     */
+    private void checkFile() {
+        file = new File(FILE_PATH, FILE_NAME);
+        Log.i(TAG, "checkFile: FILE_NAME=" + FILE_NAME);
+        fileBytes = file.length();
+        Log.i(TAG, "checkFile: startDownload fileBytes=" + fileBytes);
     }
 
     private ProgressDownloader.Builder downloadBuilder;
@@ -93,6 +103,7 @@ public class DownloadActivity extends AppCompatActivity {
      * 开始下载
      */
     public void startDownload() {
+        checkFile();
         downloadBuilder = new ProgressDownloader.Builder(DownloadActivity.this)
                 .setStoragePath(FILE_PATH)
                 .setStorageFileName(FILE_NAME)
@@ -112,6 +123,7 @@ public class DownloadActivity extends AppCompatActivity {
      * 继续下载
      */
     public void continueDownload() {
+        checkFile();
         downloadBuilder.cotinueTask();
     }
 
@@ -122,8 +134,8 @@ public class DownloadActivity extends AppCompatActivity {
         @Override
         public void update(long currentLength, long totalLength, boolean isDownloaded) {
             // 注意加上断点的长度
-            downloadedBytes += currentLength;
-            totalBytes += totalLength;
+            downloadedBytes = currentLength + fileBytes;
+            totalBytes = totalLength + fileBytes;
 
             runOnUiThread(new Runnable() {
                 @Override

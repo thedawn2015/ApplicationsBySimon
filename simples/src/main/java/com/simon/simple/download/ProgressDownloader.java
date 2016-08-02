@@ -49,7 +49,6 @@ public class ProgressDownloader {
         private File outputFile;
         private Call call;
         private long currentLength;
-        private boolean downloading;
 
         public Builder(Context context) {
             if (instance == null) {
@@ -110,7 +109,6 @@ public class ProgressDownloader {
          */
         public Builder startTask() {
             init();
-            downloading = true;
             download(currentLength);
             return Builder.this;
         }
@@ -121,7 +119,6 @@ public class ProgressDownloader {
          * @return
          */
         public Builder pauseTask() {
-            downloading = false;
             cancle();
             return Builder.this;
         }
@@ -142,7 +139,6 @@ public class ProgressDownloader {
          * @return
          */
         public Builder stopTask() {
-            downloading = false;
             cancle();
             return Builder.this;
         }
@@ -210,7 +206,7 @@ public class ProgressDownloader {
                 //                MappedByteBuffer mappedBuffer = channelOut.map(FileChannel.MapMode.READ_WRITE, startsPoint, body.contentLength());
                 byte[] buffer = new byte[READ_MAX_SIZE];
                 int len;
-                while (downloading) {
+                while (true) {
                     len = inputStream.read(buffer);
                     if (len == -1) {
                         break;
@@ -246,7 +242,7 @@ public class ProgressDownloader {
         }
 
         /**
-         * 初始化存储文件
+         * 初始化存储文件，并获取已存储的长度
          */
         private void initFile() {
             outputFile = new File(FILE_PATH, FILE_NAME);
@@ -308,4 +304,78 @@ public class ProgressDownloader {
                     .build();
         }
     }
+
+    /**
+     * 最基本的connection可以进行断点续传。已成功
+     */
+    /*private void newTask(Context context, String str) {
+        initFile();
+        // Open connection to URL.
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(str);
+
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Range", "bytes=" + fileSizeDownloaded + "-");
+            // connection.setRequestMethod("GET");
+            connection.setConnectTimeout(1000 * 5);
+            connection.setReadTimeout(1000 * 3);
+            // connection.setUseCaches(true);
+            // Connect to server.
+            connection.connect();
+
+            RandomAccessFile randomFile = new RandomAccessFile(FILE_STORE_PATH + File.separator + FILE_NAME, "rw");
+            inputStream = connection.getInputStream();
+
+            randomFile.seek(fileSizeDownloaded);
+
+            long lastTime = System.currentTimeMillis();
+            long currentTime;
+            int readLength;
+            buffer = new byte[READ_MAX_SIZE];
+            while (true) {
+                readLength = inputStream.read(buffer);
+                if (readLength == -1) {
+                    break;
+                }
+                randomFile.write(buffer, 0, readLength);
+                fileSizeDownloaded += readLength;
+                currentTime = System.currentTimeMillis();
+
+                //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
+                if (currentTime - lastTime >= 1000) {
+                    Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
+                    onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
+                    lastTime = currentTime;
+                }
+
+                if (fileSizeDownloaded >= 7280997 && downloadIndex == 1) {
+                    downloadIndex = downloadIndex + 1;
+                    break;
+                }
+            }
+            Log.i(TAG, "continueDownload: randomFile.length()=" + randomFile.length());
+            randomFile.close();
+
+            onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            connection.disconnect();
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }*/
 }

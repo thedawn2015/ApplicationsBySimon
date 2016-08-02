@@ -127,12 +127,13 @@ public class DownloadService {
             return instance;
         }
 
-        HttpURLConnection connection = null;
+
 
         //Modified By xw at 2016/8/2 Explain：最基本的connection可以进行断点续传。已成功
         private void newTask(Context context, String str) {
             initFile();
             // Open connection to URL.
+            HttpURLConnection connection = null;
             try {
                 URL url = new URL(str);
 
@@ -240,6 +241,7 @@ public class DownloadService {
                             Log.i(TAG, "onNext: ");
                             //写文件
                             boolean writtenToDisk = writeFileToSDCard(responseBody);
+
                             if (writtenToDisk) {
                                 onSmartInstall(context, FILE_STORE_PATH, FILE_NAME);
                             }
