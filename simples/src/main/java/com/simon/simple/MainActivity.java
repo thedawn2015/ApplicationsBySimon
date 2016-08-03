@@ -6,11 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.simon.simple.base.util.LogUtil;
-import com.simon.simple.base.util.SharedPreferencesUtil;
 import com.simon.simple.download.DownloadActivity;
-
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,12 +42,16 @@ public class MainActivity extends AppCompatActivity {
     EditText edit_text;
 
     private void test() {
-        SharedPreferencesUtil.put(this, "tes", "hehe");
+        /*SharedPreferencesUtil.put(this, "tes", "hehe");
         Map<String, Object> map = (Map<String, Object>) SharedPreferencesUtil.getAll(this);
         LogUtil.i(TAG, "test: map = " + map.get("tes"));
         String s = (String) SharedPreferencesUtil.get(this, "tes", "no");
         LogUtil.i(TAG, "test: s = " + s);
-        SharedPreferencesUtil.remove(this, "tes");
+        SharedPreferencesUtil.remove(this, "tes");*/
+
+        /*shot = (ImageView) findViewById(R.id.shot);
+        Bitmap bitmap = ScreenUtil.snapShotWithoutStatusBar(MainActivity.this);
+        shot.setImageBitmap(bitmap);*/
 
         /*String path = SDCardUtil.getRootDirectoryPath();
         LogUtil.i(TAG, "test: path = " + path);
