@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.simon.simple.base.util.DensityUtil;
+import com.simon.simple.base.util.LogUtil;
 import com.simon.simple.download.DownloadActivity;
 
 import butterknife.BindView;
@@ -12,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+    public static String TAG = MainActivity.class.getSimpleName();
 
     @BindView (R.id.simple_btn_to_draw)
     Button simpleBtnToDraw;
@@ -33,6 +36,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        test();
+    }
+
+    private void test() {
+        int dp2px = DensityUtil.dp2px(this, 100);
+        LogUtil.i(TAG, "test: dp2px=" + dp2px);
+        int sp2px = DensityUtil.sp2px(this, 100);
+        LogUtil.i(TAG, "test: sp2px=" + sp2px);
+        int px2dp = DensityUtil.px2dp(this, 100);
+        LogUtil.i(TAG, "test: px2dp=" + px2dp);
+        int px2sp = DensityUtil.px2sp(this, 100);
+        LogUtil.i(TAG, "test: px2sp=" + px2sp);
     }
 
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_toolbar,

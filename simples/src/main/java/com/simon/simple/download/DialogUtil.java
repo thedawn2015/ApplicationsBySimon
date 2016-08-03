@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.simon.simple.network.NetworkUtil;
+
 /**
  * 对话框的工具类
  * Created by xw on 2016/8/2.
@@ -26,12 +28,7 @@ public class DialogUtil {
                 .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        new ProgressDownloader.Builder(context)
-                                .setStoragePath(FILE_PATH)
-                                .setStorageFileName(FILE_NAME)
-                                .setProgressListener(progressListener)
-                                .setUrl(url)
-                                .startTask();
+                        startUpdate(context, FILE_PATH, FILE_NAME, progressListener, url);
                     }
                 })
                 .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
@@ -42,4 +39,28 @@ public class DialogUtil {
                 });
         builder.create().show();
     }
+
+    /**
+     * 开始更新
+     *
+     * @param context
+     * @param FILE_PATH
+     * @param FILE_NAME
+     * @param progressListener
+     * @param url
+     */
+    private static void startUpdate(Context context, String FILE_PATH, String FILE_NAME, ProgressListener progressListener, String url) {
+        if (NetworkUtil.isNetwordConnected(context)) {
+
+        }
+
+
+        new ProgressDownloader.Builder(context)
+                .setStoragePath(FILE_PATH)
+                .setStorageFileName(FILE_NAME)
+                .setProgressListener(progressListener)
+                .setUrl(url)
+                .startTask();
+    }
+
 }

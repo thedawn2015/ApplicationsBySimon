@@ -3,7 +3,7 @@ package com.simon.simple.download;
 import android.content.Context;
 import android.os.Environment;
 
-import com.simon.simple.base.util.Log;
+import com.simon.simple.base.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -159,17 +159,17 @@ public class ProgressDownloader {
          * @param startsPoint
          */
         private void download(final long startsPoint) {
-            Log.i(TAG, "download: startsPoint=" + startsPoint);
+            LogUtil.i(TAG, "download: startsPoint=" + startsPoint);
             call = newCall(startsPoint);
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.i(TAG, "onFailure: ");
+                    LogUtil.i(TAG, "onFailure: ");
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.i(TAG, "onResponse: startsPoint=" + startsPoint);
+                    LogUtil.i(TAG, "onResponse: startsPoint=" + startsPoint);
                     writeToSDCard(response, startsPoint);
                 }
             });
@@ -273,7 +273,7 @@ public class ProgressDownloader {
          * @return
          */
         private Call newCall(long startPoints) {
-            Log.i(TAG, "newCall: startPoints=" + startPoints);
+            LogUtil.i(TAG, "newCall: startPoints=" + startPoints);
 
             Request request = new Request.Builder()
                     .url(url)
@@ -344,7 +344,7 @@ public class ProgressDownloader {
 
                 //Modified By xw at 2016/7/29 Explain：每隔500ms发送一次，避免UI阻塞（不用睡眠也不会影响下载速度）
                 if (currentTime - lastTime >= 1000) {
-                    Log.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
+                    LogUtil.i(TAG, "continueDownload: fileSizeDownloaded=" + fileSizeDownloaded);
                     onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, false);
                     lastTime = currentTime;
                 }
@@ -354,7 +354,7 @@ public class ProgressDownloader {
                     break;
                 }
             }
-            Log.i(TAG, "continueDownload: randomFile.length()=" + randomFile.length());
+            LogUtil.i(TAG, "continueDownload: randomFile.length()=" + randomFile.length());
             randomFile.close();
 
             onDownloadProgressListener.updateProgress(fileSizeDownloaded, fileSizeTotal, true);

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simon.simple.R;
-import com.simon.simple.base.util.Log;
+import com.simon.simple.base.util.LogUtil;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -86,7 +86,7 @@ public class DownloadActivity extends AppCompatActivity {
             case R.id.download_btn_pause:
                 //                pauseDownload();
                 //                Toast.makeText(this, "下载暂停", Toast.LENGTH_SHORT).show();
-                //                Log.i(TAG, "onClick: pauseDownload downloadedBytes=" + storeFile.length());
+                //                LogUtil.i(TAG, "onClick: pauseDownload downloadedBytes=" + storeFile.length());
                 break;
             case R.id.download_btn_continue:
                 //                continueDownload();
@@ -99,9 +99,9 @@ public class DownloadActivity extends AppCompatActivity {
      */
     private void checkFile() {
         storeFile = new File(FILE_PATH, FILE_NAME);
-        Log.i(TAG, "checkFile: FILE_NAME=" + FILE_NAME);
+        LogUtil.i(TAG, "checkFile: FILE_NAME=" + FILE_NAME);
         fileBytes = storeFile.length();
-        Log.i(TAG, "checkFile: startDownload fileBytes=" + fileBytes);
+        LogUtil.i(TAG, "checkFile: startDownload fileBytes=" + fileBytes);
     }
 
     private ProgressDownloader.Builder downloadBuilder;
