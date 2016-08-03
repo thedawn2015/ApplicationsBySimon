@@ -4,6 +4,7 @@ import android.util.Log;
 
 /**
  * Log统一管理类
+ * Created by xw on 2016/8/3
  */
 public class LogUtil {
     public static String TAG = LogUtil.class.getSimpleName();
