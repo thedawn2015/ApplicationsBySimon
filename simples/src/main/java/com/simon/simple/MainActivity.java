@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.simon.simple.download.DownloadActivity;
+import com.simon.simple.toobar.ToolbarActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.simple_btn_to_animator:
                 break;
             case R.id.simple_btn_to_toolbar:
+                ToolbarActivity.launch(MainActivity.this);
                 break;
             case R.id.simple_btn_to_recycler_view:
                 break;
