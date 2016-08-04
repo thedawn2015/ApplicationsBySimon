@@ -8,7 +8,17 @@
     tools:context=".toobar.TitleBarActivity">
 
     <include layout="@layout/fragment_titlebar_one"/>
-    <include layout="@layout/fragment_titlebar_two"/>
-    <include layout="@layout/fragment_titlebar_three"/>
+
+    <include
+        layout="@layout/fragment_titlebar_two"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="2dp"/>
+
+    <include
+        layout="@layout/fragment_titlebar_three"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="2dp"/>
 
 </LinearLayout>

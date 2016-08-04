@@ -42,6 +42,7 @@ public class TitleBarTwoContainer {
         titlebarTwoTvMenu = (TextView) activity.findViewById(R.id.titlebar_two_tv_menu);
         titlebarTwoLlMenu = (LinearLayout) activity.findViewById(R.id.titlebar_two_ll_menu);
 
+        titlebarTwoFlBack.setOnClickListener(onClickListener);
         titlebarTwoLlMenu.setOnClickListener(onClickListener);
         titlebarTwoRgTitle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
