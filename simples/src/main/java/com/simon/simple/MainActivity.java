@@ -83,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
         int px2sp = DensityUtil.px2sp(this, 100);
         LogUtil.i(TAG, "test: px2sp=" + px2sp);
 
-        boolean isConnected = NetUtil.isConnected(this);
-        LogUtil.i(TAG, "test: isConnected = " + isConnected);
-        boolean isWifi = NetUtil.isWifi(this);
-        LogUtil.i(TAG, "test: isWifi = " + isWifi);
+        boolean isNetConnected = NetUtil.isNetConnected(this);
+        LogUtil.i(TAG, "test: isNetConnected = " + isNetConnected);
+        boolean isNetWifi = NetUtil.isNetWifi(this);
+        LogUtil.i(TAG, "test: isNetWifi = " + isNetWifi);
         //        NetUtil.openSetting(this);
         edit_text = (EditText) findViewById(R.id.edit_text);*/
 
