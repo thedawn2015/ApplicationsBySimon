@@ -1,8 +1,12 @@
 package com.simon.simple.toobar.viewContainer;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.simon.simple.R;
@@ -15,11 +19,15 @@ import com.simon.simple.R;
 public class TitleBarTwoContainer {
     public static String TAG = TitleBarTwoContainer.class.getSimpleName();
 
+    FrameLayout titlebarTwoFlBack;
+    RadioButton titlebarTwoRbLeft;
+    RadioButton titlebarTwoRbRight;
+    RadioGroup titlebarTwoRgTitle;
+    TextView titlebarTwoTvMenu;
+    LinearLayout titlebarTwoLlMenu;
+
     private Activity activity;
-    private OnToolbarOneListener onToolbarOneListener;
-    FrameLayout toolbarOneFlBack;
-    TextView toolbarOneTvTitle;
-    TextView toolbarOneTvMenu;
+    private OnTitlebarTwoListener onTitlebarTwoListener;
 
     public TitleBarTwoContainer(Activity activity) {
         this.activity = activity;
@@ -27,32 +35,48 @@ public class TitleBarTwoContainer {
     }
 
     private void assignViews(Activity activity) {
-        toolbarOneFlBack = (FrameLayout) activity.findViewById(R.id.titlebar_one_fl_back);
-        toolbarOneTvTitle = (TextView) activity.findViewById(R.id.titlebar_one_tv_title);
-        toolbarOneTvMenu = (TextView) activity.findViewById(R.id.titlebar_one_tv_menu);
+        titlebarTwoFlBack = (FrameLayout) activity.findViewById(R.id.titlebar_two_fl_back);
+        titlebarTwoRgTitle = (RadioGroup) activity.findViewById(R.id.titlebar_two_rg_title);
+        titlebarTwoRbLeft = (RadioButton) activity.findViewById(R.id.titlebar_two_rb_left);
+        titlebarTwoRbRight = (RadioButton) activity.findViewById(R.id.titlebar_two_rb_right);
+        titlebarTwoTvMenu = (TextView) activity.findViewById(R.id.titlebar_two_tv_menu);
+        titlebarTwoLlMenu = (LinearLayout) activity.findViewById(R.id.titlebar_two_ll_menu);
 
-        toolbarOneFlBack.setOnClickListener(onClickListener);
-        toolbarOneTvMenu.setOnClickListener(onClickListener);
+        titlebarTwoLlMenu.setOnClickListener(onClickListener);
+        titlebarTwoRgTitle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int buttonId = radioGroup.getCheckedRadioButtonId();
+                switch (buttonId) {
+                    case R.id.titlebar_two_rb_left:
+                        if (onTitlebarTwoListener != null) {
+                            onTitlebarTwoListener.onLeftButtonClick();
+                        }
+                        break;
+                    case R.id.titlebar_two_rb_right:
+                        if (onTitlebarTwoListener != null) {
+                            onTitlebarTwoListener.onRightButtonClick();
+                        }
+                        break;
+                }
+            }
+        });
     }
 
     /**
-     * set title
+     * set title and menu
      *
-     * @param title
+     * @param leftTitle
+     * @param rightTitle
      */
-    public void setTitle(String title) {
-        toolbarOneTvTitle.setText(title);
-    }
-
-    /**
-     * set menu
-     *
-     * @param menu
-     */
-    public void setMenu(String menu, OnToolbarOneListener onToolbarOneListener) {
-        this.onToolbarOneListener = onToolbarOneListener;
-        toolbarOneTvMenu.setVisibility(View.VISIBLE);
-        toolbarOneTvMenu.setText(menu);
+    public void setTitleAndMenu(String leftTitle, String rightTitle, String menu, OnTitlebarTwoListener onTitlebarTwoListener) {
+        titlebarTwoRbLeft.setText(leftTitle);
+        titlebarTwoRbRight.setText(rightTitle);
+        this.onTitlebarTwoListener = onTitlebarTwoListener;
+        if (!TextUtils.isEmpty(menu)) {
+            titlebarTwoLlMenu.setVisibility(View.VISIBLE);
+            titlebarTwoTvMenu.setText(menu);
+        }
     }
 
     /**
@@ -62,19 +86,23 @@ public class TitleBarTwoContainer {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.titlebar_one_fl_back:
+                case R.id.titlebar_two_fl_back:
                     activity.onBackPressed();
                     break;
-                case R.id.titlebar_one_tv_menu:
-                    if (onToolbarOneListener != null) {
-                        onToolbarOneListener.onMenuClick();
+                case R.id.titlebar_two_ll_menu:
+                    if (onTitlebarTwoListener != null) {
+                        onTitlebarTwoListener.onMenuClick();
                     }
                     break;
             }
         }
     };
 
-    public interface OnToolbarOneListener {
+    public interface OnTitlebarTwoListener {
+        void onLeftButtonClick();
+
+        void onRightButtonClick();
+
         void onMenuClick();
     }
 

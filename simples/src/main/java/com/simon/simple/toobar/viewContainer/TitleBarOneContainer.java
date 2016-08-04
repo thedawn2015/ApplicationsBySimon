@@ -1,8 +1,10 @@
 package com.simon.simple.toobar.viewContainer;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.simon.simple.R;
@@ -17,9 +19,10 @@ public class TitleBarOneContainer {
 
     private Activity activity;
     private OnToolbarOneListener onToolbarOneListener;
-    FrameLayout toolbarOneFlBack;
-    TextView toolbarOneTvTitle;
-    TextView toolbarOneTvMenu;
+    FrameLayout titlebarOneFlBack;
+    TextView titlebarOneTvTitle;
+    LinearLayout titlebarOneLlMenu;
+    TextView titlebarOneTvMenu;
 
     public TitleBarOneContainer(Activity activity) {
         this.activity = activity;
@@ -27,36 +30,33 @@ public class TitleBarOneContainer {
     }
 
     private void assignViews(Activity activity) {
-        toolbarOneFlBack = (FrameLayout) activity.findViewById(R.id.titlebar_one_fl_back);
-        toolbarOneTvTitle = (TextView) activity.findViewById(R.id.titlebar_one_tv_title);
-        toolbarOneTvMenu = (TextView) activity.findViewById(R.id.titlebar_one_tv_menu);
+        titlebarOneFlBack = (FrameLayout) activity.findViewById(R.id.titlebar_one_fl_back);
+        titlebarOneTvTitle = (TextView) activity.findViewById(R.id.titlebar_one_tv_title);
+        titlebarOneLlMenu = (LinearLayout) activity.findViewById(R.id.titlebar_one_ll_menu);
+        titlebarOneTvMenu = (TextView) activity.findViewById(R.id.titlebar_one_tv_menu);
 
-        toolbarOneFlBack.setOnClickListener(onClickListener);
-        toolbarOneTvMenu.setOnClickListener(onClickListener);
+        titlebarOneFlBack.setOnClickListener(onClickListener);
+        titlebarOneLlMenu.setOnClickListener(onClickListener);
     }
 
     /**
-     * set title
+     * set title and menu
      *
      * @param title
-     */
-    public void setTitle(String title) {
-        toolbarOneTvTitle.setText(title);
-    }
-
-    /**
-     * set menu
-     *
      * @param menu
+     * @param onToolbarOneListener
      */
-    public void setMenu(String menu, OnToolbarOneListener onToolbarOneListener) {
+    public void setTitleAndMenu(String title, String menu, OnToolbarOneListener onToolbarOneListener) {
+        titlebarOneTvTitle.setText(title);
         this.onToolbarOneListener = onToolbarOneListener;
-        toolbarOneTvMenu.setVisibility(View.VISIBLE);
-        toolbarOneTvMenu.setText(menu);
+        if (!TextUtils.isEmpty(menu)) {
+            titlebarOneLlMenu.setVisibility(View.VISIBLE);
+            titlebarOneTvMenu.setText(menu);
+        }
     }
 
     /**
-     * listener
+     * listener 实例
      */
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -65,7 +65,7 @@ public class TitleBarOneContainer {
                 case R.id.titlebar_one_fl_back:
                     activity.onBackPressed();
                     break;
-                case R.id.titlebar_one_tv_menu:
+                case R.id.titlebar_one_ll_menu:
                     if (onToolbarOneListener != null) {
                         onToolbarOneListener.onMenuClick();
                     }
