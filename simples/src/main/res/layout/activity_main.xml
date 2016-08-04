@@ -11,10 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.simon.simple.MainActivity">
 
+    <!--软键盘显示搜索按钮 -->
     <EditText
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:imeOptions="actionSearch"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/simple_btn_to_draw"
