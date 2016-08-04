@@ -8,12 +8,12 @@ import android.widget.TextView;
 import com.simon.simple.R;
 
 /**
- * 自定义的ToolBar
- * 只有一个title
+ * 自定义的TitleBar
+ * 只有一个title，无点击响应
  * Created by xw on 2016/8/4.
  */
-public class ToolbarOneContainer {
-    public static String TAG = ToolbarOneContainer.class.getSimpleName();
+public class TitleBarOneContainer {
+    public static String TAG = TitleBarOneContainer.class.getSimpleName();
 
     private Activity activity;
     private OnToolbarOneListener onToolbarOneListener;
@@ -21,15 +21,15 @@ public class ToolbarOneContainer {
     TextView toolbarOneTvTitle;
     TextView toolbarOneTvMenu;
 
-    public ToolbarOneContainer(Activity activity) {
+    public TitleBarOneContainer(Activity activity) {
         this.activity = activity;
         assignViews(activity);
     }
 
     private void assignViews(Activity activity) {
-        toolbarOneFlBack = (FrameLayout) activity.findViewById(R.id.toolbar_one_fl_back);
-        toolbarOneTvTitle = (TextView) activity.findViewById(R.id.toolbar_one_tv_title);
-        toolbarOneTvMenu = (TextView) activity.findViewById(R.id.toolbar_one_tv_menu);
+        toolbarOneFlBack = (FrameLayout) activity.findViewById(R.id.titlebar_one_fl_back);
+        toolbarOneTvTitle = (TextView) activity.findViewById(R.id.titlebar_one_tv_title);
+        toolbarOneTvMenu = (TextView) activity.findViewById(R.id.titlebar_one_tv_menu);
 
         toolbarOneFlBack.setOnClickListener(onClickListener);
         toolbarOneTvMenu.setOnClickListener(onClickListener);
@@ -62,10 +62,10 @@ public class ToolbarOneContainer {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.toolbar_one_fl_back:
+                case R.id.titlebar_one_fl_back:
                     activity.onBackPressed();
                     break;
-                case R.id.toolbar_one_tv_menu:
+                case R.id.titlebar_one_tv_menu:
                     if (onToolbarOneListener != null) {
                         onToolbarOneListener.onMenuClick();
                     }

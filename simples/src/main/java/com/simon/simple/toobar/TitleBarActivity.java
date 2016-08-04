@@ -6,28 +6,28 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.simon.simple.R;
-import com.simon.simple.toobar.viewContainer.ToolbarOneContainer;
+import com.simon.simple.toobar.viewContainer.TitleBarOneContainer;
 
-public class ToolbarActivity extends AppCompatActivity {
-    public static String TAG = ToolbarActivity.class.getSimpleName();
+public class TitleBarActivity extends AppCompatActivity {
+    public static String TAG = TitleBarActivity.class.getSimpleName();
 
-    ToolbarOneContainer toolbarOneContainer;
+    TitleBarOneContainer toolbarOneContainer;
 
     public static void launch(Activity activity) {
-        Intent intent = new Intent(activity, ToolbarActivity.class);
+        Intent intent = new Intent(activity, TitleBarActivity.class);
         activity.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toolbar);
+        setContentView(R.layout.activity_titlebar);
 
         initToolbarOne();
     }
 
     private void initToolbarOne() {
-        toolbarOneContainer = new ToolbarOneContainer(this);
+        toolbarOneContainer = new TitleBarOneContainer(this);
         toolbarOneContainer.setTitle("这是一个标题的ToolBar");
         toolbarOneContainer.setMenu("菜单", null);
     }

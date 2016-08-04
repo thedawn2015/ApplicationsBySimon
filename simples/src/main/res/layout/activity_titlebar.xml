@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".toobar.ToolbarActivity">
+    tools:context=".toobar.TitleBarActivity">
 
-    <include layout="@layout/fragment_toolbar_one"/>
-    <include layout="@layout/fragment_toolbar_two"/>
-    <include layout="@layout/fragment_toolbar_three"/>
+    <include layout="@layout/fragment_titlebar_one"/>
+    <include layout="@layout/fragment_titlebar_two"/>
+    <include layout="@layout/fragment_titlebar_three"/>
 
 </LinearLayout>
