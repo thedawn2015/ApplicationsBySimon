@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/simpleanimator" />
@@ -21,6 +22,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/simpleanimator" />

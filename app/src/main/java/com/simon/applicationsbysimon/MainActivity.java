@@ -40,11 +40,11 @@ public class MainActivity extends BaseActivity {
         spannaleText1 = (TextView) findViewById(R.id.spannale_text1);
         spannaleText2 = (TextView) findViewById(R.id.spannale_text2);
         mainEditText = (EditText) findViewById(R.id.main_edit_text);
-        my_scroll_layout = (ScrollLinearLayout) findViewById(R.id.my_scroll_layout);
+//        my_scroll_layout = (ScrollLinearLayout) findViewById(R.id.my_scroll_layout);
 
 
 
-        listView = (ListView) findViewById(R.id.list_view);
+        /*listView = (ListView) findViewById(R.id.list_view);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1);
         adapter.add("string1");
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity {
         adapter.add("string1");
         adapter.add("haha");
         adapter.add("heihei");
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter);*/
 
 //        Timer timer = new Timer();
 //        timer.schedule(new TimerTask() {
