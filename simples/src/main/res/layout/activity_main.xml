@@ -35,7 +35,7 @@
         android:id="@+id/simple_btn_to_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Toolbar"/>
+        android:text="Titlebar"/>
 
     <Button
         android:id="@+id/simple_btn_to_recycler_view"

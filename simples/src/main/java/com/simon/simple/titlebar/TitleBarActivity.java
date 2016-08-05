@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.simon.simple.R;
 import com.simon.simple.base.util.LogUtil;
+import com.simon.simple.titlebar.fragment.CenterFragment;
+import com.simon.simple.titlebar.fragment.LeftFragment;
+import com.simon.simple.titlebar.fragment.RightFragment;
 import com.simon.simple.titlebar.viewContainer.TitleBarOneContainer;
+import com.simon.simple.titlebar.viewContainer.TitleBarThreeContainer;
 import com.simon.simple.titlebar.viewContainer.TitleBarTwoContainer;
 
 public class TitleBarActivity extends AppCompatActivity {
@@ -15,6 +20,13 @@ public class TitleBarActivity extends AppCompatActivity {
 
     TitleBarOneContainer titlebarOneContainer;
     TitleBarTwoContainer titleBarTwoContainer;
+    TitleBarThreeContainer titleBarThreeContainer;
+
+    FrameLayout content;
+
+    //    LeftFragment leftFragment;
+    //    CenterFragment centerFragment;
+    //    RightFragment rightFragment;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, TitleBarActivity.class);
@@ -28,6 +40,57 @@ public class TitleBarActivity extends AppCompatActivity {
 
         initTitlebarOne();
         initTitlebarTwo();
+        initTitlebarThree();
+
+        assignViews();
+        initFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.content, LeftFragment.getInstance(), LeftFragment.TAG)
+                .commit();
+    }
+
+    private void initFragment() {
+        //        leftFragment = new LeftFragment();
+        //        centerFragment = new CenterFragment();
+        //        rightFragment = new RightFragment();
+    }
+
+    private void assignViews() {
+        content = (FrameLayout) findViewById(R.id.content);
+    }
+
+    private void initTitlebarThree() {
+        titleBarThreeContainer = new TitleBarThreeContainer(this);
+        titleBarThreeContainer.setTitleAndMenu("左边标题", "中间标题", "右边标题", "菜单", new TitleBarThreeContainer.OnTitlebarThreeListener() {
+            @Override
+            public void onLeftButtonClick() {
+                LogUtil.i(TAG, "onLeftButtonClick: 3");
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, LeftFragment.getInstance(), LeftFragment.TAG)
+                        .commit();
+            }
+
+            @Override
+            public void onCenterButtonClick() {
+                LogUtil.i(TAG, "onCenterButtonClick: 3 = " + 3);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, CenterFragment.getInstance(), CenterFragment.TAG)
+                        .commit();
+            }
+
+            @Override
+            public void onRightButtonClick() {
+                LogUtil.i(TAG, "onRightButtonClick: 3 = " + 3);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content, RightFragment.getInstance(), RightFragment.TAG)
+                        .commit();
+            }
+
+            @Override
+            public void onMenuClick() {
+                LogUtil.i(TAG, "onMenuClick: 3 = " + 3);
+            }
+        });
     }
 
     private void initTitlebarTwo() {
