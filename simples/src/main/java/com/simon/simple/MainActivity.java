@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.simon.simple.download.DownloadActivity;
-import com.simon.simple.toobar.TitleBarActivity;
+import com.simon.simple.titlebar.TitleBarActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToDraw;
     @BindView (R.id.simple_btn_to_animator)
     Button simpleBtnToAnimator;
-    @BindView (R.id.simple_btn_to_toolbar)
-    Button simpleBtnToToolbar;
+    @BindView (R.id.simple_btn_to_titlebar)
+    Button simpleBtnToTitlebar;
     @BindView (R.id.simple_btn_to_recycler_view)
     Button simpleBtnToRecyclerView;
     @BindView (R.id.simple_btn_to_retrofit)
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         }.start();*/
     }
 
-    @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_toolbar,
+    @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
             R.id.simple_btn_to_download})
     public void onClick(View view) {
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.simple_btn_to_animator:
                 break;
-            case R.id.simple_btn_to_toolbar:
+            case R.id.simple_btn_to_titlebar:
                 TitleBarActivity.launch(MainActivity.this);
                 break;
             case R.id.simple_btn_to_recycler_view:

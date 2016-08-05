@@ -32,7 +32,7 @@
         android:text="Animator"/>
 
     <Button
-        android:id="@+id/simple_btn_to_toolbar"
+        android:id="@+id/simple_btn_to_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Toolbar"/>

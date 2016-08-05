@@ -1,4 +1,4 @@
-package com.simon.simple.toobar.viewContainer;
+package com.simon.simple.titlebar.viewContainer;
 
 import android.app.Activity;
 import android.text.TextUtils;

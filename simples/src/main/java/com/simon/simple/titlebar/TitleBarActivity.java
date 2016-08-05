@@ -1,4 +1,4 @@
-package com.simon.simple.toobar;
+package com.simon.simple.titlebar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.simon.simple.R;
 import com.simon.simple.base.util.LogUtil;
-import com.simon.simple.toobar.viewContainer.TitleBarOneContainer;
-import com.simon.simple.toobar.viewContainer.TitleBarTwoContainer;
+import com.simon.simple.titlebar.viewContainer.TitleBarOneContainer;
+import com.simon.simple.titlebar.viewContainer.TitleBarTwoContainer;
 
 public class TitleBarActivity extends AppCompatActivity {
     public static String TAG = TitleBarActivity.class.getSimpleName();
