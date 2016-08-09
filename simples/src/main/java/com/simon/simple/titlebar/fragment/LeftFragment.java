@@ -83,6 +83,14 @@ public class LeftFragment extends Fragment {
         LogUtil.i(TAG, "onPause: Left");
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtil.i(TAG, "onStop: Left");
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();

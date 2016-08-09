@@ -83,6 +83,12 @@ public class CenterFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        LogUtil.i(TAG, "onStop: Center");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         LogUtil.i(TAG, "onResume: Center");
