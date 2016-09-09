@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.simon.simple.animator.AnimatorActivity;
 import com.simon.simple.download.DownloadActivity;
+import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
 
 import butterknife.BindView;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToRx;
     @BindView (R.id.simple_btn_to_download)
     Button simpleBtnToDownload;
+    @BindView (R.id.simple_btn_to_notifycation)
+    Button simpleBtnToNotifycation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,12 +122,16 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
-            R.id.simple_btn_to_download})
+            R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
                 break;
+            case R.id.simple_btn_to_notifycation:
+                NotificationActivity.launch(MainActivity.this);
+                break;
             case R.id.simple_btn_to_animator:
+                AnimatorActivity.launch(MainActivity.this);
                 break;
             case R.id.simple_btn_to_titlebar:
                 TitleBarActivity.launch(MainActivity.this);
