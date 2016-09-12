@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".notify.NotificationActivity">
         </activity>
+        <activity android:name=".db.DBActivity">
+        </activity>
     </application>
 
 </manifest>

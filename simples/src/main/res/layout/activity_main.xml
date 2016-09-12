@@ -67,6 +67,12 @@
         android:layout_height="wrap_content"
         android:text="download"/>
 
+    <Button
+        android:id="@+id/simple_btn_to_db"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="db"/>
+
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.simon.simple.animator.AnimatorActivity;
+import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToDownload;
     @BindView (R.id.simple_btn_to_notifycation)
     Button simpleBtnToNotifycation;
+    @BindView (R.id.simple_btn_to_db)
+    Button simpleBtnToDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
-            R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation})
+            R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation,R.id.simple_btn_to_db})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -144,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.simple_btn_to_download:
                 DownloadActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_db:
+                DBActivity.launch(MainActivity.this);
                 break;
         }
     }
