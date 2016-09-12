@@ -70,4 +70,11 @@ public class DBActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper.close();
+        dbOperator.close();
+    }
 }

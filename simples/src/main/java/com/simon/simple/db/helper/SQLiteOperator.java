@@ -28,7 +28,7 @@ public class SQLiteOperator {
         String sql = "INSERT INTO " + DBConstant.TABLE_NAME + " (id,state)" + " VALUES(?,?)";
         Object args[] = new Object[]{id, state};
         db.execSQL(sql, args);
-        db.close();
+        //        db.close();
     }
 
     //更新操作
@@ -36,7 +36,7 @@ public class SQLiteOperator {
         String sql = "UPDATE " + DBConstant.TABLE_NAME + " SET state=? WHERE id=?";
         Object args[] = new Object[]{state, id};
         this.db.execSQL(sql, args);
-        this.db.close();
+        //        this.db.close();
     }
 
     //删除操作,删除
@@ -44,7 +44,7 @@ public class SQLiteOperator {
         String sql = "DELETE FROM " + DBConstant.TABLE_NAME + " WHERE id=?";
         Object args[] = new Object[]{id};
         this.db.execSQL(sql, args);
-        this.db.close();
+        //        this.db.close();
     }
 
     //查询操作,查询表中所有的记录返回列表
@@ -56,13 +56,14 @@ public class SQLiteOperator {
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
             all.add(result.getInt(0) + "," + result.getString(1) + "," + result.getString(2) + ","
                     + result.getInt(3) + "," + result.getString(4) + "," + result.getString(5) + ","
-                    + result.getString(6) + "," + result.getString(7) + "," + result.getString(8));
+                    + result.getString(6) + "," + result.getString(7));
         }
-        close(result);
+        result.close();
+        //        close(result);
         return all;
     }
 
-    //查询操作虫重载函数，返回指定ID的列表
+    //查询操作重载函数，返回指定ID的列表
     public int getstatebyID(int id) {
         int num = -1;//错误状态-1
         List<String> all = new ArrayList<String>(); //此时只是String
@@ -74,7 +75,8 @@ public class SQLiteOperator {
         }
 
         LogUtil.i(TAG, "图片状态state" + String.valueOf(num));
-        close(result);
+        result.close();
+        //        close(result);
         return num;
     }
 
@@ -90,24 +92,21 @@ public class SQLiteOperator {
         //判断得到的返回数据是否为空
         if (result.getCount() == 0) {
             LogUtil.i(TAG, "return false and not exist the same result" + String.valueOf(result.getCount()));
-            close(result);
+            result.close();
+            //            close(result);
             return false;
         } else {
             LogUtil.i(TAG, "return true and exist the same result" + String.valueOf(result.getCount()));
-            db.close();
+            result.close();
+            //            db.close();
             return true;
         }
     }
 
     /**
-     * 关闭游标和db
-     *
-     * @param result
+     * 关闭db
      */
-    private void close(Cursor result) {
-        if (result != null) {
-            result.close();
-        }
+    public void close() {
         if (db != null) {
             db.close();
         }
