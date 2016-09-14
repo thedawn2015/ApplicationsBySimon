@@ -21,13 +21,14 @@ public class AlarmUtil {
         long triggerAtTime = System.currentTimeMillis() + seconds * 1000;
         Intent intent = new Intent(context, receiverCls);
         //        intent.setAction(action);
+        //FLAG_CANCEL_CURRENT，如果描述的PendingIntent已经存在，则在产生新的Intent之前会先取消掉当前的
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         if (Build.VERSION.SDK_INT >= 19) {
-            LogUtil.i(TAG, "setAlarm: Build.VERSION.SDK_INT >= 19");
+//            LogUtil.i(TAG, "setAlarm: Build.VERSION.SDK_INT >= 19");
             manager.setExact(AlarmManager.RTC_WAKEUP, triggerAtTime, pendingIntent);
         } else {
-            LogUtil.i(TAG, "setAlarm: Build.VERSION.SDK_INT < 19");
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtTime, 0, pendingIntent);
+//            LogUtil.i(TAG, "setAlarm: Build.VERSION.SDK_INT < 19");
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtTime, seconds * 1000, pendingIntent);
         }
     }
 
@@ -39,7 +40,7 @@ public class AlarmUtil {
      * @param action
      */
     public static void cancelAlarm(Context context, Class<?> receiverCls, String action) {
-        LogUtil.i(TAG, "cancelAlarm: ");
+//        LogUtil.i(TAG, "cancelAlarm: ");
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, receiverCls);
         //        intent.setAction(action);

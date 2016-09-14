@@ -34,6 +34,7 @@ public class PollingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtil.i(TAG, "onStartCommand: ");
         new PollingThread().start();
+        //发送广播
         AlarmUtil.setAlarm(PollingService.this, 5, AlarmReceiver.class, PollingService.POLLING_SERVICE_ACTION);
         //        return Service.START_NOT_STICKY;
         return super.onStartCommand(intent, flags, startId);

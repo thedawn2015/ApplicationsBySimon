@@ -15,8 +15,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        LogUtil.i(TAG, "onReceive: intent.getAction()=" + intent.getAction());
-        AlarmUtil.cancelAlarm(context, AlarmReceiver.class, null);
+        //        LogUtil.i(TAG, "onReceive: intent.getAction()=" + intent.getAction());
+        //        AlarmUtil.cancelAlarm(context, AlarmReceiver.class, null);
+        //接收到广播之后，启动service
         Intent toIntent = new Intent(context, PollingService.class);
         context.startService(toIntent);
     }
