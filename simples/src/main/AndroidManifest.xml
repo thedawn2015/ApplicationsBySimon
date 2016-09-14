@@ -34,17 +34,14 @@
         <activity android:name=".polling.PollingServiceActivity">
         </activity>
 
-        <service android:name=".polling.PollingService">
-            <intent-filter>
-                <action android:name="com.simon.simple.action.POLLING_SERVICE"/>
-            </intent-filter>
+        <service android:name=".polling.alarm.PollingService">
         </service>
 
-        <service android:name=".polling.RequestService">
-            <intent-filter>
-                <action android:name="com.simon.simple.action.REQUEST_SERVICE"/>
-            </intent-filter>
+        <service android:name=".polling.service.RequestService">
         </service>
+
+        <receiver android:name=".polling.alarm.AlarmReceiver">
+        </receiver>
     </application>
 
 </manifest>

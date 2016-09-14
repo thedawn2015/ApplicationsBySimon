@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.simon.simple.R;
+import com.simon.simple.polling.alarm.AlarmReceiver;
+import com.simon.simple.polling.alarm.AlarmUtil;
+import com.simon.simple.polling.alarm.PollingService;
+import com.simon.simple.polling.service.RequestService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +43,11 @@ public class PollingServiceActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.polling_service_btn_service:
                 pollingIntent = new Intent(this, RequestService.class);
-                pollingIntent.setAction(RequestService.REQUEST_SERVICE_ACTION);
+                //                pollingIntent.setAction(RequestService.REQUEST_SERVICE_ACTION);
                 startService(pollingIntent);
                 break;
             case R.id.polling_service_btn_alarm:
-                PollingUtil.startPollingService(this, 1, PollingService.class, PollingService.POLLING_SERVICE_ACTION);
+                AlarmUtil.setAlarm(this, 5, AlarmReceiver.class, PollingService.POLLING_SERVICE_ACTION);
                 break;
         }
     }
@@ -51,7 +55,9 @@ public class PollingServiceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(pollingIntent);
-        PollingUtil.stopPollingService(this, PollingService.class, PollingService.POLLING_SERVICE_ACTION);
+        if (pollingIntent != null) {
+            stopService(pollingIntent);
+        }
+        AlarmUtil.cancelAlarm(PollingServiceActivity.this, AlarmReceiver.class, null);
     }
 }

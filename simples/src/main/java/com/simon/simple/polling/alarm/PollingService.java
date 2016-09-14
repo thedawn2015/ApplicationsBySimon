@@ -1,4 +1,4 @@
-package com.simon.simple.polling;
+package com.simon.simple.polling.alarm;
 
 import android.app.Service;
 import android.content.Intent;
@@ -31,15 +31,11 @@ public class PollingService extends Service {
     }
 
     @Override
-    public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
-        LogUtil.i(TAG, "onStart: ");
-    }
-
-    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtil.i(TAG, "onStartCommand: ");
         new PollingThread().start();
+        AlarmUtil.setAlarm(PollingService.this, 5, AlarmReceiver.class, PollingService.POLLING_SERVICE_ACTION);
+        //        return Service.START_NOT_STICKY;
         return super.onStartCommand(intent, flags, startId);
     }
 
