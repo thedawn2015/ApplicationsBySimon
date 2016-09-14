@@ -31,6 +31,20 @@
         </activity>
         <activity android:name=".db.DBActivity">
         </activity>
+        <activity android:name=".polling.PollingServiceActivity">
+        </activity>
+
+        <service android:name=".polling.PollingService">
+            <intent-filter>
+                <action android:name="com.simon.simple.action.POLLING_SERVICE"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".polling.RequestService">
+            <intent-filter>
+                <action android:name="com.simon.simple.action.REQUEST_SERVICE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

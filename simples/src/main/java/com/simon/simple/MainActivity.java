@@ -10,6 +10,7 @@ import com.simon.simple.animator.AnimatorActivity;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.notify.NotificationActivity;
+import com.simon.simple.polling.PollingServiceActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
 
 import butterknife.BindView;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToNotifycation;
     @BindView (R.id.simple_btn_to_db)
     Button simpleBtnToDb;
+    @BindView (R.id.simple_btn_to_service)
+    Button simpleBtnToService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
-            R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation,R.id.simple_btn_to_db})
+            R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation, R.id.simple_btn_to_db,
+            R.id.simple_btn_to_service})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -150,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.simple_btn_to_db:
                 DBActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_service:
+                PollingServiceActivity.launch(MainActivity.this);
                 break;
         }
     }

@@ -73,6 +73,12 @@
         android:layout_height="wrap_content"
         android:text="db"/>
 
+    <Button
+        android:id="@+id/simple_btn_to_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="service"/>
+
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

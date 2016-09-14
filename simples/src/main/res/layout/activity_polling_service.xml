@@ -9,23 +9,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".notify.NotificationActivity">
+    tools:context=".polling.PollingServiceActivity">
 
     <Button
-        android:id="@+id/notify_btn_basic"
+        android:id="@+id/polling_service_btn_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="基本通知"/>
+        android:text="service+Thread"/>
 
     <Button
-        android:id="@+id/notify_btn_custom"
+        android:id="@+id/polling_service_btn_alarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="自定义通知"/>
-    <Button
-        android:id="@+id/notify_btn_big_custom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="顶部通知"/>
+        android:text="service+AlarmManager+Thread"/>
 
 </LinearLayout>

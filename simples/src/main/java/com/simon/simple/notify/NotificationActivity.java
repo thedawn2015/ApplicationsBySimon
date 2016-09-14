@@ -34,6 +34,8 @@ public class NotificationActivity extends AppCompatActivity {
     Button notifyBtnBasic;
     @BindView (R.id.notify_btn_custom)
     Button notifyBtnCustom;
+    @BindView (R.id.notify_btn_big_custom)
+    Button notifyBtnBigCustom;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, NotificationActivity.class);
@@ -49,10 +51,11 @@ public class NotificationActivity extends AppCompatActivity {
 
     /**
      * Send a sample notification using the NotificationCompat API.
-     * <p/>
+     * <p>
      * https://developer.android.com/samples/BasicNotifications/src/com.example.android.basicnotifications/MainActivity.html
      */
     private void sendBasicNotification() {
+        int notificationID = new Random().nextInt(10000000);
         Notification notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.notification_icon_small)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.notification_icon_large))
@@ -65,18 +68,50 @@ public class NotificationActivity extends AppCompatActivity {
                 .build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
-        notificationManager.notify(new Random().nextInt(), notification);
+        notificationManager.notify(notificationID, notification);
+    }
+
+    /**
+     * 发送自定义的通知
+     */
+    private void sendBigAlarmNotification() {
+        int notificationID = new Random().nextInt(10000000);
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle("标题");
+        bigTextStyle.bigText("内容");
+        Notification notification = new android.support.v7.app.NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.notification_icon_small)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setContentIntent(getPendingIntent())
+                .setContentTitle("ContentTitle")
+                .setContentText("ContentText")
+                .setTicker(getResources().getString(R.string.custom_notification))
+//                .setAutoCancel(true)
+                .setStyle(bigTextStyle)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(Notification.PRIORITY_MAX)
+                .build();
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        //        nm.notify(0, notification);
+        nm.notify(notificationID, notification);
     }
 
     /**
      * 发送自定义的通知
      */
     private void sendCustomNotification() {
+        int notificationID = new Random().nextInt(10000000);
+        //        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        //        bigTextStyle.setBigContentTitle("标题");
+        //        bigTextStyle.bigText("内容");
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentIntent(getPendingIntent())
                 .setTicker(getResources().getString(R.string.custom_notification))
                 .setSmallIcon(R.mipmap.notification_icon_small)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setAutoCancel(false)
+                //                .setStyle(bigTextStyle)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
 
@@ -86,7 +121,6 @@ public class NotificationActivity extends AppCompatActivity {
         final String time = DateFormat.getTimeInstance().format(new Date()).toString();
         final String text = getResources().getString(R.string.collapsed, time);
         contentView.setTextViewText(R.id.textView, text);
-
         /* Workaround: Need to set the content view here directly on the notification.
          * NotificationCompatBuilder contains a bug that prevents this from working on platform
          * versions HoneyComb.
@@ -101,7 +135,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         //        nm.notify(0, notification);
-        nm.notify(new Random().nextInt(), notification);
+        nm.notify(notificationID, notification);
     }
 
     private PendingIntent getPendingIntent() {
@@ -113,7 +147,7 @@ public class NotificationActivity extends AppCompatActivity {
         return PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    @OnClick ({R.id.notify_btn_basic, R.id.notify_btn_custom})
+    @OnClick ({R.id.notify_btn_basic, R.id.notify_btn_custom, R.id.notify_btn_big_custom})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.notify_btn_basic:
@@ -121,6 +155,9 @@ public class NotificationActivity extends AppCompatActivity {
                 break;
             case R.id.notify_btn_custom:
                 sendCustomNotification();
+                break;
+            case R.id.notify_btn_big_custom:
+                sendBigAlarmNotification();
                 break;
         }
     }
