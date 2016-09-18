@@ -37,6 +37,10 @@ public class NotificationUtil {
                 .setContentTitle("BasicNotifications Sample")
                 .setContentText("Time to learn about notifications!")
                 .setSubText("Tap to view documentation about notifications.")
+                .setDefaults(Notification.DEFAULT_ALL)
+                //                .setStyle(bigTextStyle)
+                //顶部可以弹出通知
+                .setPriority(Notification.PRIORITY_MAX)
                 .build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                 Context.NOTIFICATION_SERVICE);
@@ -48,19 +52,19 @@ public class NotificationUtil {
      */
     public static void sendBigAlarmNotification(Context context) {
         int notificationID = new Random().nextInt(10000000);
-        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-        bigTextStyle.setBigContentTitle("标题");
-        bigTextStyle.bigText("内容");
+//        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+//        bigTextStyle.setBigContentTitle("标题");
+//        bigTextStyle.bigText("内容");
         Notification notification = new android.support.v7.app.NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.notification_icon_small)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
-                .setContentIntent(getPendingIntent(context))
                 .setContentTitle("ContentTitle")
                 .setContentText("ContentText")
+                .setContentIntent(getPendingIntent(context))
                 .setTicker(context.getResources().getString(R.string.custom_notification))
                 //                .setAutoCancel(true)
-                .setStyle(bigTextStyle)
                 .setDefaults(Notification.DEFAULT_ALL)
+//                .setStyle(bigTextStyle)
                 .setPriority(Notification.PRIORITY_MAX)
                 .build();
 
