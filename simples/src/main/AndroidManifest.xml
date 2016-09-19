@@ -36,12 +36,14 @@
 
         <service android:name=".polling.alarm.PollingService">
         </service>
-
         <service android:name=".polling.service.RequestService">
         </service>
 
         <receiver android:name=".polling.alarm.AlarmReceiver">
         </receiver>
+
+        <activity android:name=".recyclerview.RecyclerViewActivity">
+        </activity>
     </application>
 
 </manifest>

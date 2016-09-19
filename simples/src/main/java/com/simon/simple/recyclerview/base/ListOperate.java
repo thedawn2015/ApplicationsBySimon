@@ -1,8 +1,9 @@
-package com.simon.simple.recyclerview.adapter;
+package com.simon.simple.recyclerview.base;
 
 import java.util.List;
 
 /**
+ *
  * Created by xw on 2016/8/24.
  */
 public interface ListOperate<ITEM> {
