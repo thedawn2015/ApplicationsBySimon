@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.simon.simple.base.util.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
  */
 public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements ListOperate<ITEM> {
+    public static String TAG = BaseAdapter.class.getSimpleName();
 
     /**
      * 装载了每个Item的Value的列表
@@ -33,13 +36,15 @@ public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LogUtil.i(TAG, "onCreateViewHolder: ");
         return createViewHolder(parent.getContext(), parent);
     }
 
     @SuppressWarnings ("unchecked")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((BaseViewHolder) holder).bindData(mValueList.get(position), position, mOnItemClickListener);
+        LogUtil.i(TAG, "onBindViewHolder: ");
+        ((BaseViewHolder) holder).setData(mValueList.get(position), position, mOnItemClickListener);
     }
 
     public void setmOnItemClickListener(OnItemClickListener<ITEM> mOnItemClickListener) {

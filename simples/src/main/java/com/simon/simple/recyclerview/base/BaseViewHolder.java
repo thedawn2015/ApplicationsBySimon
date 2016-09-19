@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.simon.simple.base.util.LogUtil;
+
 import butterknife.ButterKnife;
 
 /**
@@ -13,11 +15,13 @@ import butterknife.ButterKnife;
  * Created by lypeer on 16-5-27.
  */
 public abstract class BaseViewHolder<ITEM> extends RecyclerView.ViewHolder {
+    public static String TAG = BaseViewHolder.class.getSimpleName();
 
     public BaseViewHolder(Context context, ViewGroup root, int layoutRes) {
         super(LayoutInflater.from(context).inflate(layoutRes, root, false));
         //这里使用了ButterKnife来进行控件的绑定
         ButterKnife.bind(this, itemView);
+        LogUtil.i(TAG, "BaseViewHolder: ");
     }
 
     /**
