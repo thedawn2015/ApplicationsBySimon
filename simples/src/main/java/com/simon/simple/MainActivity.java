@@ -15,6 +15,7 @@ import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.polling.PollingServiceActivity;
+import com.simon.simple.progress.ProgressActivity;
 import com.simon.simple.recyclerview.RecyclerViewActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToDb;
     @BindView (R.id.simple_btn_to_service)
     Button simpleBtnToService;
+    @BindView (R.id.simple_btn_to_progress)
+    Button simpleBtnToProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
             R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation, R.id.simple_btn_to_db,
-            R.id.simple_btn_to_service})
+            R.id.simple_btn_to_service, R.id.simple_btn_to_progress})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -123,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.simple_btn_to_service:
                 PollingServiceActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_progress:
+                ProgressActivity.launch(MainActivity.this);
                 break;
         }
     }

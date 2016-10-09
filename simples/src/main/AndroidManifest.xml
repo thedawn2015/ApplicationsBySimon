@@ -45,6 +45,8 @@
 
         <activity android:name=".recyclerview.RecyclerViewActivity">
         </activity>
+        <activity android:name=".progress.ProgressActivity">
+        </activity>
     </application>
 
 </manifest>

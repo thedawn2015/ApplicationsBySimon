@@ -79,6 +79,12 @@
         android:layout_height="wrap_content"
         android:text="service"/>
 
+    <Button
+        android:id="@+id/simple_btn_to_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="progress"/>
+
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
