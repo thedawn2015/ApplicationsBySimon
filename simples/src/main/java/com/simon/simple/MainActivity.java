@@ -1,11 +1,16 @@
 package com.simon.simple;
 
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.simon.simple.animator.AnimatorActivity;
+import com.simon.simple.base.util.LogUtil;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.notify.NotificationActivity;
@@ -46,6 +51,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        getRunningService(this);
+        getRunningTask(this);
+        getRecentTask(this);
+    }
+
+    private void getRunningService(Context context) {
+        //        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            LogUtil.i(TAG, "getRunningService: processName=" + appProcess.processName);
+            /*if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }*/
+        }
+    }
+
+    private void getRunningTask(Context context) {
+        //        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningTaskInfo running : activityManager.getRunningTasks(100)) {
+            LogUtil.i(TAG, "getRunningTask: running=" + running.baseActivity.getClassName());
+            /*if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }*/
+        }
+    }
+
+    @TargetApi (Build.VERSION_CODES.M)
+    private void getRecentTask(Context context) {
+        //        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.AppTask appTask : activityManager.getAppTasks()) {
+            LogUtil.i(TAG, "getRecentTask: appTask=" + appTask.getTaskInfo().topActivity.getClassName());
+                /*if (appProcess.pid == pid) {
+                    return appProcess.processName;
+                }*/
+        }
     }
 
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
