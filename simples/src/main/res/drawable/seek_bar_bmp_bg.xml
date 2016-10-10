@@ -2,13 +2,22 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@android:id/background"
-        android:drawable="@drawable/bar_defult"/>
+
+        >
+        <scale
+            android:drawable="@drawable/bar_defult"
+            android:scaleGravity="bottom|left"
+            android:scaleHeight="100%"
+            android:scaleWidth="100%"/>
+    </item>
+
 
     <item
-        android:id="@android:id/secondaryProgress"
-        android:drawable="@drawable/bar_defult"/>
-
-    <item
-        android:id="@android:id/progress"
-        android:drawable="@drawable/bar_seeked"/>
+        android:id="@android:id/progress">
+        <scale
+            android:drawable="@drawable/bar_seeked"
+            android:scaleGravity="bottom|left"
+            android:scaleHeight="100%"
+            android:scaleWidth="100%"/>
+    </item>
 </layer-list>
