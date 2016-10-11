@@ -85,6 +85,12 @@
         android:layout_height="wrap_content"
         android:text="progress"/>
 
+    <Button
+        android:id="@+id/simple_btn_to_telephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="telephone"/>
+
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

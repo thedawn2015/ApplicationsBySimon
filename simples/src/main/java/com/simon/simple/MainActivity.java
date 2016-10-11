@@ -17,6 +17,7 @@ import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.polling.PollingServiceActivity;
 import com.simon.simple.progress.ProgressActivity;
 import com.simon.simple.recyclerview.RecyclerViewActivity;
+import com.simon.simple.telephone.TelephoneActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
 
 import butterknife.BindView;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToService;
     @BindView (R.id.simple_btn_to_progress)
     Button simpleBtnToProgress;
+    @BindView (R.id.simple_btn_to_telephone)
+    Button simpleBtnToTelephone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.simple_btn_to_progress:
                 ProgressActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_telephone:
+                TelephoneActivity.launch(MainActivity.this);
                 break;
         }
     }
