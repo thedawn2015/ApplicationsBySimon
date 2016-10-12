@@ -41,7 +41,7 @@ public class TelephoneActivity extends AppCompatActivity {
         LogUtil.i(TAG, "onCreate: userAgent=" + userAgent);
         String phoneInfo = getInfo();
         // Toast.makeText(this, phoneInfo, Toast.LENGTH_LONG).show();
-        textPhoneInfo.setText(phoneInfo);
+        textPhoneInfo.setText(phoneInfo + "\nUser-Agent：" + userAgent);
     }
 
     @NonNull
