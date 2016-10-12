@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        getRunningService(this);
-        getRunningTask(this);
-        getRecentTask(this);
+//        getRunningService(this);
+//        getRunningTask(this);
+//        getRecentTask(this);
     }
 
     private void getRunningService(Context context) {

@@ -27,18 +27,19 @@ public class TelephoneUtil {
         String platformType = "MOBILE";
         String platformName = "|Android";
         String platformVersion = "|" + Build.VERSION.RELEASE;
-        String productVesrion = "|";
+        String productVersion = "|";
         try {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(),
                     PackageManager.GET_CONFIGURATIONS);
-            productVesrion += packInfo.versionName;
+            productVersion += packInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String platformInfo = "|" + Build.MODEL;
+        String platformInfo = "|" + System.getProperty("http.agent");
+        //        String platformInfo = "|" + Build.BRAND + " " + Build.MODEL;
         String size = "|" + getSize((Activity) context);
-        return platformType + platformName + platformVersion + productVesrion + platformInfo + size;
+        return platformType + platformName + platformVersion + "|" + productName + productVersion + platformInfo + size;
     }
 
     private static String getSize(Activity activity) {
