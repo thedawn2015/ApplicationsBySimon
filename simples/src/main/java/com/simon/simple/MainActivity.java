@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
             R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation, R.id.simple_btn_to_db,
-            R.id.simple_btn_to_service, R.id.simple_btn_to_progress})
+            R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
