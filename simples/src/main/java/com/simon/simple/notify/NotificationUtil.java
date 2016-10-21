@@ -42,8 +42,7 @@ public class NotificationUtil {
                 //顶部可以弹出通知
                 .setPriority(Notification.PRIORITY_MAX)
                 .build();
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(
-                Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, notification);
     }
 
@@ -52,9 +51,9 @@ public class NotificationUtil {
      */
     public static void sendBigAlarmNotification(Context context) {
         int notificationID = new Random().nextInt(10000000);
-//        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-//        bigTextStyle.setBigContentTitle("标题");
-//        bigTextStyle.bigText("内容");
+        //        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        //        bigTextStyle.setBigContentTitle("标题");
+        //        bigTextStyle.bigText("内容");
         Notification notification = new android.support.v7.app.NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.notification_icon_small)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
@@ -64,7 +63,7 @@ public class NotificationUtil {
                 .setTicker(context.getResources().getString(R.string.custom_notification))
                 //                .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
-//                .setStyle(bigTextStyle)
+                //                .setStyle(bigTextStyle)
                 .setPriority(Notification.PRIORITY_MAX)
                 .build();
 
@@ -77,6 +76,47 @@ public class NotificationUtil {
      * 发送自定义的通知
      */
     public static void sendCustomNotification(Context context) {
+        int notificationID = new Random().nextInt(10000000);
+        //        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        //        bigTextStyle.setBigContentTitle("标题");
+        //        bigTextStyle.bigText("内容");
+        Notification notification = new NotificationCompat.Builder(context)
+                .setContentIntent(getPendingIntent(context))
+                .setTicker(context.getResources().getString(R.string.custom_notification))
+                .setSmallIcon(R.mipmap.notification_icon_small)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                .setAutoCancel(false)
+                //                .setStyle(bigTextStyle)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .build();
+
+        // Inflate the notification layout as RemoteViews
+        RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
+        // Set text on a TextView in the RemoteViews programmatically.
+        final String time = DateFormat.getTimeInstance().format(new Date()).toString();
+        final String text = context.getResources().getString(R.string.collapsed, time);
+        contentView.setTextViewText(R.id.textView, text);
+        /* Workaround: Need to set the content view here directly on the notification.
+         * NotificationCompatBuilder contains a bug that prevents this from working on platform
+         * versions HoneyComb.
+         * See https://code.google.com/p/android/issues/detail?id=30495
+         */
+        notification.contentView = contentView;
+        if (Build.VERSION.SDK_INT >= 16) {
+            // Inflate and set the layout for the expanded notification view
+            RemoteViews expandedView = new RemoteViews(context.getPackageName(), R.layout.notification_expanded);
+            notification.bigContentView = expandedView;
+        }
+
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //        nm.notify(0, notification);
+        nm.notify(notificationID, notification);
+    }
+
+    /**
+     * XML自定义的通知
+     */
+    public static void sendXMLCustomNotification(Context context) {
         int notificationID = new Random().nextInt(10000000);
         //        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
         //        bigTextStyle.setBigContentTitle("标题");

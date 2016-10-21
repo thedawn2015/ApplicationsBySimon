@@ -13,6 +13,7 @@ import com.simon.simple.animator.AnimatorActivity;
 import com.simon.simple.base.util.LogUtil;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
+import com.simon.simple.keyboard.KeyBoardActivity;
 import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.polling.PollingServiceActivity;
 import com.simon.simple.progress.ProgressActivity;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     Button simpleBtnToProgress;
     @BindView (R.id.simple_btn_to_telephone)
     Button simpleBtnToTelephone;
+    @BindView (R.id.simple_btn_to_key)
+    Button simpleBtnToKeyBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
             R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation, R.id.simple_btn_to_db,
-            R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone})
+            R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone,
+            R.id.simple_btn_to_key})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -135,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.simple_btn_to_telephone:
                 TelephoneActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_key:
+                KeyBoardActivity.launch(MainActivity.this);
                 break;
         }
     }

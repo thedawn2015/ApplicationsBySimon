@@ -49,6 +49,8 @@
         </activity>
         <activity android:name=".telephone.TelephoneActivity">
         </activity>
+        <activity android:name=".keyboard.KeyBoardActivity">
+        </activity>
     </application>
 
 </manifest>

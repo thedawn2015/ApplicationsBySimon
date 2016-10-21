@@ -1,101 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.simon.simple.MainActivity">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <!--软键盘显示搜索按钮 -->
-    <EditText
-        android:id="@+id/edit_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:visibility="gone"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/simple_btn_to_draw"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Draw"/>
+        <!--软键盘显示搜索按钮 -->
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_animator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Animator"/>
-    <Button
-        android:id="@+id/simple_btn_to_notifycation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Notification"/>
+        <Button
+            android:id="@+id/simple_btn_to_draw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Draw"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Titlebar"/>
+        <Button
+            android:id="@+id/simple_btn_to_animator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Animator"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="RecyclerView"/>
+        <Button
+            android:id="@+id/simple_btn_to_notifycation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_retrofit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Retrofit"/>
+        <Button
+            android:id="@+id/simple_btn_to_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Titlebar"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_rx"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rx"/>
+        <Button
+            android:id="@+id/simple_btn_to_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RecyclerView"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_download"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="download"/>
+        <Button
+            android:id="@+id/simple_btn_to_retrofit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retrofit"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_db"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="db"/>
+        <Button
+            android:id="@+id/simple_btn_to_rx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rx"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_service"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="service"/>
+        <Button
+            android:id="@+id/simple_btn_to_download"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="download"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="progress"/>
+        <Button
+            android:id="@+id/simple_btn_to_db"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="db"/>
 
-    <Button
-        android:id="@+id/simple_btn_to_telephone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="telephone"/>
+        <Button
+            android:id="@+id/simple_btn_to_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="service"/>
 
-    <android.support.v7.widget.SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone">
+        <Button
+            android:id="@+id/simple_btn_to_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="progress"/>
 
-    </android.support.v7.widget.SearchView>
-</LinearLayout>
+        <Button
+            android:id="@+id/simple_btn_to_telephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="telephone"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="keyboard"/>
+
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone">
+
+        </android.support.v7.widget.SearchView>
+    </LinearLayout>
+</ScrollView>
