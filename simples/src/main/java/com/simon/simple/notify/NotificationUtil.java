@@ -86,10 +86,10 @@ public class NotificationUtil {
                 .setSmallIcon(R.mipmap.notification_icon_small)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setAutoCancel(false)
+
                 //                .setStyle(bigTextStyle)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
-
         // Inflate the notification layout as RemoteViews
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
         // Set text on a TextView in the RemoteViews programmatically.
@@ -118,9 +118,9 @@ public class NotificationUtil {
      */
     public static void sendXMLCustomNotification(Context context) {
         int notificationID = new Random().nextInt(10000000);
-        //        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-        //        bigTextStyle.setBigContentTitle("标题");
-        //        bigTextStyle.bigText("内容");
+
+//        RemoteViews contenView = new RemoteViews(context.getPackageName(),R.layout);
+
         Notification notification = new NotificationCompat.Builder(context)
                 .setContentIntent(getPendingIntent(context))
                 .setTicker(context.getResources().getString(R.string.custom_notification))
@@ -129,6 +129,7 @@ public class NotificationUtil {
                 .setAutoCancel(false)
                 //                .setStyle(bigTextStyle)
                 .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(Notification.PRIORITY_MAX)
                 .build();
 
         // Inflate the notification layout as RemoteViews

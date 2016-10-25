@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.simon.simple.animator.AnimatorActivity;
 import com.simon.simple.base.util.LogUtil;
 import com.simon.simple.db.DBActivity;
@@ -61,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        getRunningService(this);
-//        getRunningTask(this);
-//        getRecentTask(this);
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
+
+        //        getRunningService(this);
+        //        getRunningTask(this);
+        //        getRecentTask(this);
     }
 
     private void getRunningService(Context context) {
