@@ -12,7 +12,7 @@ android {
         versionName "1.0"
 
         // 默认渠道
-//        manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: "official"]
+        manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: "official"]
     }
     buildTypes {
         release {
