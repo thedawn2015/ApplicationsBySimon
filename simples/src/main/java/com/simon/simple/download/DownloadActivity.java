@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.simon.simple.R;
+import com.simon.base.util.BaseActivity;
 import com.simon.base.util.LogUtil;
+import com.simon.simple.R;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DownloadActivity extends AppCompatActivity {
+public class DownloadActivity extends BaseActivity {
     public static String TAG = DownloadActivity.class.getSimpleName();
 
     private static String FILE_NAME;

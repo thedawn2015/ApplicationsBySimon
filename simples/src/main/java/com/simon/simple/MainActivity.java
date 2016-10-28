@@ -5,12 +5,12 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.simon.base.util.BaseActivity;
 import com.simon.base.util.LogUtil;
 import com.simon.simple.animator.AnimatorActivity;
 import com.simon.simple.db.DBActivity;
@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     public static String TAG = MainActivity.class.getSimpleName();
 
     @BindView (R.id.simple_btn_to_draw)

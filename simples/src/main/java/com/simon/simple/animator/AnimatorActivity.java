@@ -3,11 +3,11 @@ package com.simon.simple.animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.simon.base.util.BaseActivity;
 import com.simon.base.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.animator.util.AnimatorUtil;
@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AnimatorActivity extends AppCompatActivity {
+public class AnimatorActivity extends BaseActivity {
     public static String TAG = AnimatorActivity.class.getSimpleName();
     @BindView (R.id.animator_button_show)
     Button animatorButtonShow;

@@ -3,11 +3,11 @@ package com.simon.simple.progress;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import com.simon.base.util.BaseActivity;
 import com.simon.simple.R;
 
-public class ProgressActivity extends AppCompatActivity {
+public class ProgressActivity extends BaseActivity {
     public static String TAG = ProgressActivity.class.getSimpleName();
 
     public static void launch(Activity activity) {

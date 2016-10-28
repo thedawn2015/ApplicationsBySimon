@@ -4,18 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.simon.simple.R;
+import com.simon.base.util.BaseActivity;
 import com.simon.base.util.LogUtil;
+import com.simon.simple.R;
 import com.simon.simple.telephone.util.BuildUtil;
 import com.simon.simple.telephone.util.TelephoneUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TelephoneActivity extends AppCompatActivity {
+public class TelephoneActivity extends BaseActivity {
     public static String TAG = TelephoneActivity.class.getSimpleName();
     @BindView (R.id.text_phone_info)
     TextView textPhoneInfo;

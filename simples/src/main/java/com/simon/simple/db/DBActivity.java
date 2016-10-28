@@ -3,12 +3,12 @@ package com.simon.simple.db;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.simon.simple.R;
+import com.simon.base.util.BaseActivity;
 import com.simon.base.util.LogUtil;
+import com.simon.simple.R;
 import com.simon.simple.db.helper.SQLiteHelper;
 import com.simon.simple.db.helper.SQLiteOperator;
 import com.simon.simple.db.model.MyMessage;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class DBActivity extends AppCompatActivity {
+public class DBActivity extends BaseActivity {
     public static String TAG = DBActivity.class.getSimpleName();
 
     @BindView (R.id.db_btn_insert)

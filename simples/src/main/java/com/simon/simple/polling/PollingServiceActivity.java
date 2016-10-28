@@ -3,10 +3,10 @@ package com.simon.simple.polling;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.simon.base.util.BaseActivity;
 import com.simon.simple.R;
 import com.simon.simple.polling.alarm.AlarmReceiver;
 import com.simon.simple.polling.alarm.AlarmUtil;
@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PollingServiceActivity extends AppCompatActivity {
+public class PollingServiceActivity extends BaseActivity {
     public static String TAG = PollingServiceActivity.class.getSimpleName();
     @BindView (R.id.polling_service_btn_service)
     Button pollingServiceBtnService;

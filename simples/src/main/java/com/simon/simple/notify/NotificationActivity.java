@@ -3,17 +3,17 @@ package com.simon.simple.notify;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.simon.base.util.BaseActivity;
 import com.simon.simple.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends BaseActivity {
     public static String TAG = NotificationActivity.class.getSimpleName();
 
     public static final int NOTIFICATION_ID = 1;

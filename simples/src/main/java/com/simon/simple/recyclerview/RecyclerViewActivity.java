@@ -3,12 +3,12 @@ package com.simon.simple.recyclerview;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.simon.simple.R;
+import com.simon.base.util.BaseActivity;
 import com.simon.base.util.ToastUtil;
+import com.simon.simple.R;
 import com.simon.simple.recyclerview.base.OnItemClickListener;
 import com.simon.simple.recyclerview.customer.MyAdapter;
 
@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecyclerViewActivity extends AppCompatActivity {
+public class RecyclerViewActivity extends BaseActivity {
     public static String TAG = RecyclerViewActivity.class.getSimpleName();
     @BindView (R.id.recycler_view_name)
     RecyclerView recyclerViewName;
