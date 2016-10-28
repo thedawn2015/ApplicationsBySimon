@@ -22,6 +22,8 @@ import com.simon.simple.progress.ProgressActivity;
 import com.simon.simple.recyclerview.RecyclerViewActivity;
 import com.simon.simple.telephone.TelephoneActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
+import com.tencent.stat.MtaSDkException;
+import com.tencent.stat.StatService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +67,11 @@ public class MainActivity extends BaseActivity {
 
         PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
 
+        try {
+            StatService.startStatService(this, "A6WA4JVMD33X", com.tencent.stat.common.StatConstants.VERSION);
+        } catch (MtaSDkException e) {
+            e.printStackTrace();
+        }
         //        getRunningService(this);
         //        getRunningTask(this);
         //        getRecentTask(this);

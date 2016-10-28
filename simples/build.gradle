@@ -10,12 +10,33 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        // 默认渠道
+//        manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: "official"]
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    productFlavors {
+//        unspecified {}
+        official {} // for official.
+//        xiaomi {}
+//        _360 {}
+//        baidu {}
+//        wandoujia {}
+//        meizu {}
+//        huawei {}
+//        lenovo {}
+//        tencent {}
+//        anzhi {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: name]
     }
 }
 
