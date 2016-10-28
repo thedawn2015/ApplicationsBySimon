@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simon.simple.R;
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

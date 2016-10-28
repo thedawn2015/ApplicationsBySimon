@@ -6,8 +6,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.simon.simple.base.util.LogUtil;
-import com.simon.simple.base.util.ToastUtil;
+import com.simon.base.util.LogUtil;
+import com.simon.base.util.ToastUtil;
 
 /**
  * Created by xw on 2016/9/28.

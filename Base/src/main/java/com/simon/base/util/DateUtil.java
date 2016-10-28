@@ -1,4 +1,4 @@
-package com.simon.simple.base.util;
+package com.simon.base.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 
 /**
  * Alarm Receiver

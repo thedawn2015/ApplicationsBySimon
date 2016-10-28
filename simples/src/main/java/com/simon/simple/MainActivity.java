@@ -11,8 +11,8 @@ import android.widget.Button;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.simon.base.util.LogUtil;
 import com.simon.simple.animator.AnimatorActivity;
-import com.simon.simple.base.util.LogUtil;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.keyboard.KeyBoardActivity;

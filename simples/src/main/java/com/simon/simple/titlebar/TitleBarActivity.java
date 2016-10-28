@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.simon.simple.R;
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 import com.simon.simple.titlebar.fragment.CenterFragment;
 import com.simon.simple.titlebar.fragment.LeftFragment;
 import com.simon.simple.titlebar.fragment.RightFragment;

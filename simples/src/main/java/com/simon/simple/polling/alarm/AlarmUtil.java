@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 
 /**
  * 闹钟 工具类

@@ -3,7 +3,7 @@ package com.simon.simple.download;
 import android.content.Context;
 import android.os.Environment;
 
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;

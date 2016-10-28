@@ -1,1 +1,1 @@
-include ':app', ':drawview', ':cardsgame', ':simplerecyclerview', ':simpleanimator', ':simpleretrofit', ':simples', ':base'
+include ':app', ':drawview', ':cardsgame', ':simplerecyclerview', ':simpleanimator', ':simpleretrofit', ':simples', ':Base'

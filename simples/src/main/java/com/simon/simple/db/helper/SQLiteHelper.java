@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 import com.simon.simple.db.constant.DBConstant;
 
 /**

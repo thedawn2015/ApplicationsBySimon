@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.simon.simple.R;
-import com.simon.simple.base.util.ToastUtil;
+import com.simon.base.util.ToastUtil;
 import com.simon.simple.recyclerview.base.OnItemClickListener;
 import com.simon.simple.recyclerview.customer.MyAdapter;
 

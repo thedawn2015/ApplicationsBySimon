@@ -1,4 +1,4 @@
-package com.simon.simple.base.constant;
+package com.simon.base.constant;
 
 /**
  * Created by xw on 2016/8/25.

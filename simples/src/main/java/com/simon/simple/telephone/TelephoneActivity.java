@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.simon.simple.R;
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 import com.simon.simple.telephone.util.BuildUtil;
 import com.simon.simple.telephone.util.TelephoneUtil;
 

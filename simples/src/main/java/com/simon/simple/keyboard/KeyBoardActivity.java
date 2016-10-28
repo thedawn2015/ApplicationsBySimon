@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.simon.base.util.KeyBoardUtil;
 import com.simon.simple.R;
-import com.simon.simple.base.util.KeyboardUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,10 +42,10 @@ public class KeyBoardActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.key_button_show:
-                KeyboardUtil.openKeybord(keyEdit, getApplicationContext());
+                KeyBoardUtil.openKeybord(keyEdit, getApplicationContext());
                 break;
             case R.id.key_button_hide:
-                KeyboardUtil.closeKeybord(keyEdit, getApplicationContext());
+                KeyBoardUtil.closeKeybord(keyEdit, getApplicationContext());
                 break;
         }
     }

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simon.simple.R;
-import com.simon.simple.base.util.LogUtil;
+import com.simon.base.util.LogUtil;
 
 import java.io.File;
 import java.text.DecimalFormat;

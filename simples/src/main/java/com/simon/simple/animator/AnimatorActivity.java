@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.simon.base.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.animator.util.AnimatorUtil;
-import com.simon.simple.base.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.simon.simple.base.util;
+package com.simon.base.util;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
