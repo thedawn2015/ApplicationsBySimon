@@ -51,7 +51,10 @@ buildscript {
     }
 }
 
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+//apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
     compile 'com.android.support:support-v4:24.0.0'
@@ -76,5 +79,7 @@ dependencies {
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
     compile project(':Base')
 
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+//    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+//    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 }
