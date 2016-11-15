@@ -3,11 +3,11 @@ package com.simon.simple.titlebar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
-import com.simon.simple.R;
+import com.simon.baseandroid.util.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
+import com.simon.simple.R;
 import com.simon.simple.titlebar.fragment.CenterFragment;
 import com.simon.simple.titlebar.fragment.LeftFragment;
 import com.simon.simple.titlebar.fragment.RightFragment;
@@ -15,7 +15,7 @@ import com.simon.simple.titlebar.viewContainer.TitleBarOneContainer;
 import com.simon.simple.titlebar.viewContainer.TitleBarThreeContainer;
 import com.simon.simple.titlebar.viewContainer.TitleBarTwoContainer;
 
-public class TitleBarActivity extends AppCompatActivity {
+public class TitleBarActivity extends BaseActivity {
     public static String TAG = TitleBarActivity.class.getSimpleName();
 
     TitleBarOneContainer titlebarOneContainer;
