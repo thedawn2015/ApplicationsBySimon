@@ -194,6 +194,8 @@
             android:label="@string/title_activity_tab"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+        <activity android:name=".async.AsyncActivity">
+        </activity>
     </application>
 
 </manifest>

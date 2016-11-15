@@ -13,6 +13,7 @@ import com.baidu.android.pushservice.PushManager;
 import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.animator.AnimatorActivity;
+import com.simon.simple.async.AsyncActivity;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.keyboard.KeyBoardActivity;
@@ -77,6 +78,8 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToSetting;
     @BindView (R.id.simple_btn_to_tab)
     Button simpleBtnToTab;
+    @BindView (R.id.simple_btn_to_async)
+    Button simpleBtnToAsync;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +139,7 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone,
             R.id.simple_btn_to_key, R.id.simple_btn_to_fullscreen, R.id.simple_btn_to_login,
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
-            R.id.simple_btn_to_tab})
+            R.id.simple_btn_to_tab, R.id.simple_btn_to_async})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -192,6 +195,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.simple_btn_to_tab:
                 TabActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_async:
+                AsyncActivity.launch(MainActivity.this);
                 break;
         }
     }
