@@ -1,4 +1,4 @@
-package com.simon.base.util;
+package com.simon.baseandroid.util;
 
 import android.os.Environment;
 import android.os.StatFs;

@@ -1,4 +1,4 @@
-package com.simon.base.util;
+package com.simon.baseandroid.util;
 
 import android.app.Activity;
 import android.content.Context;

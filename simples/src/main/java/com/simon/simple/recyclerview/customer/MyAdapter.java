@@ -3,7 +3,7 @@ package com.simon.simple.recyclerview.customer;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.recyclerview.base.BaseAdapter;
 import com.simon.simple.recyclerview.base.BaseViewHolder;
 

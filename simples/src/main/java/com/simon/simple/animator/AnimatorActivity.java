@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.simon.base.util.BaseActivity;
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.animator.util.AnimatorUtil;
 

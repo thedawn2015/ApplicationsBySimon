@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simon.simple.R;
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.recyclerview.base.BaseViewHolder;
 import com.simon.simple.recyclerview.base.OnItemClickListener;
 

@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.simon.base.util.BaseActivity;
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.R;
 
 import java.io.File;

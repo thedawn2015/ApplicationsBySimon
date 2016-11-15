@@ -3,7 +3,7 @@ package com.simon.simple.db.helper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.db.constant.DBConstant;
 
 import java.util.ArrayList;

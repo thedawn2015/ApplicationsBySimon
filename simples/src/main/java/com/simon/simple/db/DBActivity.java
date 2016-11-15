@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.simon.base.util.BaseActivity;
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.db.helper.SQLiteHelper;
 import com.simon.simple.db.helper.SQLiteOperator;

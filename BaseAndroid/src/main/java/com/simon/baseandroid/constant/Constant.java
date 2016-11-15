@@ -1,4 +1,4 @@
-package com.simon.base.constant;
+package com.simon.baseandroid.constant;
 
 /**
  * Created by xw on 2016/8/25.

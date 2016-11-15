@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.simon.base.util.BaseActivity;
+import com.simon.baseandroid.util.BaseActivity;
 import com.simon.simple.R;
 
 import butterknife.BindView;

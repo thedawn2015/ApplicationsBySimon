@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.simon.base.util.LogUtil;
-
 /**
  * Alarm Receiver
  * Created by xw on 2016/9/14.

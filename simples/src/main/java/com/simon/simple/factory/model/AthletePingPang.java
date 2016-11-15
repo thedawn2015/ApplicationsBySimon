@@ -2,7 +2,7 @@ package com.simon.simple.factory.model;
 
 import android.content.Context;
 
-import com.simon.base.util.GsonUtil;
+import com.simon.baseandroid.util.GsonUtil;
 
 /**
  * 乒乓球运动员

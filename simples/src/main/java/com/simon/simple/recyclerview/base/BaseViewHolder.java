@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.simon.base.util.LogUtil;
+import com.simon.baseandroid.util.LogUtil;
 
 import butterknife.ButterKnife;
 

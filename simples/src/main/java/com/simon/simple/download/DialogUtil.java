@@ -5,8 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.simon.base.util.NetUtil;
-import com.simon.base.util.ToastUtil;
+import com.simon.baseandroid.util.NetUtil;
+import com.simon.baseandroid.util.ToastUtil;
 
 /**
  * 对话框的工具类

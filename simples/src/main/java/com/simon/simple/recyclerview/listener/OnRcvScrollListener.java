@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.simon.base.constant.Constant;
+import com.simon.baseandroid.constant.Constant;
 
 /**
  * @author Jack Tony
