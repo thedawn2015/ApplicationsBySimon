@@ -11,13 +11,13 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Base" />
             <option value="$PROJECT_DIR$/BaseAndroid" />
+            <option value="$PROJECT_DIR$/Simples" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/cardsgame" />
             <option value="$PROJECT_DIR$/drawview" />
             <option value="$PROJECT_DIR$/simpleanimator" />
             <option value="$PROJECT_DIR$/simplerecyclerview" />
             <option value="$PROJECT_DIR$/simpleretrofit" />
-            <option value="$PROJECT_DIR$/simples" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

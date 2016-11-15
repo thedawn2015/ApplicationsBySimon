@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.titlebar.fragment.CenterFragment;

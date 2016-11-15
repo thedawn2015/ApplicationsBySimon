@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.ToastUtil;
 import com.simon.simple.R;
 import com.simon.simple.recyclerview.base.OnItemClickListener;

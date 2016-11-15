@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.TextView;
 
-import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.telephone.util.BuildUtil;

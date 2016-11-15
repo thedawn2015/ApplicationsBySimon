@@ -10,12 +10,18 @@ import android.widget.Button;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
-import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.animator.AnimatorActivity;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.keyboard.KeyBoardActivity;
+import com.simon.simple.nati.FullscreenActivity;
+import com.simon.simple.nati.LoginActivity;
+import com.simon.simple.nati.NavigationActivity;
+import com.simon.simple.nati.ScrollingActivity;
+import com.simon.simple.nati.SettingsActivity;
+import com.simon.simple.nati.TabActivity;
 import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.polling.PollingServiceActivity;
 import com.simon.simple.progress.ProgressActivity;
@@ -24,6 +30,7 @@ import com.simon.simple.telephone.TelephoneActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
 import com.tencent.stat.MtaSDkException;
 import com.tencent.stat.StatService;
+import com.tencent.stat.common.StatConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +65,18 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToTelephone;
     @BindView (R.id.simple_btn_to_key)
     Button simpleBtnToKeyBoard;
+    @BindView (R.id.simple_btn_to_fullscreen)
+    Button simpleBtnToFullscreen;
+    @BindView (R.id.simple_btn_to_login)
+    Button simpleBtnToLogin;
+    @BindView (R.id.simple_btn_to_navigation)
+    Button simpleBtnToNavigation;
+    @BindView (R.id.simple_btn_to_scrolling)
+    Button simpleBtnToScrolling;
+    @BindView (R.id.simple_btn_to_setting)
+    Button simpleBtnToSetting;
+    @BindView (R.id.simple_btn_to_tab)
+    Button simpleBtnToTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +87,7 @@ public class MainActivity extends BaseActivity {
         PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
 
         try {
-            StatService.startStatService(this, "A6WA4JVMD33X", com.tencent.stat.common.StatConstants.VERSION);
+            StatService.startStatService(this, "A6WA4JVMD33X", StatConstants.VERSION);
         } catch (MtaSDkException e) {
             e.printStackTrace();
         }
@@ -115,7 +134,9 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
             R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation, R.id.simple_btn_to_db,
             R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone,
-            R.id.simple_btn_to_key})
+            R.id.simple_btn_to_key, R.id.simple_btn_to_fullscreen, R.id.simple_btn_to_login,
+            R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
+            R.id.simple_btn_to_tab})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -153,6 +174,24 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.simple_btn_to_key:
                 KeyBoardActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_fullscreen:
+                FullscreenActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_login:
+                LoginActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_navigation:
+                NavigationActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_scrolling:
+                ScrollingActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_setting:
+                SettingsActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_tab:
+                TabActivity.launch(MainActivity.this);
                 break;
         }
     }

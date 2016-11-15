@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.simon.baseandroid.util.BaseActivity;
+import com.simon.baseandroid.BaseActivity;
 import com.simon.simple.R;
 import com.simon.simple.polling.alarm.AlarmReceiver;
 import com.simon.simple.polling.alarm.AlarmUtil;

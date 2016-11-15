@@ -13,6 +13,7 @@ android {
 
         // 默认渠道
         manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: "official"]
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -58,10 +59,12 @@ apply plugin: 'com.jakewharton.butterknife'
 dependencies {
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:appcompat-v7:24.0.0'
-
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:support-vector-drawable:24.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
     compile project(':BaseAndroid')
 
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 }
+

@@ -101,6 +101,42 @@
             android:layout_height="wrap_content"
             android:text="keyboard"/>
 
+        <Button
+            android:id="@+id/simple_btn_to_fullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="fullscreen"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="login"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="navigation"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_scrolling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="scrolling"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="setting"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tab"/>
+
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

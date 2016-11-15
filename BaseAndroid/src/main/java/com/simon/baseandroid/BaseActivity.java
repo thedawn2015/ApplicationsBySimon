@@ -1,4 +1,4 @@
-package com.simon.baseandroid.util;
+package com.simon.baseandroid;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

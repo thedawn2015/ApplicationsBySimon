@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MultiProgress">
-        <attr name="nodesNum" format="integer"/> <!-- 节点数量 -->  
-        <attr name="nodeRadius" format="dimension"/>  
-        <attr name="progressingDrawable" format="reference"></attr>  
-        <attr name="unprogressingDrawable" format="reference" />  <!-- 未完成的节点图标 -->
-        <attr name="progresFailDrawable" format="reference" />    
-        <attr name="progresSuccDrawable" format="reference" /> 
-              
+        <attr name="nodesNum" format="integer"/> <!-- 节点数量 -->
+        <attr name="nodeRadius" format="dimension"/>
+        <attr name="progressingDrawable" format="reference"></attr>
+        <attr name="unprogressingDrawable" format="reference"/>  <!-- 未完成的节点图标 -->
+        <attr name="progresFailDrawable" format="reference"/>
+        <attr name="progresSuccDrawable" format="reference"/>
+
         <attr name="processingLineColor" format="color"></attr>
-        <attr name="currNodeNO" format="integer"></attr>   <!-- 当前所到达的节点编号  0开始计算--> 
-        <attr name="currNodeState" format="integer"></attr>   <!-- 当前所到达的节点状态，0：失败  1：成功 --> 
-    </declare-styleable>  
+        <attr name="currNodeNO" format="integer"></attr>   <!-- 当前所到达的节点编号  0开始计算-->
+        <attr name="currNodeState" format="integer"></attr>   <!-- 当前所到达的节点状态，0：失败  1：成功 -->
+    </declare-styleable>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference"/>
+        <attr name="metaButtonBarButtonStyle" format="reference"/>
+    </declare-styleable>
 </resources>
