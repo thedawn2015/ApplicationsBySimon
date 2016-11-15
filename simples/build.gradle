@@ -22,7 +22,6 @@ android {
     }
 
     productFlavors {
-//        unspecified {}
         official {} // for official.
 //        xiaomi {}
 //        _360 {}
@@ -60,9 +59,6 @@ dependencies {
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:appcompat-v7:24.0.0'
 
-//    apt 'com.jakewharton:butterknife-compiler:8.0.1'
-//    compile 'com.jakewharton:butterknife:8.0.1'
-
     //retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
@@ -77,9 +73,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.0.0'
     compile 'io.realm:realm-android:0.87.5'
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
-    compile project(':Base')
+    compile project(':BaseAndroid')
 
-//    apt 'com.jakewharton:butterknife-compiler:8.0.1'
-//    compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 }
