@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/saddlebrown"
+    android:minHeight="?attr/actionBarSize"
+    toolbar:navigationIcon="@mipmap/icon_back"
+    toolbar:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+    toolbar:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    tools:showIn="@layout/activity_toolbar">
+    <!--自定义控件-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:background="@drawable/border_6dp_white"
+        android:visibility="visible">
+
+        <RadioGroup
+            android:id="@+id/titlebar_two_rg_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/titlebar_two_rb_left"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/titlebar_two_rb_left"
+                android:layout_width="100dp"
+                android:layout_height="33dp"
+                android:background="@drawable/title_radio_left_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="左边标题"
+                android:textColor="@drawable/title_text_color_selector"
+                android:textSize="16dp"/>
+
+            <RadioButton
+                android:id="@+id/titlebar_two_rb_right"
+                android:layout_width="100dp"
+                android:layout_height="33dp"
+                android:background="@drawable/title_radio_right_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="右边标题"
+                android:textColor="@drawable/title_text_color_selector"
+                android:textSize="16dp"/>
+        </RadioGroup>
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import com.tencent.stat.StatService;
 
@@ -15,7 +16,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
     @Override

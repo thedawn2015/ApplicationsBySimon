@@ -1,6 +1,10 @@
 <resources>
     <!-- Activity themes -->
-    <style name="Theme.Base" parent="Theme.AppCompat.Light.DarkActionBar"/>
+    <style name="Theme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/material_blue_500</item>
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
+        <item name="colorAccent">@color/material_green_A200</item>
+    </style>
 
     <style name="Theme.Sample" parent="Theme.Base"/>
 
@@ -40,5 +44,22 @@
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!--Toolbar-->
+    <style name="Theme.ToolBar.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColorPrimary">@color/color_red</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/color_red</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base.Subtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_43d28d</item>
+    </style>
+
 
 </resources>

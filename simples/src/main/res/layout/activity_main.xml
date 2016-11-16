@@ -143,6 +143,12 @@
             android:layout_height="wrap_content"
             android:text="async"/>
 
+        <Button
+            android:id="@+id/simple_btn_to_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="toolbar"/>
+
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
