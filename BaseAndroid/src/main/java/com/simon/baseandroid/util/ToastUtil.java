@@ -9,7 +9,7 @@ import android.widget.Toast;
  */
 public class ToastUtil {
 
-    public static boolean isShow = true;
+    private static boolean isShow = true;
 
     private ToastUtil() {
         /* cannot be instantiated */

@@ -198,6 +198,8 @@
         </activity>
         <activity android:name=".toolbar.ToolbarActivity">
         </activity>
+        <activity android:name=".dialog.DialogActivity">
+        </activity>
     </application>
 
 </manifest>
