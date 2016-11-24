@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.simon.baseandroid.BaseActivity;
 import com.simon.simple.R;
@@ -22,6 +23,8 @@ public class DialogActivity extends BaseActivity {
     Button customerBtnDialog;
     @BindView (R.id.customer_btn_popup)
     Button customerBtnPopup;
+    @BindView (R.id.dialog_linear)
+    LinearLayout dialogLinear;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, DialogActivity.class);
@@ -45,6 +48,7 @@ public class DialogActivity extends BaseActivity {
                 DialogUtil.showCustomerDialog(DialogActivity.this);
                 break;
             case R.id.customer_btn_popup:
+                DialogUtil.showUnbindPopupWindow(DialogActivity.this, customerBtnPopup);
                 break;
         }
     }

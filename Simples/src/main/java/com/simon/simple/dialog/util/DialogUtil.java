@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.simon.baseandroid.util.ToastUtil;
 import com.simon.simple.R;
@@ -60,19 +61,20 @@ public class DialogUtil {
         LayoutInflater inflater = LayoutInflater.from(context);
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_customer_dialog, null);
 
-        Dialog dialog = new AlertDialog.Builder(context).create();
+        final Dialog dialog = new AlertDialog.Builder(context).create();
         dialog.setCancelable(false);
         dialog.show();
 
         Window dialogWindow = dialog.getWindow();
+
         WindowManager windowManager = ((Activity) context).getWindowManager();
-        WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
         Display display = windowManager.getDefaultDisplay(); // 获取屏幕宽、高用
+
+        WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
         layoutParams.width = (int) (display.getWidth() * 0.9);
         layoutParams.height = (int) (display.getHeight() * 0.4);
         dialogWindow.setAttributes(layoutParams);
 
-        //        dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
         dialogWindow.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
         dialogWindow.setContentView(layout);
 
@@ -88,6 +90,7 @@ public class DialogUtil {
             @Override
             public void onClick(View view) {
                 ToastUtil.showShort(context, "点击了确认按钮");
+                dialog.dismiss();
             }
         });
 
@@ -97,5 +100,52 @@ public class DialogUtil {
                 .setView(R.layout.fragment_customer_dialog)
                 .create()
                 .show();*/
+    }
+
+    /**
+     * popupWindow
+     *
+     * @param context
+     * @param parent
+     */
+    public static void showUnbindPopupWindow(final Context context, View parent) {
+        View view = LayoutInflater.from(context).inflate(R.layout.fragment_unbind, null);
+
+        final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+
+        popupWindow.setContentView(view);
+        //        Window dialogWindow = popupWindow.getWindow();
+
+        //设置宽高
+        WindowManager windowManager = ((Activity) context).getWindowManager();
+        Display display = windowManager.getDefaultDisplay(); // 获取屏幕宽、高用
+
+        int totalHeight = display.getHeight();
+
+        int windowHeight = popupWindow.getHeight();
+
+        popupWindow.setWidth((int) (display.getWidth() * 0.95));
+
+        WindowManager.LayoutParams layoutParams = ((Activity) context).getWindow().getAttributes();
+        layoutParams.alpha = 0.5f;
+        ((Activity) context).getWindow().setAttributes(layoutParams);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams layoutParams = ((Activity) context).getWindow().getAttributes();
+                layoutParams.alpha = 1f;
+                ((Activity) context).getWindow().setAttributes(layoutParams);
+            }
+        });
+        //显示位置
+        popupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, 100);
+        //        popupWindow.showAtLocation();
+        //        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        //                popupWindow.showAsDropDown(parent);
     }
 }
