@@ -155,6 +155,12 @@
             android:layout_height="wrap_content"
             android:text="dialog"/>
 
+        <Button
+            android:id="@+id/simple_btn_to_webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="webview"/>
+
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

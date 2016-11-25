@@ -200,6 +200,11 @@
         </activity>
         <activity android:name=".dialog.DialogActivity">
         </activity>
+        <activity android:name=".rx.RxActivity">
+        </activity>
+        <activity android:name=".webview.WebViewActivity"
+           android:windowSoftInputMode="stateHidden" >
+        </activity>
     </application>
 
 </manifest>

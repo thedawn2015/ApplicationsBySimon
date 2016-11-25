@@ -8,8 +8,8 @@ android {
         applicationId "com.simon.simple"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "2.0"
 
         // 默认渠道
         manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: "official"]

@@ -8,7 +8,9 @@ import android.util.Log;
  */
 public class LogUtil {
     public static String TAG = LogUtil.class.getSimpleName();
-    public static boolean isDebug = true;// 是否需要打印bug，可以在application的onCreate函数里面初始化
+
+    // 是否需要打印bug，可以在application的onCreate函数里面初始化
+    public static boolean isDebug = true;
 
     private LogUtil() {
         /* cannot be instantiated */

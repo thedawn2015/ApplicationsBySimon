@@ -28,9 +28,11 @@ import com.simon.simple.notify.NotificationActivity;
 import com.simon.simple.polling.PollingServiceActivity;
 import com.simon.simple.progress.ProgressActivity;
 import com.simon.simple.recyclerview.RecyclerViewActivity;
+import com.simon.simple.rx.RxActivity;
 import com.simon.simple.telephone.TelephoneActivity;
 import com.simon.simple.titlebar.TitleBarActivity;
 import com.simon.simple.toolbar.ToolbarActivity;
+import com.simon.simple.webview.WebViewActivity;
 import com.tencent.stat.MtaSDkException;
 import com.tencent.stat.StatService;
 import com.tencent.stat.common.StatConstants;
@@ -86,6 +88,8 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToToolbar;
     @BindView (R.id.simple_btn_to_dialog)
     Button simpleBtnToDialog;
+    @BindView (R.id.simple_btn_to_webview)
+    Button simpleBtnToWebview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +149,8 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone,
             R.id.simple_btn_to_key, R.id.simple_btn_to_fullscreen, R.id.simple_btn_to_login,
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
-            R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog})
+            R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog,
+            R.id.simple_btn_to_webview})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -165,6 +170,7 @@ public class MainActivity extends BaseActivity {
             case R.id.simple_btn_to_retrofit:
                 break;
             case R.id.simple_btn_to_rx:
+                RxActivity.launch(MainActivity.this);
                 break;
             case R.id.simple_btn_to_download:
                 DownloadActivity.launch(MainActivity.this);
@@ -211,6 +217,9 @@ public class MainActivity extends BaseActivity {
             case R.id.simple_btn_to_dialog:
                 DialogActivity.launch(MainActivity.this);
                 break;
+            case R.id.simple_btn_to_webview:
+                WebViewActivity.launch(MainActivity.this, null);
+                break;
         }
     }
 
@@ -219,4 +228,5 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         PushManager.stopWork(getApplicationContext());
     }
+
 }
