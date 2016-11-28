@@ -64,6 +64,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
+    compile project(':Base')
     compile project(':BaseAndroid')
 
 }

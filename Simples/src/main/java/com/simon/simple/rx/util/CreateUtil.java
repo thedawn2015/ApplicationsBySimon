@@ -1,10 +1,17 @@
 package com.simon.simple.rx.util;
 
+import com.simon.base.listener.OnRequestCompletedListener;
 import com.simon.baseandroid.util.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func0;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -15,7 +22,10 @@ import rx.schedulers.Schedulers;
 public class CreateUtil {
     public static String TAG = CreateUtil.class.getSimpleName();
 
-    public static void createMethod() {
+    /**
+     * Observable.create
+     */
+    public static void createMethod(final OnRequestCompletedListener<String> listener) {
         //Observable是被观察者
         /*Observable observable = Observable.create(new Observable.OnSubscribe() {
             @Override
@@ -62,6 +72,8 @@ public class CreateUtil {
                 //订阅的方式，是在主线程还是在子线程中，在这里的意思是call的调用是在主线程还是子线程中
                 .subscribeOn(Schedulers.io())
                 //                .subscribeOn(AndroidSchedulers.mainThread())
+                //观察者，即订阅者的显示，如果要在UI上改变，需要这样写
+                .observeOn(AndroidSchedulers.mainThread())
                 //订阅
                 .subscribe(new Subscriber<String>() {
                     @Override
@@ -72,31 +84,159 @@ public class CreateUtil {
                     @Override
                     public void onError(Throwable e) {
                         LogUtil.i(TAG, "onError: ");
+                        listener.onCompleted(null, "error");
                     }
 
                     @Override
-                    public void onNext(String s) {
-                        LogUtil.i(TAG, "onNext: String=" + s);
+                    public void onNext(String response) {
+                        LogUtil.i(TAG, "onNext: String=" + response);
+                        listener.onCompleted(response, "success");
                     }
                 });
     }
 
+    /**
+     * Observable.just
+     */
+    public static void justMethod(final OnRequestCompletedListener<String> listener) {
+        // 将会依次调用：
+        // onNext("Hello");
+        // onNext("Hi");
+        // onNext("Aloha");
+        // onCompleted();
+        Observable.just("Hello", "Hi", "Aloha")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtil.i(TAG, "justMethod onCompleted: ");
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.i(TAG, "justMethod onError: ");
+                        listener.onCompleted(null, "error");
+                    }
 
-    public static void justMethod() {
-        Observable<String> observable = Observable.just("第一个","第二个","第三个");
-        //        observable.
+                    @Override
+                    public void onNext(String s) {
+                        LogUtil.i(TAG, "justMethod onNext: String=" + s);
+                        listener.onCompleted(s, "success");
+                    }
+                });
     }
 
+    /**
+     * Observable.from
+     * <p>
+     * just(T...) 的例子和 from(T[]) 的例子，都和之前的 create(OnSubscribe) 的例子是等价的。
+     */
+    public static void fromMethod(final OnRequestCompletedListener<String> listener) {
+        // 将会依次调用：
+        // onNext("Hello");
+        // onNext("Hi");
+        // onNext("Aloha");
+        // onCompleted();
+        String[] words = {"Hello", "Hi", "Aloha"};
+        Observable.from(words)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtil.i(TAG, "fromMethod onCompleted: ");
+                    }
 
-    public static void deferMethod() {
-        Observable<Object> observable = Observable.defer(new Func0<Observable<Object>>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.i(TAG, "fromMethod onError: ");
+                        listener.onCompleted(null, "error");
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        LogUtil.i(TAG, "fromMethod onNext: String=" + s);
+                        listener.onCompleted(s, "success");
+                    }
+                });
+    }
+
+    /**
+     * subscribe(new Action1<String>() {})
+     */
+    public static void actionMethod(final OnRequestCompletedListener<String> listener) {
+        String[] words = {"Hello", "Hi", "Aloha"};
+        Observable<String> observable = Observable.from(words);
+
+        Action1<String> onNextAction = new Action1<String>() {
+            // onNext()
             @Override
-            public Observable<Object> call() {
-                return null;
+            public void call(String s) {
+                LogUtil.i(TAG, "actionMethod call next: String = " + s);
+                listener.onCompleted(s, "success");
             }
-        });
-        //        observable.
+        };
+        Action1<Throwable> onErrorAction = new Action1<Throwable>() {
+            // onError()
+            @Override
+            public void call(Throwable throwable) {
+                // Error handling
+                LogUtil.i(TAG, "actionMethod call error: error");
+                listener.onCompleted(null, "error");
+            }
+        };
+        Action0 onCompletedAction = new Action0() {
+            // onCompleted()
+            @Override
+            public void call() {
+                LogUtil.i(TAG, "actionMethod call complete: ");
+            }
+        };
+
+        // 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()
+        observable.subscribe(onNextAction);
+        // 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
+        observable.subscribe(onNextAction, onErrorAction);
+        // 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
+        observable.subscribe(onNextAction, onErrorAction, onCompletedAction);
+    }
+
+    /**
+     * subscribe(new Action1<String>() {})
+     */
+    public static void mapMethod(final OnRequestCompletedListener<Integer> listener) {
+        List<String> list = new ArrayList<>();
+        list.add("first");
+        list.add("second");
+        list.add("third");
+        Observable.from(list)
+                //map是将原数据对象转换为新的数据对象
+                .map(new Func1<String, Integer>() {
+                    @Override
+                    public Integer call(String s) {
+                        int num = 0;
+                        switch (s) {
+                            case "first":
+                                num = 1;
+                                break;
+                            case "second":
+                                num = 2;
+                                break;
+                            case "third":
+                                num = 3;
+                                break;
+                        }
+                        return num;
+                    }
+                })
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer i) {
+                        LogUtil.i(TAG, "action1Method call: i=" + i);
+                        listener.onCompleted(i, "success");
+                    }
+                });
     }
 
 }

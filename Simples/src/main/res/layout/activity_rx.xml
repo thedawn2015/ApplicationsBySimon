@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context="com.simon.simple.rx.RxActivity">
 
+    <TextView
+        android:id="@+id/rx_text_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
     <Button
         android:id="@+id/rx_btn_create"
         android:layout_width="match_parent"
@@ -15,28 +21,28 @@
         android:text="create"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/rx_btn_just"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:text="just"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/rx_btn_from"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:text="from"/>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/rx_btn_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:text="action"/>
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/rx_btn_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:text="map"/>
 
     <Button
         android:id="@+id/button6"

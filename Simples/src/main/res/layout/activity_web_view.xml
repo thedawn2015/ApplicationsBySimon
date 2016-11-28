@@ -11,6 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.simon.simple.webview.WebViewActivity">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/web_view_btn_copy"
         android:layout_width="match_parent"
