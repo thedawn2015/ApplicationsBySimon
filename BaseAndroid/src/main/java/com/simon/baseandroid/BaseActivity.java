@@ -1,11 +1,13 @@
 package com.simon.baseandroid;
 
 import android.app.ProgressDialog;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
+import com.simon.baseandroid.broadcastreceiver.NetConnectChangeReceiver;
 import com.tencent.stat.StatService;
 
 public class BaseActivity extends AppCompatActivity {
@@ -13,10 +15,13 @@ public class BaseActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    private NetConnectChangeReceiver netConnectChangeReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        netConnectChangeReceiver = new NetConnectChangeReceiver();
     }
 
     @Override
@@ -27,6 +32,31 @@ public class BaseActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         StatService.onResume(this);
+
+        registerReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
+
+        unregisterReceiver();
+    }
+
+    /**
+     * 添加监听
+     */
+    private void registerReceiver() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(netConnectChangeReceiver, filter);
+    }
+
+    /**
+     * 取消监听
+     */
+    private void unregisterReceiver() {
+        unregisterReceiver(netConnectChangeReceiver);
     }
 
     /**
@@ -35,11 +65,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param content
      */
     public void showProgress(String content) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-        }
-        progressDialog.setMessage(content);
-        progressDialog.show();
+        showProgress(content, false);
     }
 
     /**
@@ -68,9 +94,4 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        StatService.onPause(this);
-    }
 }
