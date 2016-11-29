@@ -48,6 +48,9 @@ public class BaseActivity extends AppCompatActivity {
      * 添加监听
      */
     private void registerReceiver() {
+        if (netConnectChangeReceiver == null) {
+            netConnectChangeReceiver = new NetConnectChangeReceiver();
+        }
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(netConnectChangeReceiver, filter);
     }
