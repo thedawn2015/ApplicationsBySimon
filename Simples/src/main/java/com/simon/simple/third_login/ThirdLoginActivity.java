@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.simon.baseandroid.listener.BaseUiListener;
+import com.simon.baseandroid.listener.IUserInfoListener;
+import com.simon.baseandroid.model.QQUserInfoModel;
 import com.simon.baseandroid.util.TencentUtil;
 import com.simon.simple.R;
 import com.tencent.tauth.Tencent;
@@ -38,12 +40,11 @@ public class ThirdLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_third_login);
         ButterKnife.bind(this);
 
-        tencent = TencentUtil.getTencent(ThirdLoginActivity.this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener(this, tencent));
+        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener(this, tencent, iUserInfoListener));
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -56,6 +57,16 @@ public class ThirdLoginActivity extends AppCompatActivity {
      * QQ登录
      */
     private void login() {
-        tencent.login(ThirdLoginActivity.this, "all", new BaseUiListener(this, tencent));
+        if (tencent == null) {
+            tencent = TencentUtil.getTencentInstance(ThirdLoginActivity.this);
+        }
+        tencent.login(ThirdLoginActivity.this, "all", new BaseUiListener(this, tencent, iUserInfoListener));
     }
+
+    private IUserInfoListener iUserInfoListener = new IUserInfoListener() {
+        @Override
+        public void onUserInfoResponse(QQUserInfoModel qqUserInfoModel, String msg) {
+
+        }
+    };
 }
