@@ -1,11 +1,14 @@
 package com.simon.baseandroid.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * desc: QQ 登录
  * author: xiao
  * time: 2016/12/1
  */
-public class QQLoginModel {
+public class QQLoginModel implements Parcelable {
 
     /**
      * ret : 0
@@ -21,25 +24,17 @@ public class QQLoginModel {
      * authority_cost : 0
      */
 
-    private int ret;
+    //    private int ret;
     private String openid;
     private String access_token;
-    private String pay_token;
+    //        private String pay_token;
     private int expires_in;
-    private String pf;
-    private String pfkey;
-    private String msg;
-    private int login_cost;
-    private int query_authority_cost;
-    private int authority_cost;
-
-    public int getRet() {
-        return ret;
-    }
-
-    public void setRet(int ret) {
-        this.ret = ret;
-    }
+    //    private String pf;
+    //    private String pfkey;
+    //    private String msg;
+    //    private int login_cost;
+    //    private int query_authority_cost;
+    //    private int authority_cost;
 
     public String getOpenid() {
         return openid;
@@ -57,14 +52,6 @@ public class QQLoginModel {
         this.access_token = access_token;
     }
 
-    public String getPay_token() {
-        return pay_token;
-    }
-
-    public void setPay_token(String pay_token) {
-        this.pay_token = pay_token;
-    }
-
     public int getExpires_in() {
         return expires_in;
     }
@@ -73,51 +60,36 @@ public class QQLoginModel {
         this.expires_in = expires_in;
     }
 
-    public String getPf() {
-        return pf;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setPf(String pf) {
-        this.pf = pf;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.openid);
+        dest.writeString(this.access_token);
+        dest.writeInt(this.expires_in);
     }
 
-    public String getPfkey() {
-        return pfkey;
+    public QQLoginModel() {
     }
 
-    public void setPfkey(String pfkey) {
-        this.pfkey = pfkey;
+    protected QQLoginModel(Parcel in) {
+        this.openid = in.readString();
+        this.access_token = in.readString();
+        this.expires_in = in.readInt();
     }
 
-    public String getMsg() {
-        return msg;
-    }
+    public static final Parcelable.Creator<QQLoginModel> CREATOR = new Parcelable.Creator<QQLoginModel>() {
+        @Override
+        public QQLoginModel createFromParcel(Parcel source) {
+            return new QQLoginModel(source);
+        }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public int getLogin_cost() {
-        return login_cost;
-    }
-
-    public void setLogin_cost(int login_cost) {
-        this.login_cost = login_cost;
-    }
-
-    public int getQuery_authority_cost() {
-        return query_authority_cost;
-    }
-
-    public void setQuery_authority_cost(int query_authority_cost) {
-        this.query_authority_cost = query_authority_cost;
-    }
-
-    public int getAuthority_cost() {
-        return authority_cost;
-    }
-
-    public void setAuthority_cost(int authority_cost) {
-        this.authority_cost = authority_cost;
-    }
+        @Override
+        public QQLoginModel[] newArray(int size) {
+            return new QQLoginModel[size];
+        }
+    };
 }

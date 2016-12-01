@@ -38,12 +38,12 @@ public class ThirdLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_third_login);
         ButterKnife.bind(this);
 
-        tencent = TencentUtil.initTencent(ThirdLoginActivity.this);
+        tencent = TencentUtil.getTencent(ThirdLoginActivity.this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener());
+        Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener(this, tencent));
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -56,6 +56,6 @@ public class ThirdLoginActivity extends AppCompatActivity {
      * QQ登录
      */
     private void login() {
-        tencent.login(ThirdLoginActivity.this, "all", new BaseUiListener());
+        tencent.login(ThirdLoginActivity.this, "all", new BaseUiListener(this, tencent));
     }
 }
