@@ -161,6 +161,12 @@
             android:layout_height="wrap_content"
             android:text="webview"/>
 
+        <Button
+            android:id="@+id/simple_btn_to_third_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="thirdlogin"/>
+
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

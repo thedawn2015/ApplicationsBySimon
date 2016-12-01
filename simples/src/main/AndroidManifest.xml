@@ -202,8 +202,11 @@
         </activity>
         <activity android:name=".rx.RxActivity">
         </activity>
-        <activity android:name=".webview.WebViewActivity"
-           android:windowSoftInputMode="stateHidden" >
+        <activity
+            android:name=".webview.WebViewActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity android:name=".third_login.ThirdLoginActivity">
         </activity>
     </application>
 

@@ -1,1 +1,1 @@
-include ':app', ':drawview', ':cardsgame', ':simplerecyclerview', ':simpleanimator', ':simpleretrofit', ':Simples', ':BaseAndroid', ':Base'
+include ':cardsgame', ':Simples', ':BaseAndroid', ':Base', ':Constant'
