@@ -40,15 +40,15 @@ public class FileActivity extends BaseActivity {
     @OnClick (R.id.file_btn_get_sd)
     public void onClick() {
         String all = "";
-        all += "SDCARD getExternalStorageDirectory：\n" + DirectoryUtil.getSDCardPath() + "\n\n";
+        all += "SDCard getExternalStorageDirectory：\n" + DirectoryUtil.getSDCardPath() + "\n\n";
         all += "Cache getDownloadCacheDirectory：\n" + DirectoryUtil.getEnDownloadCachePath() + "\n\n";
         all += "Data getDataDirectory：\n" + DirectoryUtil.getDataPath() + "\n\n";
         all += "Root getRootDirectory：\n" + DirectoryUtil.getRootDirectoryPath() + "\n\n";
 
         all += "App Cache getCacheDir：\n" + DirectoryUtil.getCachePath(FileActivity.this) + "\n\n";
-        all += "App ExCache getExternalCacheDir：\n" + DirectoryUtil.getExCachePath(FileActivity.this) + "\n\n";
-        all += "App Picture ExCache getExternalFilesDir：\n" + DirectoryUtil.getExPictureCachePath(FileActivity.this) + "\n\n";
-        all += "App Download ExCache getExternalFilesDir：\n" + DirectoryUtil.getExDownloadCachePath(FileActivity.this) + "\n\n";
+        all += "App Cache getExternalCacheDir：\n" + DirectoryUtil.getExCachePath(FileActivity.this) + "\n\n";
+        all += "App Picture Cache getExternalFilesDir：\n" + DirectoryUtil.getExPictureCachePath(FileActivity.this) + "\n\n";
+        all += "App Download Cache getExternalFilesDir：\n" + DirectoryUtil.getExDownloadCachePath(FileActivity.this) + "\n\n";
         fileTextCachePath.setText(all);
     }
 }
