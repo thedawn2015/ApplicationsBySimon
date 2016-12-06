@@ -167,6 +167,12 @@
             android:layout_height="wrap_content"
             android:text="thirdlogin"/>
 
+        <Button
+            android:id="@+id/simple_btn_to_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="file"/>
+
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

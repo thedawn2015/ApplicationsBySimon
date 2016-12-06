@@ -17,6 +17,7 @@ import com.simon.simple.async.AsyncActivity;
 import com.simon.simple.db.DBActivity;
 import com.simon.simple.dialog.DialogActivity;
 import com.simon.simple.download.DownloadActivity;
+import com.simon.simple.file.FileActivity;
 import com.simon.simple.keyboard.KeyBoardActivity;
 import com.simon.simple.nati.FullscreenActivity;
 import com.simon.simple.nati.LoginActivity;
@@ -93,6 +94,8 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToWebview;
     @BindView (R.id.simple_btn_to_third_login)
     Button simpleBtnToThirdLogin;
+    @BindView (R.id.simple_btn_to_file)
+    Button simpleBtnToFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +156,7 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_key, R.id.simple_btn_to_fullscreen, R.id.simple_btn_to_login,
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
             R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog,
-            R.id.simple_btn_to_webview,R.id.simple_btn_to_third_login})
+            R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -225,6 +228,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.simple_btn_to_third_login:
                 ThirdLoginActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_file:
+                FileActivity.launch(MainActivity.this);
                 break;
         }
     }

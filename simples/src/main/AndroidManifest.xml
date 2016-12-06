@@ -208,6 +208,8 @@
         </activity>
         <activity android:name=".third_login.ThirdLoginActivity">
         </activity>
+        <activity android:name=".file.FileActivity">
+        </activity>
     </application>
 
 </manifest>
