@@ -9,10 +9,16 @@ import java.io.File;
  */
 public class FileUtil {
 
+    /**
+     * 创建
+     *
+     * @param path
+     * @return
+     */
     public static boolean createFilePath(String path) {
         try {
             File filePath = new File(path);
-            if (!filePath.exists()) {
+            if (!filePath.exists() || !filePath.isDirectory()) {
                 return filePath.mkdirs();
             }
             return false;
@@ -22,14 +28,21 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 创建文件
+     *
+     * @param path
+     * @param name
+     * @return
+     */
     public static boolean createNewFile(String path, String name) {
+        createFilePath(path);
         try {
             File file = new File(path, name);
-            if (!file.exists()) {
-                return file.createNewFile();
-            } else {
-                return true;
+            if (file.exists()) {
+                file.delete();
             }
+            return file.createNewFile();
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;

@@ -57,7 +57,7 @@ public class FileActivity extends BaseActivity {
                 fileTextCachePath.setText(all);
                 break;
             case R.id.file_btn_mkdirs:
-                boolean isSuccess = FileUtil.createFilePath(DirectoryUtil.getSDCardPath() + "EngineerTools");
+                boolean isSuccess = FileUtil.createNewFile(DirectoryUtil.getSDCardPath() + "EngineerTools", "1.txt");
                 LogUtil.i(TAG, "onClick: isSuccess=" + isSuccess);
                 break;
         }
