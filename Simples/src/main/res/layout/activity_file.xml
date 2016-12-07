@@ -18,15 +18,16 @@
         android:layout_height="wrap_content"
         android:text="获取SD路径"/>
 
+    <Button
+        android:id="@+id/file_btn_mkdirs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mkdirs"/>
+
     <TextView
         android:id="@+id/file_text_cache_path"
         android:layout_width="match_parent"
-        android:textSize="@dimen/dp16"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/file_text_sd_path"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp16"/>
 
 </LinearLayout>
