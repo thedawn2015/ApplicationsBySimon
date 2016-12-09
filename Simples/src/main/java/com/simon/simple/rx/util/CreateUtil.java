@@ -1,6 +1,8 @@
 package com.simon.simple.rx.util;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -8,7 +10,9 @@ import com.simon.base.listener.OnRequestCompletedListener;
 import com.simon.baseandroid.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -17,6 +21,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 /**
@@ -345,6 +350,42 @@ public class CreateUtil {
                         listener.onCompleted(null, "clicked");
                     }
                 });
+    }
+
+    /**
+     * combineLatest +
+     *
+     * @param editText1
+     * @param editText2
+     * @param listener
+     */
+    public static void combineLatestMethod(EditText editText1, EditText editText2, final Button button, final OnRequestCompletedListener<String> listener) {
+        Observable.combineLatest(
+                RxTextView.textChanges(editText1).skip(1),
+                RxTextView.textChanges(editText2).skip(1),
+                new Func2<CharSequence, CharSequence, Map<String, String>>() {
+                    @Override
+                    public Map<String, String> call(CharSequence charSequence, CharSequence charSequence2) {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("username", charSequence.toString());
+                        map.put("password", charSequence2.toString());
+                        return map;
+                    }
+                })
+                .subscribe(new Action1<Map<String, String>>() {
+                    @Override
+                    public void call(Map<String, String> map) {
+                        String username = map.get("username");
+                        String password = map.get("password");
+                        if (username.length() > 6 && password.length() > 6) {
+                            listener.onCompleted("username=" + username + ";password=" + password, "成功");
+                            button.setEnabled(true);
+                        } else {
+                            button.setEnabled(false);
+                        }
+                    }
+                });
+
     }
 
 }

@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.simon.base.listener.OnRequestCompletedListener;
 import com.simon.baseandroid.BaseActivity;
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.R;
 import com.simon.simple.rx.util.CreateUtil;
 
@@ -39,6 +41,13 @@ public class RxActivity extends BaseActivity {
     @BindView(R.id.rx_binding)
     Button rxBinding;
 
+    @BindView(R.id.rx_edit_name)
+    EditText rxEditName;
+    @BindView(R.id.rx_edit_password)
+    EditText rxEditPassword;
+    @BindView(R.id.rx_btn_login)
+    Button rxBtnLogin;
+
     private Subscriber subscriber;
 
 
@@ -53,10 +62,20 @@ public class RxActivity extends BaseActivity {
         setContentView(R.layout.activity_rx);
         ButterKnife.bind(this);
 
+        assignViews();
+    }
+
+    private void assignViews() {
+        CreateUtil.combineLatestMethod(rxEditName, rxEditPassword, rxBtnLogin, new OnRequestCompletedListener<String>() {
+            @Override
+            public void onCompleted(String response, String msg) {
+                LogUtil.i(TAG, "onCompleted: " + response);
+            }
+        });
     }
 
     @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps,
-            R.id.rx_restart_maps, R.id.rx_binding})
+            R.id.rx_restart_maps, R.id.rx_binding, R.id.rx_btn_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rx_btn_create:
@@ -125,6 +144,8 @@ public class RxActivity extends BaseActivity {
                         rxTextContent.setText(msg);
                     }
                 });
+                break;
+            case R.id.rx_btn_login:
                 break;
         }
     }
