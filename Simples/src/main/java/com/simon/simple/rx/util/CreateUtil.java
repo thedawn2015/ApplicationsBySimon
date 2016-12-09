@@ -1,10 +1,15 @@
 package com.simon.simple.rx.util;
 
+import android.view.View;
+
+import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.simon.base.listener.OnRequestCompletedListener;
 import com.simon.baseandroid.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -16,11 +21,11 @@ import rx.schedulers.Schedulers;
 
 /**
  * desc:创建操作
- * author: xiao
+ * author: xw
  * time: 2016/11/24
  */
 public class CreateUtil {
-    public static String TAG = CreateUtil.class.getSimpleName();
+    public static final String TAG = CreateUtil.class.getSimpleName();
 
     /**
      * Observable.create
@@ -242,11 +247,12 @@ public class CreateUtil {
     /**
      * observeOn多次切换、map转换
      */
-    public static void observeOnMethod(final OnRequestCompletedListener<Integer> listener) {
+    public static Subscriber observeOnMethod(final OnRequestCompletedListener<Integer> listener) {
         List<String> list = new ArrayList<>();
         list.add("first");
         list.add("second");
         list.add("third");
+        list.add("four");
 
         Subscriber<Integer> subscriber = new Subscriber<Integer>() {
             @Override
@@ -262,6 +268,7 @@ public class CreateUtil {
             @Override
             public void onNext(Integer i) {
                 LogUtil.d(TAG, "onNext：i=" + i);
+                listener.onCompleted(i, "i=" + i);
             }
         };
         Observable.from(list)
@@ -271,6 +278,12 @@ public class CreateUtil {
                 .map(new Func1<String, Integer>() {
                     @Override
                     public Integer call(String s) {
+                        LogUtil.d(TAG, "map1: start");
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                         int num = 0;
                         switch (s) {
                             case "first":
@@ -282,7 +295,11 @@ public class CreateUtil {
                             case "third":
                                 num = 3;
                                 break;
+                            case "four":
+                                num = 4;
+                                break;
                         }
+                        LogUtil.d(TAG, "map1: num=" + num);
                         return num;
                     }
                 })
@@ -292,6 +309,7 @@ public class CreateUtil {
                     public String call(Integer integer) {
                         int num = 10;
                         num += integer;
+                        LogUtil.d(TAG, "map2: num=" + num);
                         return "num=" + num;
                     }
                 })
@@ -299,16 +317,34 @@ public class CreateUtil {
                 .map(new Func1<String, Integer>() {
                     @Override
                     public Integer call(String s) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        LogUtil.d(TAG, "map3: s=" + s);
                         return Integer.parseInt(s.substring(4));
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
+
+        return subscriber;
+    }
+
+
+    /**
+     * 判断是否点击
+     *
+     * @param view
+     * @param listener
+     */
+    public static void rxBindingMethod(View view, final OnRequestCompletedListener<Integer> listener) {
+        RxView.clicks(view)
+                //防止连续点击
+                .throttleFirst(100, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        LogUtil.i(TAG, "call: clicks");
+                        listener.onCompleted(null, "clicked");
+                    }
+                });
     }
 
 }

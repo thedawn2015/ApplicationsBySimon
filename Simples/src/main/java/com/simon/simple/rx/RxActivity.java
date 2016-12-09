@@ -15,6 +15,7 @@ import com.simon.simple.rx.util.CreateUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 public class RxActivity extends BaseActivity {
     public static String TAG = RxActivity.class.getSimpleName();
@@ -33,6 +34,13 @@ public class RxActivity extends BaseActivity {
     Button rxBtnMap;
     @BindView(R.id.rx_btn_maps)
     Button rxBtnMaps;
+    @BindView(R.id.rx_restart_maps)
+    Button rxRestartMaps;
+    @BindView(R.id.rx_binding)
+    Button rxBinding;
+
+    private Subscriber subscriber;
+
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, RxActivity.class);
@@ -47,7 +55,8 @@ public class RxActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps})
+    @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps,
+            R.id.rx_restart_maps, R.id.rx_binding})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rx_btn_create:
@@ -91,10 +100,29 @@ public class RxActivity extends BaseActivity {
                 });
                 break;
             case R.id.rx_btn_maps:
-                CreateUtil.observeOnMethod(new OnRequestCompletedListener<Integer>() {
+                subscriber = CreateUtil.observeOnMethod(new OnRequestCompletedListener<Integer>() {
                     @Override
                     public void onCompleted(Integer response, String msg) {
                         rxTextContent.setText("num=" + response);
+                    }
+                });
+                break;
+            case R.id.rx_restart_maps:
+                if (subscriber != null && !subscriber.isUnsubscribed()) {
+                    subscriber.unsubscribe();
+                }
+                subscriber = CreateUtil.observeOnMethod(new OnRequestCompletedListener<Integer>() {
+                    @Override
+                    public void onCompleted(Integer response, String msg) {
+                        rxTextContent.setText("num=" + response);
+                    }
+                });
+                break;
+            case R.id.rx_binding:
+                CreateUtil.rxBindingMethod(rxBinding, new OnRequestCompletedListener<Integer>() {
+                    @Override
+                    public void onCompleted(Integer response, String msg) {
+                        rxTextContent.setText(msg);
                     }
                 });
                 break;
