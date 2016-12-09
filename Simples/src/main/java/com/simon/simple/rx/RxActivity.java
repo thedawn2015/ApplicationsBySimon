@@ -18,18 +18,21 @@ import butterknife.OnClick;
 
 public class RxActivity extends BaseActivity {
     public static String TAG = RxActivity.class.getSimpleName();
-    @BindView (R.id.rx_btn_create)
+
+    @BindView(R.id.rx_btn_create)
     Button rxBtnCreate;
-    @BindView (R.id.rx_btn_just)
+    @BindView(R.id.rx_btn_just)
     Button rxBtnJust;
-    @BindView (R.id.rx_btn_from)
+    @BindView(R.id.rx_btn_from)
     Button rxBtnFrom;
-    @BindView (R.id.rx_text_content)
+    @BindView(R.id.rx_text_content)
     TextView rxTextContent;
-    @BindView (R.id.rx_btn_action)
+    @BindView(R.id.rx_btn_action)
     Button rxBtnAction;
-    @BindView (R.id.rx_btn_map)
+    @BindView(R.id.rx_btn_map)
     Button rxBtnMap;
+    @BindView(R.id.rx_btn_maps)
+    Button rxBtnMaps;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, RxActivity.class);
@@ -44,7 +47,7 @@ public class RxActivity extends BaseActivity {
 
     }
 
-    @OnClick ({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map})
+    @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rx_btn_create:
@@ -81,6 +84,14 @@ public class RxActivity extends BaseActivity {
                 break;
             case R.id.rx_btn_map:
                 CreateUtil.mapMethod(new OnRequestCompletedListener<Integer>() {
+                    @Override
+                    public void onCompleted(Integer response, String msg) {
+                        rxTextContent.setText("num=" + response);
+                    }
+                });
+                break;
+            case R.id.rx_btn_maps:
+                CreateUtil.observeOnMethod(new OnRequestCompletedListener<Integer>() {
                     @Override
                     public void onCompleted(Integer response, String msg) {
                         rxTextContent.setText("num=" + response);

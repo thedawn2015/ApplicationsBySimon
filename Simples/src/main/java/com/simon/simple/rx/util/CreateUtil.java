@@ -239,4 +239,76 @@ public class CreateUtil {
                 });
     }
 
+    /**
+     * observeOn多次切换、map转换
+     */
+    public static void observeOnMethod(final OnRequestCompletedListener<Integer> listener) {
+        List<String> list = new ArrayList<>();
+        list.add("first");
+        list.add("second");
+        list.add("third");
+
+        Subscriber<Integer> subscriber = new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                LogUtil.d(TAG, "onCompleted：");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.i(TAG, "onError：");
+            }
+
+            @Override
+            public void onNext(Integer i) {
+                LogUtil.d(TAG, "onNext：i=" + i);
+            }
+        };
+        Observable.from(list)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                //map是将原数据对象转换为新的数据对象
+                .map(new Func1<String, Integer>() {
+                    @Override
+                    public Integer call(String s) {
+                        int num = 0;
+                        switch (s) {
+                            case "first":
+                                num = 1;
+                                break;
+                            case "second":
+                                num = 2;
+                                break;
+                            case "third":
+                                num = 3;
+                                break;
+                        }
+                        return num;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<Integer, String>() {
+                    @Override
+                    public String call(Integer integer) {
+                        int num = 10;
+                        num += integer;
+                        return "num=" + num;
+                    }
+                })
+                .observeOn(Schedulers.newThread())
+                .map(new Func1<String, Integer>() {
+                    @Override
+                    public Integer call(String s) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return Integer.parseInt(s.substring(4));
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

@@ -45,10 +45,10 @@
         android:text="map"/>
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/rx_btn_maps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:text="times map"/>
 
     <Button
         android:id="@+id/button7"
