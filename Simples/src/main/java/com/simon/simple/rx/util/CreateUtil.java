@@ -361,8 +361,8 @@ public class CreateUtil {
      */
     public static void combineLatestMethod(EditText editText1, EditText editText2, final Button button, final OnRequestCompletedListener<String> listener) {
         Observable.combineLatest(
-                RxTextView.textChanges(editText1).skip(1),
-                RxTextView.textChanges(editText2).skip(1),
+                RxTextView.textChanges(editText1),
+                RxTextView.textChanges(editText2),
                 new Func2<CharSequence, CharSequence, Map<String, String>>() {
                     @Override
                     public Map<String, String> call(CharSequence charSequence, CharSequence charSequence2) {
