@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.baseandroid.util.ToastUtil;
@@ -24,6 +25,12 @@ public class TheApplication extends Application {
         LogUtil.i(TAG, "onCreate: TheApplication");
         ToastUtil.showShort(getApplicationContext(), "TheApplication");
 
+        lifecycleCallbacks();
+
+//        getCurProcessName(getApplicationContext());
+    }
+
+    private void lifecycleCallbacks() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {
@@ -67,8 +74,6 @@ public class TheApplication extends Application {
 
             }
         });
-
-//        getCurProcessName(getApplicationContext());
     }
 
     private String getCurProcessName(Context context) {

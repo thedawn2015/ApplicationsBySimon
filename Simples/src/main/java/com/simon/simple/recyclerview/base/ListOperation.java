@@ -3,15 +3,16 @@ package com.simon.simple.recyclerview.base;
 import java.util.List;
 
 /**
- *
- * Created by xw on 2016/8/24.
+ * desc: List Operation
+ * author: xw
+ * time: 2016/12/14
  */
-public interface ListOperate<ITEM> {
+public interface ListOperation<ITEM> {
     void addItems(List<ITEM> items);
 
     void addItem(ITEM item);
 
-    void clear();
+    void removeAll();
 
     void removeItem(ITEM item);
 }

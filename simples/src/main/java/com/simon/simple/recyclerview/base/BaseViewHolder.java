@@ -19,6 +19,7 @@ public abstract class BaseViewHolder<ITEM> extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(Context context, ViewGroup root, int layoutRes) {
         super(LayoutInflater.from(context).inflate(layoutRes, root, false));
+
         //这里使用了ButterKnife来进行控件的绑定
         ButterKnife.bind(this, itemView);
         LogUtil.i(TAG, "BaseViewHolder: ");

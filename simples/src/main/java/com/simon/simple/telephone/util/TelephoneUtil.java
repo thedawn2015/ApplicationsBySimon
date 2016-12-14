@@ -6,14 +6,21 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+
+import com.simon.baseandroid.util.LogUtil;
+
+import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
  * 获取User-Agent信息
  * Created by xw on 2016/10/12.
  */
 public class TelephoneUtil {
+    public static final String TAG = TelephoneUtil.class.getSimpleName();
 
     /**
      * 获取User-Agent信息
@@ -39,15 +46,46 @@ public class TelephoneUtil {
         String platformInfo = "|" + System.getProperty("http.agent");
         //        String platformInfo = "|" + Build.BRAND + " " + Build.MODEL;
         String size = "|" + getSize((Activity) context);
-        return platformType + platformName + platformVersion + "|" + productName + productVersion + platformInfo + size;
+        String szImei = "|" + getUniqueIdentifier((Activity) context);
+        getSize2((Activity) context);
+        getSize3((Activity) context);
+        return platformType + platformName + platformVersion + "|" + productName + productVersion + platformInfo + size + szImei;
     }
 
-    private static String getSize(Activity activity) {
+    public static String getSize(Activity activity) {
         WindowManager windowManager = activity.getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
-        return point.y + "*" + point.x;
+        String size = point.x + "*" + point.y;
+        LogUtil.i(TAG, "getSize: size=" + size);
+        return size;
+    }
+
+    public static String getSize2(Activity activity) {
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        String size = width + "*" + height;
+        LogUtil.i(TAG, "getSize2: size=" + size);
+        return size;
+    }
+
+    public static String getSize3(Activity activity) {
+        DisplayMetrics dm = activity.getResources().getDisplayMetrics();
+//            activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        String size = width + "*" + height;
+        LogUtil.i(TAG, "getSize3: size=" + size);
+        return size;
+    }
+
+    private static String getUniqueIdentifier(Activity activity) {
+        TelephonyManager TelephonyMgr = (TelephonyManager) activity.getSystemService(TELEPHONY_SERVICE);
+        String szImei = TelephonyMgr.getDeviceId();
+        return szImei;
     }
 
 }

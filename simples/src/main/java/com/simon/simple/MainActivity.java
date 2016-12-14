@@ -18,6 +18,7 @@ import com.simon.simple.db.DBActivity;
 import com.simon.simple.dialog.DialogActivity;
 import com.simon.simple.download.DownloadActivity;
 import com.simon.simple.file.FileActivity;
+import com.simon.simple.fragment.MyFragmentActivity;
 import com.simon.simple.keyboard.KeyBoardActivity;
 import com.simon.simple.nati.FullscreenActivity;
 import com.simon.simple.nati.LoginActivity;
@@ -46,56 +47,58 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity {
     public static String TAG = MainActivity.class.getSimpleName();
 
-    @BindView (R.id.simple_btn_to_draw)
+    @BindView(R.id.simple_btn_to_draw)
     Button simpleBtnToDraw;
-    @BindView (R.id.simple_btn_to_animator)
+    @BindView(R.id.simple_btn_to_animator)
     Button simpleBtnToAnimator;
-    @BindView (R.id.simple_btn_to_titlebar)
+    @BindView(R.id.simple_btn_to_titlebar)
     Button simpleBtnToTitlebar;
-    @BindView (R.id.simple_btn_to_recycler_view)
+    @BindView(R.id.simple_btn_to_recycler_view)
     Button simpleBtnToRecyclerView;
-    @BindView (R.id.simple_btn_to_retrofit)
+    @BindView(R.id.simple_btn_to_retrofit)
     Button simpleBtnToRetrofit;
-    @BindView (R.id.simple_btn_to_rx)
+    @BindView(R.id.simple_btn_to_rx)
     Button simpleBtnToRx;
-    @BindView (R.id.simple_btn_to_download)
+    @BindView(R.id.simple_btn_to_download)
     Button simpleBtnToDownload;
-    @BindView (R.id.simple_btn_to_notifycation)
+    @BindView(R.id.simple_btn_to_notifycation)
     Button simpleBtnToNotifycation;
-    @BindView (R.id.simple_btn_to_db)
+    @BindView(R.id.simple_btn_to_db)
     Button simpleBtnToDb;
-    @BindView (R.id.simple_btn_to_service)
+    @BindView(R.id.simple_btn_to_service)
     Button simpleBtnToService;
-    @BindView (R.id.simple_btn_to_progress)
+    @BindView(R.id.simple_btn_to_progress)
     Button simpleBtnToProgress;
-    @BindView (R.id.simple_btn_to_telephone)
+    @BindView(R.id.simple_btn_to_telephone)
     Button simpleBtnToTelephone;
-    @BindView (R.id.simple_btn_to_key)
+    @BindView(R.id.simple_btn_to_key)
     Button simpleBtnToKeyBoard;
-    @BindView (R.id.simple_btn_to_fullscreen)
+    @BindView(R.id.simple_btn_to_fullscreen)
     Button simpleBtnToFullscreen;
-    @BindView (R.id.simple_btn_to_login)
+    @BindView(R.id.simple_btn_to_login)
     Button simpleBtnToLogin;
-    @BindView (R.id.simple_btn_to_navigation)
+    @BindView(R.id.simple_btn_to_navigation)
     Button simpleBtnToNavigation;
-    @BindView (R.id.simple_btn_to_scrolling)
+    @BindView(R.id.simple_btn_to_scrolling)
     Button simpleBtnToScrolling;
-    @BindView (R.id.simple_btn_to_setting)
+    @BindView(R.id.simple_btn_to_setting)
     Button simpleBtnToSetting;
-    @BindView (R.id.simple_btn_to_tab)
+    @BindView(R.id.simple_btn_to_tab)
     Button simpleBtnToTab;
-    @BindView (R.id.simple_btn_to_async)
+    @BindView(R.id.simple_btn_to_async)
     Button simpleBtnToAsync;
-    @BindView (R.id.simple_btn_to_toolbar)
+    @BindView(R.id.simple_btn_to_toolbar)
     Button simpleBtnToToolbar;
-    @BindView (R.id.simple_btn_to_dialog)
+    @BindView(R.id.simple_btn_to_dialog)
     Button simpleBtnToDialog;
-    @BindView (R.id.simple_btn_to_webview)
+    @BindView(R.id.simple_btn_to_webview)
     Button simpleBtnToWebview;
-    @BindView (R.id.simple_btn_to_third_login)
+    @BindView(R.id.simple_btn_to_third_login)
     Button simpleBtnToThirdLogin;
-    @BindView (R.id.simple_btn_to_file)
+    @BindView(R.id.simple_btn_to_file)
     Button simpleBtnToFile;
+    @BindView(R.id.simple_btn_to_fragment)
+    Button simpleBtnToFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +140,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @TargetApi (Build.VERSION_CODES.M)
+    @TargetApi(Build.VERSION_CODES.M)
     private void getRecentTask(Context context) {
         //        int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -149,14 +152,14 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick ({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
+    @OnClick({R.id.simple_btn_to_draw, R.id.simple_btn_to_animator, R.id.simple_btn_to_titlebar,
             R.id.simple_btn_to_recycler_view, R.id.simple_btn_to_retrofit, R.id.simple_btn_to_rx,
             R.id.simple_btn_to_download, R.id.simple_btn_to_notifycation, R.id.simple_btn_to_db,
             R.id.simple_btn_to_service, R.id.simple_btn_to_progress, R.id.simple_btn_to_telephone,
             R.id.simple_btn_to_key, R.id.simple_btn_to_fullscreen, R.id.simple_btn_to_login,
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
             R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog,
-            R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file})
+            R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file, R.id.simple_btn_to_fragment})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -231,6 +234,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.simple_btn_to_file:
                 FileActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_fragment:
+                MyFragmentActivity.launch(MainActivity.this);
                 break;
         }
     }

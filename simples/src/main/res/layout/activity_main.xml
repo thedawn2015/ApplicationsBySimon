@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,157 +20,163 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/simple_btn_to_draw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Draw"/>
+            android:text="Draw" />
 
         <Button
             android:id="@+id/simple_btn_to_animator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Animator"/>
+            android:text="Animator" />
 
         <Button
             android:id="@+id/simple_btn_to_notifycation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notification"/>
+            android:text="Notification" />
 
         <Button
             android:id="@+id/simple_btn_to_titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titlebar"/>
+            android:text="Titlebar" />
 
         <Button
             android:id="@+id/simple_btn_to_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RecyclerView"/>
+            android:text="RecyclerView" />
 
         <Button
             android:id="@+id/simple_btn_to_retrofit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Retrofit"/>
+            android:text="Retrofit" />
 
         <Button
             android:id="@+id/simple_btn_to_rx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rx"/>
+            android:text="Rx" />
 
         <Button
             android:id="@+id/simple_btn_to_download"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="download"/>
+            android:text="download" />
 
         <Button
             android:id="@+id/simple_btn_to_db"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="db"/>
+            android:text="db" />
 
         <Button
             android:id="@+id/simple_btn_to_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="service"/>
+            android:text="service" />
 
         <Button
             android:id="@+id/simple_btn_to_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="progress"/>
+            android:text="progress" />
 
         <Button
             android:id="@+id/simple_btn_to_telephone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="telephone"/>
+            android:text="telephone" />
 
         <Button
             android:id="@+id/simple_btn_to_key"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="keyboard"/>
+            android:text="keyboard" />
 
         <Button
             android:id="@+id/simple_btn_to_fullscreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="fullscreen"/>
+            android:text="fullscreen" />
 
         <Button
             android:id="@+id/simple_btn_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="login"/>
+            android:text="login" />
 
         <Button
             android:id="@+id/simple_btn_to_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="navigation"/>
+            android:text="navigation" />
 
         <Button
             android:id="@+id/simple_btn_to_scrolling"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="scrolling"/>
+            android:text="scrolling" />
 
         <Button
             android:id="@+id/simple_btn_to_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="setting"/>
+            android:text="setting" />
 
         <Button
             android:id="@+id/simple_btn_to_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="tab"/>
+            android:text="tab" />
 
         <Button
             android:id="@+id/simple_btn_to_async"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="async"/>
+            android:text="async" />
 
         <Button
             android:id="@+id/simple_btn_to_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="toolbar"/>
+            android:text="toolbar" />
 
         <Button
             android:id="@+id/simple_btn_to_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="dialog"/>
+            android:text="dialog" />
 
         <Button
             android:id="@+id/simple_btn_to_webview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="webview"/>
+            android:text="webview" />
 
         <Button
             android:id="@+id/simple_btn_to_third_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="thirdlogin"/>
+            android:text="thirdlogin" />
 
         <Button
             android:id="@+id/simple_btn_to_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="file"/>
+            android:text="file" />
+
+        <Button
+            android:id="@+id/simple_btn_to_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="fragment" />
 
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"

@@ -18,9 +18,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * desc: RecyclerView
+ * author: xw
+ * time: 2016/12/14
+ */
 public class RecyclerViewActivity extends BaseActivity {
     public static String TAG = RecyclerViewActivity.class.getSimpleName();
-    @BindView (R.id.recycler_view_name)
+    @BindView(R.id.recycler_view_name)
     RecyclerView recyclerViewName;
 
     private List<String> strList;
@@ -47,7 +52,7 @@ public class RecyclerViewActivity extends BaseActivity {
         recyclerViewName.setAdapter(adapter);
 
         adapter.addItems(strList);
-        adapter.setmOnItemClickListener(new OnItemClickListener<String>() {
+        adapter.setOnItemClickListener(new OnItemClickListener<String>() {
             @Override
             public void onItemClick(String itemValue, int viewID, int position) {
                 ToastUtil.showShort(RecyclerViewActivity.this, itemValue);

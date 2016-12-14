@@ -1,63 +1,47 @@
-package com.simon.simple.recyclerview.base;
+package com.simon.simple.fragment.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.simon.baseandroid.util.LogUtil;
+import com.simon.simple.recyclerview.base.ListOperation;
+import com.simon.simple.recyclerview.base.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter 基类
- * 适用于只有单个Item的RecyclerView.
- * Created by xw on 2016/8/24.
+ * desc: BaseAdapter
+ * author: xw
+ * time: 2016/12/14
  */
-public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHolder>
-        implements ListOperation<ITEM> {
-    public static String TAG = BaseAdapter.class.getSimpleName();
+public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHolder> implements ListOperation<ITEM> {
 
-    /**
-     * 装载了每个Item的Value的列表
-     */
+    private Context context;
     private List<ITEM> valueList;
+
     /**
      * 接口，通过回调分发点击事件
      */
     private OnItemClickListener<ITEM> onItemClickListener;
 
-    /**
-     * 初始化list
-     */
-    public BaseAdapter() {
-        valueList = new ArrayList<>();
+    public BaseAdapter(Context context) {
+        this.context = context;
+        if (valueList == null) {
+            valueList = new ArrayList<>();
+        }
     }
 
-    /**
-     * 生成ViewHolder
-     *
-     * @param context
-     * @param parent
-     * @return
-     */
-    protected abstract BaseViewHolder createViewHolder(Context context, ViewGroup parent);
+    protected abstract BaseViewHolder createViewHolder(Context context, ViewGroup parent, int viewType);
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LogUtil.i(TAG, "onCreateViewHolder: ");
-        return createViewHolder(parent.getContext(), parent);
+        return createViewHolder(parent.getContext(), parent, viewType);
     }
-
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        LogUtil.i(TAG, "onBindViewHolder: ");
-        holder.setData(valueList.get(position), position, onItemClickListener);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener<ITEM> onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+        holder.bind(valueList.get(position), position, onItemClickListener);
     }
 
     @Override
@@ -65,6 +49,10 @@ public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHol
         return valueList.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener<ITEM> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+
+    }
 
     /**----------------------------------数据操作------------------------------**/
     /**
