@@ -23,7 +23,7 @@ public class MyViewHolder extends BaseViewHolder<String> {
     TextView textName;
 
     public MyViewHolder(Context context, ViewGroup root) {
-        super(context, root, R.layout.holder_name);
+        super(context, root, R.layout.adapter_holder_name);
         LogUtil.i(TAG, "MyViewHolder: ");
     }
 

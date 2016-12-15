@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.simon.baseandroid.util.LogUtil;
+import com.simon.simple.fragment.my.MyAdapter;
 import com.simon.simple.recyclerview.base.ListOperation;
 import com.simon.simple.recyclerview.base.OnItemClickListener;
 
@@ -16,6 +18,7 @@ import java.util.List;
  * time: 2016/12/14
  */
 public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHolder> implements ListOperation<ITEM> {
+    public static final String TAG = BaseAdapter.class.getSimpleName();
 
     private Context context;
     private List<ITEM> valueList;
@@ -26,6 +29,7 @@ public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHol
     private OnItemClickListener<ITEM> onItemClickListener;
 
     public BaseAdapter(Context context) {
+        LogUtil.i(TAG, "BaseAdapter: ");
         this.context = context;
         if (valueList == null) {
             valueList = new ArrayList<>();
@@ -36,11 +40,22 @@ public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHol
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LogUtil.i(TAG, "onCreateViewHolder: ");
         return createViewHolder(parent.getContext(), parent, viewType);
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (position==0) {
+            return MyAdapter.TYPE_TITLE;
+        }else{
+            return MyAdapter.TYPE_NAME;
+        }
+    }
+
+    @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
+        LogUtil.i(TAG, "onBindViewHolder: ");
         holder.bind(valueList.get(position), position, onItemClickListener);
     }
 

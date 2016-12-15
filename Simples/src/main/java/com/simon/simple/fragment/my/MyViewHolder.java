@@ -23,8 +23,8 @@ public class MyViewHolder extends BaseViewHolder<String> {
     @BindView(R.id.text_name)
     TextView textName;
 
-    public MyViewHolder(Context context, ViewGroup parent,int viewType) {
-        super(context, parent, R.layout.holder_name);
+    public MyViewHolder(Context context, ViewGroup parent) {
+        super(context, parent, R.layout.adapter_holder_name);
         LogUtil.i(TAG, "MyViewHolder: ");
     }
 

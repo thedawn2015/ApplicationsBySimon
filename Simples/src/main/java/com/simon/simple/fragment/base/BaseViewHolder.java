@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.simon.baseandroid.util.LogUtil;
 import com.simon.simple.recyclerview.base.OnItemClickListener;
 
 import butterknife.ButterKnife;
@@ -15,10 +16,12 @@ import butterknife.ButterKnife;
  * time: 2016/12/14
  */
 public abstract class BaseViewHolder<ITEM> extends RecyclerView.ViewHolder {
+    public static final String TAG = BaseViewHolder.class.getSimpleName();
 
     public BaseViewHolder(Context context, ViewGroup parent, int layout) {
         super(LayoutInflater.from(context).inflate(layout, parent, false));
         ButterKnife.bind(this, itemView);
+        LogUtil.i(TAG, "BaseViewHolder: ");
     }
 
     /**

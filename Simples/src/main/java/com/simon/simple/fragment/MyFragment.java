@@ -40,8 +40,8 @@ public class MyFragment extends Fragment implements IViewListener {
 
     public MyFragment() {
         // Required empty public constructor
-
     }
+
 
 
     @Override
@@ -61,6 +61,8 @@ public class MyFragment extends Fragment implements IViewListener {
         adapter = new MyAdapter(getContext());
         myRecyclerViewContent.setLayoutManager(new LinearLayoutManager(getContext()));
         myRecyclerViewContent.setAdapter(adapter);
+        refreshData(3);
+        adapter.addItems(stringList);
 
         myEditTitle.addTextChangedListener(new TextWatcher() {
             @Override
