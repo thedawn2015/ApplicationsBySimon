@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.simon.sample.rx.RxActivity">
+
+    <TextView
+        android:id="@+id/rx_text_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/rx_btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create" />
+
+    <Button
+        android:id="@+id/rx_btn_just"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="just" />
+
+    <Button
+        android:id="@+id/rx_btn_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="from" />
+
+    <Button
+        android:id="@+id/rx_btn_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="action" />
+
+    <Button
+        android:id="@+id/rx_btn_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="map" />
+
+    <Button
+        android:id="@+id/rx_btn_maps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="times map" />
+
+    <Button
+        android:id="@+id/rx_restart_maps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="restart maps" />
+
+    <Button
+        android:id="@+id/rx_binding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="rx binding" />
+
+    <EditText
+        android:id="@+id/rx_edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="帐号" />
+
+    <EditText
+        android:id="@+id/rx_edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="密码" />
+
+    <Button
+        android:id="@+id/rx_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="登录" />
+</LinearLayout>

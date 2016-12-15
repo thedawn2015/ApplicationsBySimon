@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white22"
+    android:padding="10dp"
+    tools:context="com.simon.sample.fragment.MyFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/my_edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="请输入内容" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
