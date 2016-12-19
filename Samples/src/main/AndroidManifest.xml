@@ -134,55 +134,110 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.simon.sample.download.DownloadActivity"></activity>
-        <activity android:name="com.simon.sample.titlebar.TitleBarActivity"></activity>
-        <activity android:name="com.simon.sample.animator.AnimatorActivity"></activity>
-        <activity android:name="com.simon.sample.notify.NotificationActivity"></activity>
-        <activity android:name="com.simon.sample.db.DBActivity"></activity>
-        <activity android:name="com.simon.sample.polling.PollingServiceActivity"></activity>
+        <activity android:name="com.simon.sample.download.DownloadActivity">
 
-        <service android:name="com.simon.sample.polling.alarm.PollingService"></service>
-        <service android:name="com.simon.sample.polling.service.RequestService"></service>
+        </activity>
+        <activity android:name="com.simon.sample.titlebar.TitleBarActivity">
 
-        <receiver android:name="com.simon.sample.polling.alarm.AlarmReceiver"></receiver>
+        </activity>
+        <activity android:name="com.simon.sample.animator.AnimatorActivity">
 
-        <activity android:name="com.simon.sample.recyclerview.RecyclerViewActivity"></activity>
-        <activity android:name="com.simon.sample.progress.ProgressActivity"></activity>
-        <activity android:name="com.simon.sample.telephone.TelephoneActivity"></activity>
-        <activity android:name="com.simon.sample.keyboard.KeyBoardActivity"></activity>
+        </activity>
+        <activity android:name="com.simon.sample.notify.NotificationActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.db.DBActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.polling.PollingServiceActivity">
+
+        </activity>
+
+        <service android:name="com.simon.sample.polling.alarm.PollingService">
+
+        </service>
+        <service android:name="com.simon.sample.polling.service.RequestService">
+
+        </service>
+
+        <receiver android:name="com.simon.sample.polling.alarm.AlarmReceiver">
+
+        </receiver>
+
+        <activity android:name="com.simon.sample.recyclerview.RecyclerViewActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.progress.ProgressActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.telephone.TelephoneActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.keyboard.KeyBoardActivity">
+
+        </activity>
         <activity
             android:name="com.simon.sample.nati.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme">
+
+        </activity>
         <activity
             android:name="com.simon.sample.nati.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login">
+
+        </activity>
         <activity
             android:name="com.simon.sample.nati.NavigationActivity"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
         <activity
             android:name="com.simon.sample.nati.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
         <activity
             android:name="com.simon.sample.nati.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings">
+
+        </activity>
         <activity
             android:name="com.simon.sample.nati.TabActivity"
             android:label="@string/title_activity_tab"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name="com.simon.sample.async.AsyncActivity"></activity>
-        <activity android:name="com.simon.sample.toolbar.ToolbarActivity"></activity>
-        <activity android:name="com.simon.sample.dialog.DialogActivity"></activity>
-        <activity android:name="com.simon.sample.rx.RxActivity"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+        <activity android:name="com.simon.sample.async.AsyncActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.toolbar.ToolbarActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.dialog.DialogActivity"
+            android:theme="@style/TransparentTheme">
+
+        </activity>
+        <activity android:name="com.simon.sample.rx.RxActivity">
+
+        </activity>
         <activity
             android:name="com.simon.sample.webview.WebViewActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name="com.simon.sample.third_login.ThirdLoginActivity"></activity>
-        <activity android:name="com.simon.sample.file.FileActivity"></activity>
-        <activity android:name="com.simon.sample.fragment.MyFragmentActivity"></activity>
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+        <activity android:name="com.simon.sample.third_login.ThirdLoginActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.file.FileActivity">
+
+        </activity>
+        <activity android:name="com.simon.sample.fragment.MyFragmentActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -17,13 +17,13 @@ import butterknife.OnClick;
 
 public class DialogActivity extends BaseActivity {
     public static String TAG = DialogActivity.class.getSimpleName();
-    @BindView (R.id.normal_btn_dialog)
+    @BindView(R.id.normal_btn_dialog)
     Button normalBtnDialog;
-    @BindView (R.id.customer_btn_dialog)
+    @BindView(R.id.customer_btn_dialog)
     Button customerBtnDialog;
-    @BindView (R.id.customer_btn_popup)
+    @BindView(R.id.customer_btn_popup)
     Button customerBtnPopup;
-    @BindView (R.id.dialog_linear)
+    @BindView(R.id.dialog_linear)
     LinearLayout dialogLinear;
 
     public static void launch(Activity activity) {
@@ -35,10 +35,13 @@ public class DialogActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
+
+        getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
         ButterKnife.bind(this);
     }
 
-    @OnClick ({R.id.normal_btn_dialog, R.id.customer_btn_dialog, R.id.customer_btn_popup})
+    @OnClick({R.id.normal_btn_dialog, R.id.customer_btn_dialog, R.id.customer_btn_popup})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.normal_btn_dialog:
