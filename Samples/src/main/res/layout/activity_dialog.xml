@@ -29,4 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="popup"/>
+
+    <Button
+        android:id="@+id/customer_btn_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dialog fragment"/>
 </LinearLayout>

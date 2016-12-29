@@ -25,6 +25,8 @@ public class DialogActivity extends BaseActivity {
     Button customerBtnPopup;
     @BindView(R.id.dialog_linear)
     LinearLayout dialogLinear;
+    @BindView(R.id.customer_btn_fragment)
+    Button customerBtnFragment;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, DialogActivity.class);
@@ -41,7 +43,7 @@ public class DialogActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.normal_btn_dialog, R.id.customer_btn_dialog, R.id.customer_btn_popup})
+    @OnClick({R.id.normal_btn_dialog, R.id.customer_btn_dialog, R.id.customer_btn_popup, R.id.customer_btn_fragment})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.normal_btn_dialog:
@@ -52,6 +54,9 @@ public class DialogActivity extends BaseActivity {
                 break;
             case R.id.customer_btn_popup:
                 DialogUtil.showUnbindPopupWindow(DialogActivity.this, customerBtnPopup);
+                break;
+            case R.id.customer_btn_fragment:
+                CustomerDialog.newInstance().show(getSupportFragmentManager(), CustomerDialog.TAG);
                 break;
         }
     }
