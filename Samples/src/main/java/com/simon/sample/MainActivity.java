@@ -12,6 +12,7 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
+import com.simon.sample.amap.AMapActivity;
 import com.simon.sample.animator.AnimatorActivity;
 import com.simon.sample.async.AsyncActivity;
 import com.simon.sample.db.DBActivity;
@@ -99,6 +100,8 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToFile;
     @BindView(R.id.simple_btn_to_fragment)
     Button simpleBtnToFragment;
+    @BindView(R.id.simple_btn_to_amap)
+    Button simpleBtnToAmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +162,8 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_key, R.id.simple_btn_to_fullscreen, R.id.simple_btn_to_login,
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
             R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog,
-            R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file, R.id.simple_btn_to_fragment})
+            R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file,
+            R.id.simple_btn_to_fragment, R.id.simple_btn_to_amap})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -237,6 +241,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.simple_btn_to_fragment:
                 MyFragmentActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_amap:
+                AMapActivity.launch(MainActivity.this);
                 break;
         }
     }

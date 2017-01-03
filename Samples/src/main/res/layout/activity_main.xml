@@ -178,6 +178,12 @@
             android:layout_height="wrap_content"
             android:text="fragment" />
 
+        <Button
+            android:id="@+id/simple_btn_to_amap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="amap navi" />
+
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

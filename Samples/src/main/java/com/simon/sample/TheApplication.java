@@ -27,6 +27,11 @@ public class TheApplication extends Application {
         lifecycleCallbacks();
 
 //        getCurProcessName(getApplicationContext());
+        initAMapNavi();
+    }
+
+    private void initAMapNavi() {
+
     }
 
     private void lifecycleCallbacks() {
