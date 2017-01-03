@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'simon'
+            keyPassword '123456'
+            storeFile file('H:/ASWorkspace/ApplicationsBySimon/keystore.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
-
     defaultConfig {
         applicationId "com.simon.simple"
         minSdkVersion 19
@@ -20,8 +27,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
-
     productFlavors {
         official {} // for official.
 //        xiaomi {}
@@ -34,7 +43,6 @@ android {
 //        tencent {}
 //        anzhi {}
     }
-
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: name]
     }
@@ -57,12 +65,9 @@ apply plugin: 'com.jakewharton.butterknife'
 //apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
-
-
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
     compile project(':Base')
     compile project(':BaseAndroid')
-
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'

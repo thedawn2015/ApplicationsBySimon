@@ -1,1 +1,1 @@
-include ':cardsgame', ':Samples', ':BaseAndroid', ':Base', ':Constant'
+include ':cardsgame', ':Samples', ':BaseAndroid', ':Base', ':Constant', ':MapService'
