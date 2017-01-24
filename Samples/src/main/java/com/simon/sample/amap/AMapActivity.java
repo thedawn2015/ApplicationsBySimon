@@ -7,6 +7,11 @@ import android.os.Bundle;
 import com.simon.baseandroid.BaseActivity;
 import com.simon.sample.R;
 
+/**
+ * desc: 高德地图
+ * author: xw
+ * time: 2017/1/3
+ */
 public class AMapActivity extends BaseActivity {
     public static final String TAG = AMapActivity.class.getSimpleName();
 
