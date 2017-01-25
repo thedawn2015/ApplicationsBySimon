@@ -29,6 +29,7 @@ public class NotificationUtil {
      * https://developer.android.com/samples/BasicNotifications/src/com.example.android.basicnotifications/MainActivity.html
      */
     public static void sendBasicNotification(Context context) {
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateUtil.string2Date("2017/01/24 10:20:30", "yyyy/MM/dd HH:mm:ss"));
 
