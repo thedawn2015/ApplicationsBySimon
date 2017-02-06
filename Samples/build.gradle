@@ -9,12 +9,12 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.simon.simple"
         minSdkVersion 19
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 10
         versionName "2.0"
 
@@ -64,14 +64,13 @@ apply plugin: 'com.jakewharton.butterknife'
 
 //apply plugin: 'com.neenbedankt.android-apt'
 
+
+
 dependencies {
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
     compile project(':Base')
     compile project(':BaseAndroid')
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:support-vector-drawable:24.2.1'
+
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
     compile project(':MapService')
 }
