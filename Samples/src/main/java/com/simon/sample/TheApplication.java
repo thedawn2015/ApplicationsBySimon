@@ -22,7 +22,6 @@ public class TheApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LogUtil.i(TAG, "onCreate: TheApplication");
-        ToastUtil.showShort(getApplicationContext(), "TheApplication");
 
         lifecycleCallbacks();
 
@@ -80,7 +79,7 @@ public class TheApplication extends Application {
         });
     }
 
-    private String getCurProcessName(Context context) {
+    /*private String getCurProcessName(Context context) {
         int pid = android.os.Process.myPid();
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
@@ -90,5 +89,5 @@ public class TheApplication extends Application {
             }
         }
         return "";
-    }
+    }*/
 }
