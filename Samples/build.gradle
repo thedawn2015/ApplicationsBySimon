@@ -21,6 +21,9 @@ android {
         // 默认渠道
         manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: "official"]
         vectorDrawables.useSupportLibrary = true
+
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,6 +48,12 @@ android {
     }
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [TENGXUN_CHANNEL_VALUE: name]
+    }
+
+    dexOptions {
+        //Warning:The `android.dexOptions.incremental` property is deprecated and it has no effect on the build process.
+//        incremental true
+        javaMaxHeapSize "4g"
     }
 }
 
