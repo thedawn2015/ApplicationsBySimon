@@ -27,7 +27,7 @@ public class NetConnectChangeReceiver extends BroadcastReceiver {
                 if (info != null) {
                     //网络连接上了
                     if (info.isConnected() && info.getState() == NetworkInfo.State.CONNECTED) {
-                        ToastUtil.showShort(context, "网络已连接");
+//                        ToastUtil.showShort(context, "网络已连接");
                         LogUtil.i(TAG, "onReceive: 网络已连接 getExtraInfo()=" + info.getExtraInfo());
                         if (info.getType() == ConnectivityManager.TYPE_WIFI) {
                             LogUtil.i(TAG, "onReceive: 网络类型：TYPE_WIFI");
@@ -38,15 +38,15 @@ public class NetConnectChangeReceiver extends BroadcastReceiver {
                         //                        ToastUtil.showShort(context, "网络已连接");
                     } else {
                         //网络断开了
-                        ToastUtil.showShort(context, "网络断开");
+//                        ToastUtil.showShort(context, "网络断开");
                         LogUtil.i(TAG, "onReceive: 网络断开");
                     }
                 } else {
-                    ToastUtil.showShort(context, "网络断开");
+//                    ToastUtil.showShort(context, "网络断开");
                     LogUtil.i(TAG, "onReceive: NetworkInfo null");
                 }
             } else {
-                ToastUtil.showShort(context, "网络异常");
+//                ToastUtil.showShort(context, "网络异常");
                 LogUtil.i(TAG, "onReceive: ConnectivityManager null");
             }
         }

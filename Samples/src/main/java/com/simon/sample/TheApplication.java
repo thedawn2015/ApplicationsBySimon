@@ -61,10 +61,10 @@ public class TheApplication extends Application {
             @Override
             public void onActivityStopped(Activity activity) {
                 activityCount--;
-                if (activityCount == 0) {
+                /*if (activityCount == 0) {
                     isForeground = false;
                     ToastUtil.showShort(getApplicationContext(), "进入后台了");
-                }
+                }*/
             }
 
             @Override
