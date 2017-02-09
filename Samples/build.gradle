@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.simon.simple"
         minSdkVersion 19
@@ -74,13 +74,13 @@ apply plugin: 'com.jakewharton.butterknife'
 //apply plugin: 'com.neenbedankt.android-apt'
 
 
-
 dependencies {
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
     compile project(':Base')
     compile project(':BaseAndroid')
 
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
     compile project(':MapService')
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 }
 

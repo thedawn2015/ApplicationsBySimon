@@ -28,6 +28,7 @@ import com.simon.sample.nati.ScrollingActivity;
 import com.simon.sample.nati.SettingsActivity;
 import com.simon.sample.nati.TabActivity;
 import com.simon.sample.notify.NotificationActivity;
+import com.simon.sample.photo.PhotoActivity;
 import com.simon.sample.polling.PollingServiceActivity;
 import com.simon.sample.progress.ProgressActivity;
 import com.simon.sample.recyclerview.RecyclerViewActivity;
@@ -102,6 +103,8 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToFragment;
     @BindView(R.id.simple_btn_to_amap)
     Button simpleBtnToAmap;
+    @BindView(R.id.simple_btn_to_photo)
+    Button simpleBtnToPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +166,7 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
             R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog,
             R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file,
-            R.id.simple_btn_to_fragment, R.id.simple_btn_to_amap})
+            R.id.simple_btn_to_fragment, R.id.simple_btn_to_amap, R.id.simple_btn_to_photo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -238,6 +241,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.simple_btn_to_file:
                 FileActivity.launch(MainActivity.this);
+                break;
+            case R.id.simple_btn_to_photo:
+                PhotoActivity.launch(MainActivity.this);
                 break;
             case R.id.simple_btn_to_fragment:
                 MyFragmentActivity.launch(MainActivity.this);

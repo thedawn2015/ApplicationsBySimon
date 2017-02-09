@@ -214,6 +214,8 @@
         </activity>
         <activity android:name=".amap.AMapActivity">
         </activity>
+        <activity android:name=".photo.PhotoActivity">
+        </activity>
     </application>
 
 </manifest>
