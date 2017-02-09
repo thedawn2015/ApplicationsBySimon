@@ -36,6 +36,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Base">
 
+        <!--authorities：包名.fileprovider-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.simon.sample.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!--resourse：在res目录下定义的filepaths.xml文件，名字可以自定义-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <!-- 腾讯统计 -->
         <!-- 请将value改为MTA分配的appkey < -->
         <meta-data
