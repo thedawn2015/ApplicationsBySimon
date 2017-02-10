@@ -57,7 +57,8 @@ public class PhotoActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.photo_btn_photos, R.id.photo_btn_camera}) public void onClick(View view) {
+    @OnClick({R.id.photo_btn_photos, R.id.photo_btn_camera})
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.photo_btn_photos:
 
@@ -104,7 +105,8 @@ public class PhotoActivity extends BaseActivity {
         return file;
     }
 
-    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
                 Bitmap bitmapReturn = BitmapFactory.decodeFile(CACHE_IMG + photoName);
