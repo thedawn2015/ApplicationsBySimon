@@ -218,8 +218,7 @@ public class Util {
         return Math.abs(a - b);
     }
 
-    public static String getShortDateString()
-    {
+    public static String getShortDateString() {
         Calendar calendar = Calendar.getInstance();
         return String.format("%d-%d-%d",
                 calendar.get(Calendar.YEAR),
@@ -227,42 +226,32 @@ public class Util {
                 calendar.get(Calendar.DATE));
     }
 
-    public static String getDayofWeekString()
-    {
+    public static String getDayofWeekString() {
         Calendar calendar = Calendar.getInstance();
         int dayIndex = calendar.get(Calendar.DAY_OF_WEEK);
-        switch (dayIndex - 1)
-        {
-            case 0:
-            {
+        switch (dayIndex - 1) {
+            case 0: {
                 return "星期天";
             }
-            case 1:
-            {
+            case 1: {
                 return "星期一";
             }
-            case 2:
-            {
+            case 2: {
                 return "星期二";
             }
-            case 3:
-            {
+            case 3: {
                 return "星期三";
             }
-            case 4:
-            {
+            case 4: {
                 return "星期四";
             }
-            case 5:
-            {
+            case 5: {
                 return "星期五";
             }
-            case 6:
-            {
+            case 6: {
                 return "星期六";
             }
-            default:
-            {
+            default: {
                 return "";
             }
         }
@@ -312,55 +301,44 @@ public class Util {
         return plateNumber != null && plateNumber.matches(PLATE_NUMBER_FORMAT);
     }
 
-    public static boolean isNullOrEmpty(String s)
-    {
-        if (s == null)
-        {
+    public static boolean isNullOrEmpty(String s) {
+        if (s == null) {
             return true;
         }
 
-        if (s.trim().contentEquals(""))
-        {
+        if (s.trim().contentEquals("")) {
             return true;
         }
 
         return false;
     }
 
-    public static boolean isNullOrEmpty(List list)
-    {
-        if (list == null)
-        {
+    public static boolean isNullOrEmpty(List list) {
+        if (list == null) {
             return true;
         }
 
         return list.size() == 0;
     }
 
-    public static String nullToDefault(String s)
-    {
-        if (s == null)
-        {
+    public static String nullToDefault(String s) {
+        if (s == null) {
             s = "";
         }
 
         return s;
     }
 
-    public static <T> ArrayList<T> nullToDefault(ArrayList<T> arrayList)
-    {
-        if (arrayList == null)
-        {
+    public static <T> ArrayList<T> nullToDefault(ArrayList<T> arrayList) {
+        if (arrayList == null) {
             return new ArrayList<>();
         }
 
         return arrayList;
     }
 
-    public static int getListSize(List list)
-    {
-        if (list == null)
-        {
+    public static int getListSize(List list) {
+        if (list == null) {
             return 0;
         }
 
