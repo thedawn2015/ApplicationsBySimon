@@ -52,8 +52,8 @@ public class FileActivity extends BaseActivity {
 
                 all += "App Cache getCacheDir：\n" + DirectoryUtil.getCachePath(FileActivity.this) + "\n\n";
                 all += "App Cache getExternalCacheDir：\n" + DirectoryUtil.getExCachePath(FileActivity.this) + "\n\n";
-                all += "App Picture Cache getExternalFilesDir：\n" + DirectoryUtil.getExPictureCachePath(FileActivity.this) + "\n\n";
-                all += "App Download Cache getExternalFilesDir：\n" + DirectoryUtil.getExDownloadCachePath(FileActivity.this) + "\n\n";
+                all += "App Picture Cache getExPictureCachePath：\n" + DirectoryUtil.getExPictureCachePath(FileActivity.this) + "\n\n";
+                all += "App Download Cache getExDownloadCachePath：\n" + DirectoryUtil.getExDownloadCachePath(FileActivity.this) + "\n\n";
                 fileTextCachePath.setText(all);
                 break;
             case R.id.file_btn_mkdirs:
