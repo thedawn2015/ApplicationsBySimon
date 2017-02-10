@@ -2,9 +2,7 @@ package com.simon.baseandroid.util;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -81,7 +79,7 @@ public class BitmapUtil {
      */
     public static Bitmap getThumbBitmap(Bitmap bm, float width, float height) {
         if (bm != null) {
-            Options opts = new Options();
+            BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
             byte[] data = Bitmap2Bytes(bm);
             BitmapFactory.decodeByteArray(data, 0, data.length, opts);
@@ -95,13 +93,20 @@ public class BitmapUtil {
     }
 
     public static Bitmap getThumbBitmap(String path, float width, float height) {
-        Options opts = new Options();
+        BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, opts);
         float x = opts.outWidth / width;
         float y = opts.outHeight / height;
         opts.inSampleSize = (int) ((x + y) / 2);
         opts.inJustDecodeBounds = false;
+/*
+        // 重新读入图片，读取缩放后的bitmap，注意这次要把options.inJustDecodeBounds 设为 false
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        // 利用ThumbnailUtils来创建缩略图，这里要指定要缩放哪个Bitmap对象
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
+                ThumbnailUtils.OPTIONS_RECYCLE_INPUT);*/
+
         return BitmapFactory.decodeFile(path, opts);
     }
 
@@ -141,7 +146,7 @@ public class BitmapUtil {
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
-        Bitmap output = Bitmap.createBitmap(w, h, Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         int color = 0xff424242;
         Paint paint = new Paint();
@@ -158,7 +163,7 @@ public class BitmapUtil {
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx, boolean roundTL, boolean roundTR, boolean roundBL, boolean roundBR) {
         try {
-            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
+            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(output);
 
             final int color = 0xff424242;
@@ -228,7 +233,7 @@ public class BitmapUtil {
 
         Bitmap output = Bitmap.createBitmap(squareBitmap.getWidth(),
                 squareBitmap.getHeight(),
-                Config.ARGB_8888);
+                Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         Paint paint = new Paint();
 
@@ -298,8 +303,8 @@ public class BitmapUtil {
     public static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable
                         .getIntrinsicHeight(),
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Config.ARGB_8888
-                        : Config.RGB_565);
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         drawable.draw(canvas);
