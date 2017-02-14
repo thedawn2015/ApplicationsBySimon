@@ -18,6 +18,12 @@
         android:text="service+Thread"/>
 
     <Button
+        android:id="@+id/polling_service_btn_timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="timer"/>
+
+    <Button
         android:id="@+id/polling_service_btn_alarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
