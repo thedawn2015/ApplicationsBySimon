@@ -14,15 +14,15 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.simon.cardsgame.R;
-import com.simon.cardsgame.datas.CardType;
+import com.simon.cardsgame.model.CardType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 卡片类型适配器
- * <p/>
- * Created by Simon on 2016/7/5.
+ * desc：卡片类型适配器
+ * author：simon
+ * date：2017/2/16
  */
 public class CardTypeRecyclerViewAdapter extends RecyclerView.Adapter<CardTypeRecyclerViewAdapter.ViewHolder> {
     public static String TAG = CardTypeRecyclerViewAdapter.class.getSimpleName();

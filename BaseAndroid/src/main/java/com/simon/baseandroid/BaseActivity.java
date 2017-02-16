@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.simon.baseandroid.broadcastreceiver.NetConnectChangeReceiver;
+import com.simon.baseandroid.listener.IViewListener;
 import com.tencent.stat.StatService;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements IViewListener{
     public static String TAG = BaseActivity.class.getSimpleName();
 
     private ProgressDialog progressDialog;
