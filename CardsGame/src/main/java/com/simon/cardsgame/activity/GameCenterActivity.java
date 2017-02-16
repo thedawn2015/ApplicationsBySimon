@@ -1,5 +1,7 @@
 package com.simon.cardsgame.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +30,16 @@ public class GameCenterActivity extends BaseActivity {
 
     private List<CardType> cardTypeList;
     private CardTypeRecyclerViewAdapter cardTypeRecyclerViewAdapter;
+
+    /**
+     * 启动Activity
+     *
+     * @param context
+     */
+    public static void launchToActivity(Context context) {
+        Intent intent = new Intent(context, GameCenterActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
