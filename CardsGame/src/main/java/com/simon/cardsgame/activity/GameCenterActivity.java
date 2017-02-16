@@ -72,13 +72,13 @@ public class GameCenterActivity extends BaseActivity {
         gameRecyclerView.setAdapter(cardTypeRecyclerViewAdapter);
 
         cardTypeRecyclerViewAdapter.addItems(cardTypeList);
-        cardTypeRecyclerViewAdapter.setOnCardTypeItemClickListener(
+        /*cardTypeRecyclerViewAdapter.setOnCardTypeItemClickListener(
                 new CardTypeRecyclerViewAdapter.OnCardTypeItemClickListener() {
                     @Override
                     public void onItemClick() {
 
                     }
-                });
+                });*/
     }
 
     @Override

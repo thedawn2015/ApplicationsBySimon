@@ -11,14 +11,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.simon.cardsgame.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/type_name"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_recycler_view"
+    <Button
+        android:id="@+id/main_btn_to_center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:text="进入游戏中心" />
 </LinearLayout>

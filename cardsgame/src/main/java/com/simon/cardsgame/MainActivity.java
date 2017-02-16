@@ -1,66 +1,60 @@
 package com.simon.cardsgame;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
 import com.simon.baseandroid.BaseActivity;
-import com.simon.cardsgame.adapter.CardTypeRecyclerViewAdapter;
-import com.simon.cardsgame.datas.CardType;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.simon.cardsgame.activity.GameCenterActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+/**
+ * desc：首页
+ * author：simon
+ * date：2017/2/16
+ */
 public class MainActivity extends BaseActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.main_recycler_view)
-    RecyclerView mainRecyclerView;
-
-    private List<CardType> cardTypeList;
-    private CardTypeRecyclerViewAdapter cardTypeRecyclerViewAdapter;
+    @BindView(R.id.main_btn_to_center)
+    Button mainBtnToCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        initData();
+        assignViews();
+        bindData();
+        refreshViews();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        initDatas();
-        assingViews();
+    public void assignViews() {
+
     }
 
-    private void initDatas() {
-        cardTypeList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CardType cardType = new CardType();
-            cardType.setTypeName("name " + i);
-            cardTypeList.add(cardType);
-        }
+    @Override
+    public void initData() {
+
     }
 
-    private void assingViews() {
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
-        mainRecyclerView.setLayoutManager(layoutManager);
+    @Override
+    public void bindData() {
 
-        cardTypeRecyclerViewAdapter = new CardTypeRecyclerViewAdapter(MainActivity.this);
-        mainRecyclerView.setAdapter(cardTypeRecyclerViewAdapter);
+    }
 
-        cardTypeRecyclerViewAdapter.addItems(cardTypeList);
-        cardTypeRecyclerViewAdapter.setOnCardTypeItemClickListener(
-                new CardTypeRecyclerViewAdapter.OnCardTypeItemClickListener() {
-                    @Override
-                    public void onItemClick() {
+    @Override
+    public void refreshViews() {
 
-                    }
-                });
+    }
+
+    @OnClick(R.id.main_btn_to_center)
+    public void onClick() {
+        GameCenterActivity.launchToActivity(this);
     }
 }
