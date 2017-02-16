@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.simon.baseandroid.BaseActivity;
 import com.simon.cardsgame.adapter.CardTypeRecyclerViewAdapter;
 import com.simon.cardsgame.datas.CardType;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.main_recycler_view)
