@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'simon'
             keyPassword '123456'
-            storeFile file('D:/AS_Workspace/ApplicationsBySimon/Samples/keystore.jks')
+            storeFile file('H:/ASWorkspace/ApplicationsBySimon/keystore.jks')
             storePassword '123456'
         }
     }
@@ -74,9 +74,8 @@ dependencies {
     compile project(':Base')
     compile project(':BaseAndroid')
     compile project(':MapService')
-
     compile files('src/main/jniLibs/pushservice-5.2.0.12.jar')
-
+    compile 'com.android.support:appcompat-v7:25.1.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
 }
 
