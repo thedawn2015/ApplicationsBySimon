@@ -14,7 +14,9 @@ import android.widget.TimePicker;
 import com.simon.baseandroid.BaseActivity;
 import com.simon.sample.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -33,6 +35,8 @@ public class TimeActivity extends BaseActivity {
     Button dateBtnPick;
     @BindView(R.id.time_btn_pick)
     Button timeBtnPick;
+    @BindView(R.id.time_pick_view)
+    PickerView timePickView;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, TimeActivity.class);
@@ -44,6 +48,26 @@ public class TimeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
         ButterKnife.bind(this);
+
+        assignViews();
+    }
+
+    private void assignViews() {
+        List<String> list = new ArrayList<>();
+        list.add("星期1");
+        list.add("星期2");
+        list.add("星期3");
+        list.add("星期4");
+        list.add("星期5");
+        list.add("星期6");
+        list.add("星期7");
+        timePickView.setData(list);
+        timePickView.setOnSelectListener(new PickerView.onSelectListener() {
+            @Override
+            public void onSelect(String text) {
+                Log.i(TAG, "onSelect: text=" + text);
+            }
+        });
     }
 
     @OnClick({R.id.date_btn_pick, R.id.time_btn_pick})

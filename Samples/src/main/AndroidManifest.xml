@@ -189,6 +189,7 @@
         <activity android:name=".file.FileActivity"></activity>
         <activity android:name=".fragment.MyFragmentActivity"></activity>
         <activity android:name=".amap.AMapActivity"></activity>
+        <activity android:name=".time.TimeActivity"></activity>
     </application>
 
 </manifest>

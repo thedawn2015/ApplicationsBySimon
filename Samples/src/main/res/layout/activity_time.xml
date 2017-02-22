@@ -44,6 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
+        <com.simon.sample.time.PickerView
+            android:id="@+id/time_pick_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
     </LinearLayout>
 </ScrollView>
