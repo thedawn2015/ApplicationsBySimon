@@ -12,7 +12,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "com.simon.simple"
+        applicationId "com.simon.sample"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 10
