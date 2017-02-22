@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <!-- 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
-    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.simon.simple"/>
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.simon.sample"/>
 
     <permission
         android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.simon.sample"
@@ -121,7 +121,7 @@
             android:authorities="com.baidu.push.example.bdpush"
             android:exported="true"
             android:protectionLevel="signature"
-            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.simon.simple"/>
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.simon.sample"/>
 
         <!-- 在百度开发者中心查询应用的API Key -->
         <meta-data
