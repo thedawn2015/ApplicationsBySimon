@@ -1,7 +1,9 @@
-package com.simon.cardsgame.datas;
+package com.simon.cardsgame.model;
 
 /**
- * Created by TheDawn on 2016/7/5.
+ * desc：卡片类型
+ * author：simon
+ * date：2017/2/16
  */
 public class CardType {
     private String typeName;
