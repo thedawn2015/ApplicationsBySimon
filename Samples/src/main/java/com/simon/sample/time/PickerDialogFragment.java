@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * desc:
+ * desc: 选择对话框
  * author: xw
  * time: 2017/2/22
  */
@@ -46,8 +46,6 @@ public class PickerDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setWindowSize(0.8, 0.6);
-
         initData();
     }
 
@@ -67,7 +65,7 @@ public class PickerDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_picker_view, container, false);
         ButterKnife.bind(this, view);
-
+        setWindowSize(0.8, 0.6);
         assignViews();
         return view;
     }

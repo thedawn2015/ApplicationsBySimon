@@ -11,7 +11,7 @@ import com.simon.baseandroid.broadcastreceiver.NetConnectChangeReceiver;
 import com.simon.baseandroid.listener.IViewListener;
 import com.tencent.stat.StatService;
 
-public abstract class BaseActivity extends AppCompatActivity implements IViewListener{
+public class BaseActivity extends AppCompatActivity {
     public static String TAG = BaseActivity.class.getSimpleName();
 
     private ProgressDialog progressDialog;

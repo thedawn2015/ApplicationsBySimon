@@ -39,6 +39,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Base">
 
+
         <!-- 腾讯统计 -->
         <!-- 请将value改为MTA分配的appkey < -->
         <meta-data
@@ -53,7 +54,7 @@
         <!-- mid-sdk-3.5以上版本增加 < -->
         <provider
             android:name="com.tencent.mid.api.MidProvider"
-            android:authorities="com.simon.sample.TENCENT.MID.V3"
+            android:authorities="com.simon.sample.TENCENT.MID.V3.1"
             android:exported="true"/>
         <!--
                 &lt;!&ndash; push service start &ndash;&gt;
@@ -137,59 +138,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".download.DownloadActivity"></activity>
-        <activity android:name=".titlebar.TitleBarActivity"></activity>
-        <activity android:name=".animator.AnimatorActivity"></activity>
-        <activity android:name=".notify.NotificationActivity"></activity>
-        <activity android:name=".db.DBActivity"></activity>
-        <activity android:name=".polling.PollingServiceActivity"></activity>
+        <activity android:name=".download.DownloadActivity" />
+        <activity android:name=".titlebar.TitleBarActivity" />
+        <activity android:name=".animator.AnimatorActivity" />
+        <activity android:name=".notify.NotificationActivity" />
+        <activity android:name=".db.DBActivity" />
+        <activity android:name=".polling.PollingServiceActivity" />
 
-        <service android:name=".polling.alarm.PollingService"></service>
-        <service android:name=".polling.service.RequestService"></service>
+        <service android:name=".polling.alarm.PollingService" />
+        <service android:name=".polling.service.RequestService" />
 
-        <receiver android:name=".polling.alarm.AlarmReceiver"></receiver>
+        <receiver android:name=".polling.alarm.AlarmReceiver" />
 
-        <activity android:name=".recyclerview.RecyclerViewActivity"></activity>
-        <activity android:name=".progress.ProgressActivity"></activity>
-        <activity android:name=".telephone.TelephoneActivity"></activity>
-        <activity android:name=".keyboard.KeyBoardActivity"></activity>
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity android:name=".progress.ProgressActivity" />
+        <activity android:name=".telephone.TelephoneActivity" />
+        <activity android:name=".keyboard.KeyBoardActivity" />
         <activity
             android:name=".nati.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".nati.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".nati.NavigationActivity"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".nati.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".nati.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".nati.TabActivity"
             android:label="@string/title_activity_tab"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".async.AsyncActivity"></activity>
-        <activity android:name=".toolbar.ToolbarActivity"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".async.AsyncActivity" />
+        <activity android:name=".toolbar.ToolbarActivity" />
 
         <!-- android:theme="@style/TransparentTheme" -->
-        <activity android:name=".dialog.DialogActivity"></activity>
-        <activity android:name=".rx.RxActivity"></activity>
+        <activity android:name=".dialog.DialogActivity" />
+        <activity android:name=".rx.RxActivity" />
         <activity
             android:name=".webview.WebViewActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".third_login.ThirdLoginActivity"></activity>
-        <activity android:name=".file.FileActivity"></activity>
-        <activity android:name=".fragment.MyFragmentActivity"></activity>
-        <activity android:name=".amap.AMapActivity"></activity>
-        <activity android:name=".time.TimeActivity"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".third_login.ThirdLoginActivity" />
+        <activity android:name=".file.FileActivity" />
+        <activity android:name=".fragment.MyFragmentActivity" />
+        <activity android:name=".amap.AMapActivity" />
+        <activity android:name=".time.TimeActivity" />
     </application>
 
 </manifest>

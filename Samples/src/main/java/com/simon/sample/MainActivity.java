@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.amap.AMapActivity;
@@ -112,7 +110,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
+//        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
 
         try {
             StatService.startStatService(this, "A6WA4JVMD33X", StatConstants.VERSION);
@@ -257,6 +255,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PushManager.stopWork(getApplicationContext());
+//        PushManager.stopWork(getApplicationContext());
     }
 }

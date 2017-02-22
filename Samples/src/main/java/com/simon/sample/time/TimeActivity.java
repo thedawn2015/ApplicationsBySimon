@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.simon.baseandroid.BaseActivity;
+import com.simon.baseandroid.listener.IViewListener;
 import com.simon.sample.R;
 
 import java.util.Calendar;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
  * author: xw
  * time: 2017/2/17
  */
-public class TimeActivity extends BaseActivity {
+public class TimeActivity extends BaseActivity implements IViewListener {
     public static final String TAG = TimeActivity.class.getSimpleName();
 
     @BindView(R.id.date_btn_pick)
@@ -46,9 +47,6 @@ public class TimeActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         assignViews();
-    }
-
-    private void assignViews() {
     }
 
     @OnClick({R.id.date_btn_pick, R.id.time_btn_pick, R.id.time_btn_pick_view})
@@ -98,5 +96,25 @@ public class TimeActivity extends BaseActivity {
                 }, year, month, day);
 //        datePickerDialog.setTitle("日期选择");
         datePickerDialog.show();
+    }
+
+    @Override
+    public void assignViews() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void bindData() {
+
+    }
+
+    @Override
+    public void refreshViews() {
+
     }
 }
