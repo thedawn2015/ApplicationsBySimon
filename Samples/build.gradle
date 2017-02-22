@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'simon'
             keyPassword '123456'
-            storeFile file('D:/AS_Workspace/ApplicationsBySimon/Samples/keystore.jks')
+            storeFile file('H:/ASWorkspace/ApplicationsBySimon/keystore.jks')
             storePassword '123456'
         }
     }
