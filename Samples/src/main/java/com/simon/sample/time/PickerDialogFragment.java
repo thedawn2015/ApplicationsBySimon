@@ -1,8 +1,11 @@
 package com.simon.sample.time;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +49,11 @@ public class PickerDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //1 通过样式定义
+//        setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_Dialog_Time);
+        //2代码设置 无标题 无边框
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+
         initData();
     }
 
@@ -65,10 +73,18 @@ public class PickerDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_picker_view, container, false);
         ButterKnife.bind(this, view);
-        setWindowSize(0.8, 0.6);
+
+
         assignViews();
         return view;
     }
+
+    /*@NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        return builder.create();
+    }*/
 
     private void assignViews() {
         pickerView.setData(list);
@@ -91,9 +107,11 @@ public class PickerDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        setWindowSize(0.9, 0.8);
     }
 
     private void setWindowSize(double width, double height) {
+        getDialog().setCancelable(false);
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
         DisplayMetrics metrics = getResources().getDisplayMetrics();

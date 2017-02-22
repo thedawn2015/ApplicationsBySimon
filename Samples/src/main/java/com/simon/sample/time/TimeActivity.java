@@ -46,6 +46,7 @@ public class TimeActivity extends BaseActivity implements IViewListener {
         setContentView(R.layout.activity_time);
         ButterKnife.bind(this);
 
+
         assignViews();
     }
 
