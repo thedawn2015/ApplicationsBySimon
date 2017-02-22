@@ -27,6 +27,12 @@
             android:layout_height="wrap_content"
             android:text="时间选择"/>
 
+        <Button
+            android:id="@+id/time_btn_pick_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pick view"/>
+
         <TimePicker
             android:id="@+id/time_picker_clock"
             android:layout_width="match_parent"
@@ -44,9 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.simon.sample.time.PickerView
-            android:id="@+id/time_pick_view"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"/>
+
     </LinearLayout>
 </ScrollView>
