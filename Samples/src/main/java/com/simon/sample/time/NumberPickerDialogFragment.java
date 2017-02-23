@@ -15,9 +15,6 @@ import android.widget.NumberPicker;
 
 import com.simon.sample.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,7 +37,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
     Button pickerBtnSure;
 
 
-    private List<String> list;
+    private String[] strings;
 
     public static NumberPickerDialogFragment newInstance() {
         Bundle args = new Bundle();
@@ -62,14 +59,14 @@ public class NumberPickerDialogFragment extends DialogFragment {
     }
 
     private void initData() {
-        list = new ArrayList<>();
-        list.add("星期1");
-        list.add("星期2");
-        list.add("星期3");
-        list.add("星期4");
-        list.add("星期5");
-        list.add("星期6");
-        list.add("星期7");
+        strings = new String[7];
+        strings[0] = "星期1";
+        strings[1] = "星期2";
+        strings[2] = "星期3";
+        strings[3] = "星期4";
+        strings[4] = "星期5";
+        strings[5] = "星期6";
+        strings[6] = "星期7";
     }
 
     @Nullable
@@ -91,8 +88,9 @@ public class NumberPickerDialogFragment extends DialogFragment {
     }*/
 
     private void assignViews() {
-        numberPicker.setDisplayedValues((String[]) list.toArray());
-        numberPicker.setMaxValue(list.size());
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        numberPicker.setDisplayedValues(strings);
+        numberPicker.setMaxValue(6);
         numberPicker.setMinValue(0);
         numberPicker.setValue(3);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
