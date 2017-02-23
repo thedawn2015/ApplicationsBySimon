@@ -1,16 +1,11 @@
 package com.simon.sample.time;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-
-import com.simon.baseandroid.util.DensityUtil;
-import com.simon.sample.R;
 
 import java.lang.reflect.Field;
 
@@ -24,7 +19,6 @@ public class CustomerNumberPicker extends NumberPicker {
     private int textColor;
     private float textSize;
     private int dividerColor;
-    private int backgroundColor;
 
     public CustomerNumberPicker(Context context) {
         super(context);
@@ -33,15 +27,15 @@ public class CustomerNumberPicker extends NumberPicker {
     public CustomerNumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomerNumberPicker);
-        textColor = typedArray.getColor(R.styleable.CustomerNumberPicker_textColor, ContextCompat.getColor(context, R.color.white));
-        textSize = typedArray.getDimension(R.styleable.CustomerNumberPicker_textSize, DensityUtil.px2dp(context, 12));
-        dividerColor = typedArray.getColor(R.styleable.CustomerNumberPicker_dividerColor, ContextCompat.getColor(context, R.color.white));
-        backgroundColor = typedArray.getColor(R.styleable.CustomerNumberPicker_textColor, ContextCompat.getColor(context, R.color.gray));
+        /*TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomerNumberPicker);
+        textColor = typedArray.getColor(R.styleable.CustomerNumberPicker_textColor, 0xFFFFFF);
+        textSize = typedArray.getDimension(R.styleable.CustomerNumberPicker_textSize, DensityUtil.dp2px(context, 14));
+        dividerColor = typedArray.getColor(R.styleable.CustomerNumberPicker_dividerColor, 0xFFFFFF);
+//        dividerColor = typedArray.getColor(R.styleable.CustomerNumberPicker_dividerColor, ContextCompat.getColor(context, R.color.white));
 
-        typedArray.recycle();
+        typedArray.recycle();*/
 
-        setNumberPickerDividerColor();
+//        setNumberPickerDividerColor();
     }
 
     @Override
@@ -69,9 +63,9 @@ public class CustomerNumberPicker extends NumberPicker {
      */
     private void updateView(View child) {
         if (child instanceof EditText) {
-            //这里修改字体的属性
-            ((EditText) child).setTextColor(textColor);
-            ((EditText) child).setTextSize(textSize);
+            //这里修改字体的属性，
+            ((EditText) child).setTextColor(0xFF1493);
+            ((EditText) child).setTextSize(20);
         }
     }
 

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
     <LinearLayout
@@ -14,22 +15,23 @@
         <com.simon.sample.time.CustomerNumberPicker
             android:id="@+id/number_picker"
             android:layout_width="80dp"
-            android:layout_height="150dp"
-            android:background="@color/white"/>
+            android:layout_height="150dp"/>
 
         <com.simon.sample.time.CustomerNumberPicker
             android:id="@+id/number_picker2"
             android:layout_width="80dp"
             android:layout_height="150dp"
             android:layout_marginLeft="10dp"
-            android:background="@color/white"/>
+            app:textColor="@color/beige"
+            android:background="@color/gray"/>
 
         <com.simon.sample.time.CustomerNumberPicker
             android:id="@+id/number_picker3"
             android:layout_width="80dp"
             android:layout_height="150dp"
+            app:textColor="#FF7F50"
             android:layout_marginLeft="10dp"
-            android:background="@color/white"/>
+            android:background="@color/gray"/>
 
     </LinearLayout>
 
