@@ -2,7 +2,6 @@ package com.simon.sample.time;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.NumberPicker;
 import com.simon.baseandroid.util.DensityUtil;
 import com.simon.sample.R;
 
+import java.lang.reflect.Field;
+
 /**
  * desc:
  * author: xw
@@ -22,7 +23,7 @@ public class CustomerNumberPicker extends NumberPicker {
 
     private int textColor;
     private float textSize;
-    private int lineColor;
+    private int dividerColor;
     private int backgroundColor;
 
     public CustomerNumberPicker(Context context) {
@@ -35,9 +36,12 @@ public class CustomerNumberPicker extends NumberPicker {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomerNumberPicker);
         textColor = typedArray.getColor(R.styleable.CustomerNumberPicker_textColor, ContextCompat.getColor(context, R.color.white));
         textSize = typedArray.getDimension(R.styleable.CustomerNumberPicker_textSize, DensityUtil.px2dp(context, 12));
-        lineColor = typedArray.getColor(R.styleable.CustomerNumberPicker_lineColor, ContextCompat.getColor(context, R.color.white));
+        dividerColor = typedArray.getColor(R.styleable.CustomerNumberPicker_dividerColor, ContextCompat.getColor(context, R.color.white));
         backgroundColor = typedArray.getColor(R.styleable.CustomerNumberPicker_textColor, ContextCompat.getColor(context, R.color.gray));
+
         typedArray.recycle();
+
+        setNumberPickerDividerColor();
     }
 
     @Override
@@ -58,12 +62,41 @@ public class CustomerNumberPicker extends NumberPicker {
         updateView(child);
     }
 
+    /**
+     * 设置属性
+     *
+     * @param child
+     */
     private void updateView(View child) {
         if (child instanceof EditText) {
             //这里修改字体的属性
-            ((EditText) child).setTextColor(Color.parseColor("#BAA785"));
-//            ((EditText) view).setTextSize();
+            ((EditText) child).setTextColor(textColor);
+            ((EditText) child).setTextSize(textSize);
         }
     }
 
+    /**
+     * 设置分割线的颜色
+     */
+    private void setNumberPickerDividerColor() {
+        Field[] pickerFields = NumberPicker.class.getDeclaredFields();
+        for (Field pickerField : pickerFields) {
+            if (pickerField.getName().equals("mSelectionDivider")) {
+                pickerField.setAccessible(true);
+                try {
+                    pickerField.set(CustomerNumberPicker.this, dividerColor);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void setDescendantFocusability(int focusability) {
+        //默认不能编辑
+        super.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+//        super.setDescendantFocusability(focusability);
+    }
 }

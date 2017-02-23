@@ -8,24 +8,28 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/white"
         android:gravity="center_vertical">
 
-        <NumberPicker
+        <com.simon.sample.time.CustomerNumberPicker
             android:id="@+id/number_picker"
             android:layout_width="80dp"
-            android:layout_height="200dp"/>
+            android:layout_height="150dp"
+            android:background="@color/white"/>
 
-        <NumberPicker
+        <com.simon.sample.time.CustomerNumberPicker
             android:id="@+id/number_picker2"
             android:layout_width="80dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"/>
 
-        <NumberPicker
+        <com.simon.sample.time.CustomerNumberPicker
             android:id="@+id/number_picker3"
             android:layout_width="80dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"/>
 
     </LinearLayout>
 

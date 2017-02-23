@@ -28,11 +28,11 @@ public class NumberPickerDialogFragment extends DialogFragment {
     public static final String TAG = NumberPickerDialogFragment.class.getSimpleName();
 
     @BindView(R.id.number_picker)
-    NumberPicker numberPicker;
+    CustomerNumberPicker numberPicker;
     @BindView(R.id.number_picker2)
-    NumberPicker numberPicker2;
+    CustomerNumberPicker numberPicker2;
     @BindView(R.id.number_picker3)
-    NumberPicker numberPicker3;
+    CustomerNumberPicker numberPicker3;
     @BindView(R.id.picker_btn_sure)
     Button pickerBtnSure;
 
@@ -88,7 +88,6 @@ public class NumberPickerDialogFragment extends DialogFragment {
     }*/
 
     private void assignViews() {
-        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         numberPicker.setDisplayedValues(strings);
         numberPicker.setMaxValue(6);
         numberPicker.setMinValue(0);
