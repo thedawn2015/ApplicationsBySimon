@@ -33,6 +33,12 @@
             android:layout_height="wrap_content"
             android:text="pick view"/>
 
+        <Button
+            android:id="@+id/time_btn_number_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="number picker"/>
+
         <TimePicker
             android:id="@+id/time_picker_clock"
             android:layout_width="match_parent"

@@ -24,6 +24,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/picker_btn_sure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkseagreen"

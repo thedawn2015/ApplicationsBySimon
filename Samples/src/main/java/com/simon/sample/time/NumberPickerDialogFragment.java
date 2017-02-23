@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TimePicker;
+import android.widget.NumberPicker;
 
 import com.simon.sample.R;
 
@@ -27,21 +27,24 @@ import butterknife.OnClick;
  * author: xw
  * time: 2017/2/22
  */
-public class PickerDialogFragment extends DialogFragment {
-    public static final String TAG = PickerDialogFragment.class.getSimpleName();
+public class NumberPickerDialogFragment extends DialogFragment {
+    public static final String TAG = NumberPickerDialogFragment.class.getSimpleName();
 
-    @BindView(R.id.picker_view)
-    PickerView pickerView;
-    @BindView(R.id.picker_timer_picker)
-    TimePicker pickerTimerPicker;
+    @BindView(R.id.number_picker)
+    NumberPicker numberPicker;
+    @BindView(R.id.number_picker2)
+    NumberPicker numberPicker2;
+    @BindView(R.id.number_picker3)
+    NumberPicker numberPicker3;
     @BindView(R.id.picker_btn_sure)
     Button pickerBtnSure;
 
+
     private List<String> list;
 
-    public static PickerDialogFragment newInstance() {
+    public static NumberPickerDialogFragment newInstance() {
         Bundle args = new Bundle();
-        PickerDialogFragment fragment = new PickerDialogFragment();
+        NumberPickerDialogFragment fragment = new NumberPickerDialogFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,7 +75,7 @@ public class PickerDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_picker_view, container, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_number_picker, container, false);
         ButterKnife.bind(this, view);
 
 
@@ -88,19 +91,32 @@ public class PickerDialogFragment extends DialogFragment {
     }*/
 
     private void assignViews() {
-        pickerView.setData(list);
-        pickerView.setOnSelectListener(new PickerView.onSelectListener() {
+        numberPicker.setDisplayedValues((String[]) list.toArray());
+        numberPicker.setMaxValue(list.size());
+        numberPicker.setMinValue(0);
+        numberPicker.setValue(3);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onSelect(String text) {
-                Log.i(TAG, "onSelect: text=" + text);
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                Log.i(TAG, "onValueChange: i=" + i + "; i1=" + i1);
             }
         });
-
-        pickerTimerPicker.setIs24HourView(true);
-        pickerTimerPicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        numberPicker2.setMaxValue(23);
+        numberPicker2.setMinValue(0);
+        numberPicker2.setValue(15);
+        numberPicker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-                Log.i(TAG, "onTimeChanged: hour=" + hour + "; minute=" + minute);
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                Log.i(TAG, "onValueChange: i=" + i + "; i1=" + i1);
+            }
+        });
+        numberPicker3.setMaxValue(59);
+        numberPicker3.setMinValue(0);
+        numberPicker3.setValue(15);
+        numberPicker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                Log.i(TAG, "onValueChange: i=" + i + "; i1=" + i1);
             }
         });
     }

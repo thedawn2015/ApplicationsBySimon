@@ -34,6 +34,8 @@ public class TimeActivity extends BaseActivity implements IViewListener {
     Button dateBtnPick;
     @BindView(R.id.time_btn_pick)
     Button timeBtnPick;
+    @BindView(R.id.time_btn_number_picker)
+    Button timeBtnNumberPicker;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, TimeActivity.class);
@@ -50,7 +52,7 @@ public class TimeActivity extends BaseActivity implements IViewListener {
         assignViews();
     }
 
-    @OnClick({R.id.date_btn_pick, R.id.time_btn_pick, R.id.time_btn_pick_view})
+    @OnClick({R.id.date_btn_pick, R.id.time_btn_pick, R.id.time_btn_pick_view, R.id.time_btn_number_picker})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.date_btn_pick:
@@ -62,6 +64,10 @@ public class TimeActivity extends BaseActivity implements IViewListener {
             case R.id.time_btn_pick_view:
                 PickerDialogFragment.newInstance()
                         .show(getSupportFragmentManager(), PickerDialogFragment.TAG);
+                break;
+            case R.id.time_btn_number_picker:
+                NumberPickerDialogFragment.newInstance()
+                        .show(getSupportFragmentManager(), NumberPickerDialogFragment.TAG);
                 break;
         }
     }
