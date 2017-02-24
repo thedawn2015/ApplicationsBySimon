@@ -27,8 +27,6 @@ public class WheelViewsActivity extends AppCompatActivity {
     WheelViewS wheels2;
     @BindView(R.id.wheels3)
     WheelViewS wheels3;
-    @BindView(R.id.wheels4)
-    WheelViewS wheels4;
 
     private ArrayList<String> list;
 
@@ -49,9 +47,19 @@ public class WheelViewsActivity extends AppCompatActivity {
 
     private void assignViews() {
         wheels1.setData(list);
+        wheels1.setOnSelectListener(new WheelViewS.OnSelectListener() {
+            @Override
+            public void endSelect(int id, String text) {
+
+            }
+
+            @Override
+            public void selecting(int id, String text) {
+
+            }
+        });
         wheels2.setData(list);
         wheels3.setData(list);
-        wheels4.setData(list);
     }
 
     private void initData() {

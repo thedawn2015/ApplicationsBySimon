@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.simon.baseandroid.R;
+import com.simon.baseandroid.util.DensityUtil;
 
 import java.util.ArrayList;
 
@@ -154,18 +155,18 @@ public class WheelViewS extends View {
     private void init(Context context, AttributeSet attrs) {
 
         TypedArray attribute = context.obtainStyledAttributes(attrs, R.styleable.WheelView);
-        unitHeight = (int) attribute.getDimension(R.styleable.WheelView_unitHeight, unitHeight);
+        unitHeight = (int) attribute.getDimension(R.styleable.WheelView_unitHeight, DensityUtil.dp2px(context, unitHeight));
         itemNumber = attribute.getInt(R.styleable.WheelView_itemNumber, itemNumber);
 
-        normalFont = attribute.getDimension(R.styleable.WheelView_normalTextSize, normalFont);
-        selectedFont = attribute.getDimension(R.styleable.WheelView_selectedTextSize, selectedFont);
+        normalFont = attribute.getDimension(R.styleable.WheelView_normalTextSize, DensityUtil.dp2px(context, normalFont));
+        selectedFont = attribute.getDimension(R.styleable.WheelView_selectedTextSize, DensityUtil.dp2px(context, selectedFont));
         normalColor = attribute.getColor(R.styleable.WheelView_normalTextColor, normalColor);
         selectedColor = attribute.getColor(R.styleable.WheelView_selectedTextColor, selectedColor);
 
         lineColor = attribute.getColor(R.styleable.WheelView_lineColor, lineColor);
-        lineHeight = attribute.getDimension(R.styleable.WheelView_lineHeight, lineHeight);
+        lineHeight = attribute.getDimension(R.styleable.WheelView_lineHeight, DensityUtil.dp2px(context, lineHeight));
 
-        maskHeight = attribute.getDimension(R.styleable.WheelView_maskHeight, maskHeight);
+        maskHeight = attribute.getDimension(R.styleable.WheelView_maskHeight, DensityUtil.dp2px(context, maskHeight));
         noEmpty = attribute.getBoolean(R.styleable.WheelView_noEmpty, true);
         isEnable = attribute.getBoolean(R.styleable.WheelView_isEnable, true);
 

@@ -12,13 +12,14 @@
         android:id="@+id/wheels1"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:background="@color/beige"
         android:layout_weight="1"
-        app:itemNumber="2"/>
+        app:itemNumber="3"/>
 
     <com.simon.baseandroid.widget.WheelViewS
         android:id="@+id/wheels2"
         android:layout_width="0dp"
-        app:itemNumber="3"
+        app:itemNumber="5"
         android:layout_height="100dp"
         android:layout_weight="1"/>
 
@@ -26,14 +27,7 @@
         android:id="@+id/wheels3"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        app:itemNumber="4"
-        android:layout_weight="1"/>
-
-    <com.simon.baseandroid.widget.WheelViewS
-        android:id="@+id/wheels4"
-        android:layout_width="0dp"
-        app:itemNumber="5"
-        android:layout_height="100dp"
+        app:itemNumber="7"
         android:layout_weight="1"/>
 
 </LinearLayout>
