@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import com.simon.baseandroid.widget.CustomerNumberPicker;
 import com.simon.sample.R;
 
 import butterknife.BindView;

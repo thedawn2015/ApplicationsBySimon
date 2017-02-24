@@ -1,4 +1,4 @@
-package com.simon.sample.time;
+package com.simon.baseandroid.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,7 +10,7 @@ import android.widget.NumberPicker;
 import java.lang.reflect.Field;
 
 /**
- * desc:
+ * desc: 数字选择器
  * author: xw
  * time: 2017/2/23
  */
@@ -87,10 +87,10 @@ public class CustomerNumberPicker extends NumberPicker {
         }
     }
 
-    @Override
+    /*@Override
     public void setDescendantFocusability(int focusability) {
         //默认不能编辑
         super.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 //        super.setDescendantFocusability(focusability);
-    }
+    }*/
 }

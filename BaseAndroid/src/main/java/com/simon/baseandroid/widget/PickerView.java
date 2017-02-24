@@ -1,4 +1,4 @@
-package com.simon.sample.time;
+package com.simon.baseandroid.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

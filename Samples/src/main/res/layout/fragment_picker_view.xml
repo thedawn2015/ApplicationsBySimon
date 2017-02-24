@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical">
 
-        <com.simon.sample.time.PickerView
+        <com.simon.baseandroid.widget.PickerView
             android:id="@+id/picker_view"
             android:layout_width="100dp"
             android:layout_height="130dp" />

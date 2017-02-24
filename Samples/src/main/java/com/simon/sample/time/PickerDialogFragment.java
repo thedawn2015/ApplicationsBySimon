@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TimePicker;
 
+import com.simon.baseandroid.widget.PickerView;
 import com.simon.sample.R;
 
 import java.util.ArrayList;
