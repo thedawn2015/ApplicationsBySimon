@@ -192,6 +192,8 @@
         <activity android:name=".time.TimeActivity"/>
         <activity android:name=".time.WheelViewActivity">
         </activity>
+        <activity android:name=".time.WheelViewsActivity">
+        </activity>
     </application>
 
 </manifest>

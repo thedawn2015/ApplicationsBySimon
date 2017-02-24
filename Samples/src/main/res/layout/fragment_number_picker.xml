@@ -12,18 +12,18 @@
         android:background="@color/white"
         android:gravity="center_vertical">
 
-        <com.simon.baseandroid.widget.WheelView
+        <com.simon.baseandroid.widget.WheelViewS
             android:id="@+id/number_picker"
             android:layout_width="80dp"
             android:layout_height="150dp"/>
 
-        <com.simon.baseandroid.widget.WheelView
+        <com.simon.baseandroid.widget.WheelViewS
             android:id="@+id/number_picker2"
             android:layout_width="80dp"
             android:layout_height="150dp"
             android:layout_marginLeft="10dp"/>
 
-        <com.simon.baseandroid.widget.WheelView
+        <com.simon.baseandroid.widget.WheelViewS
             android:id="@+id/number_picker3"
             android:layout_width="80dp"
             android:layout_height="150dp"

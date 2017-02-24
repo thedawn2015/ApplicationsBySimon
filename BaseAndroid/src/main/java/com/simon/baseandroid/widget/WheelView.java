@@ -28,7 +28,7 @@ import java.util.List;
  * Date: 7/1/14.
  */
 public class WheelView extends ScrollView {
-    public static final String TAG = WheelView.class.getSimpleName();
+    public static final String TAG = WheelViewS.class.getSimpleName();
 
     public static class OnWheelViewListener {
         public void onSelected(int selectedIndex, String item) {
@@ -103,7 +103,7 @@ public class WheelView extends ScrollView {
 //        scrollView = ((ScrollView)this.getParent());
 //        Log.d(TAG, "scrollview: " + scrollView);
         Log.d(TAG, "parent: " + this.getParent());
-//        this.setOrientation(VERTICAL);
+
         this.setVerticalScrollBarEnabled(false);
 
         views = new LinearLayout(context);

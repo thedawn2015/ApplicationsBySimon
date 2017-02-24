@@ -38,6 +38,8 @@ public class TimeActivity extends BaseActivity implements IViewListener {
     Button timeBtnNumberPicker;
     @BindView(R.id.time_btn_wheel_view)
     Button timeBtnWheelView;
+    @BindView(R.id.time_btn_wheel_views)
+    Button timeBtnWheelViews;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, TimeActivity.class);
@@ -54,7 +56,8 @@ public class TimeActivity extends BaseActivity implements IViewListener {
         assignViews();
     }
 
-    @OnClick({R.id.date_btn_pick, R.id.time_btn_pick, R.id.time_btn_pick_view, R.id.time_btn_number_picker, R.id.time_btn_wheel_view})
+    @OnClick({R.id.date_btn_pick, R.id.time_btn_pick, R.id.time_btn_pick_view, R.id.time_btn_number_picker,
+            R.id.time_btn_wheel_view, R.id.time_btn_wheel_views})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.date_btn_pick:
@@ -73,6 +76,9 @@ public class TimeActivity extends BaseActivity implements IViewListener {
                 break;
             case R.id.time_btn_wheel_view:
                 WheelViewActivity.launch(TimeActivity.this);
+                break;
+            case R.id.time_btn_wheel_views:
+                WheelViewsActivity.launch(TimeActivity.this);
                 break;
         }
     }

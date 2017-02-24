@@ -45,6 +45,12 @@
             android:layout_height="wrap_content"
             android:text="wheel view"/>
 
+        <Button
+            android:id="@+id/time_btn_wheel_views"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="wheel view s"/>
+
         <TimePicker
             android:id="@+id/time_picker_clock"
             android:layout_width="match_parent"
