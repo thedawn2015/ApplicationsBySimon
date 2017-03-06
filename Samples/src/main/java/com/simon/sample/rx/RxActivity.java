@@ -93,6 +93,7 @@ public class RxActivity extends BaseActivity {
                         rxTextContent.setText(response);
                     }
                 });
+
                 break;
             case R.id.rx_btn_from:
                 CreateUtil.fromMethod(new OnRequestCompletedListener<String>() {
@@ -146,6 +147,7 @@ public class RxActivity extends BaseActivity {
                 });
                 break;
             case R.id.rx_btn_login:
+                CreateUtil.testMethod();
                 break;
         }
     }

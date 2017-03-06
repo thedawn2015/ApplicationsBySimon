@@ -1,5 +1,6 @@
 package com.simon.sample.rx.util;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -342,7 +343,7 @@ public class CreateUtil {
     public static void rxBindingMethod(View view, final OnRequestCompletedListener<Integer> listener) {
         RxView.clicks(view)
                 //防止连续点击
-                .throttleFirst(100, TimeUnit.SECONDS)
+                .throttleFirst(200, TimeUnit.MILLISECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
@@ -385,7 +386,100 @@ public class CreateUtil {
                         }
                     }
                 });
-
     }
+
+    public static void testMethod() {
+        stringObservable = getStringObs();
+        integerObservable = getIntegerObs();
+        Observable.combineLatest(
+                stringObservable,
+                integerObservable,
+                new Func2<String, Integer, String>() {
+                    @Override
+                    public String call(String s, Integer integer) {
+                        Log.i(TAG, "call: " + s + "/" + integer);
+                        return s + "/+" + integer;
+                    }
+                }
+        )
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "combineLatest onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "combineLatest onError: ");
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.i(TAG, "combineLatest onNext: " + s);
+                    }
+                });
+    }
+
+    public static Observable<String> stringObservable;
+    public static Observable<Integer> integerObservable;
+
+    public static Observable<String> getStringObs() {
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            stringList.add("i" + i);
+        }
+        Observable<String> stringObservable = Observable.from(stringList);
+        stringObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "stringObservable onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "stringObservable onError: ");
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.i(TAG, "stringObservable onNext: ");
+                    }
+                });
+        return stringObservable;
+    }
+
+    public static Observable<Integer> getIntegerObs() {
+        List<Integer> intList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            intList.add(i);
+        }
+        Observable<Integer> integerObservable = Observable.from(intList);
+        integerObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "integerObservable onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "integerObservable onError: ");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.i(TAG, "integerObservable onNext: " + integer);
+                    }
+                });
+        return integerObservable;
+    }
+
 
 }
