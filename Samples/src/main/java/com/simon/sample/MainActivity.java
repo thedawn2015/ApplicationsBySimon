@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.simon.baseandroid.BaseActivity;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.amap.AMapActivity;
@@ -34,6 +32,7 @@ import com.simon.sample.recyclerview.RecyclerViewActivity;
 import com.simon.sample.rx.RxActivity;
 import com.simon.sample.telephone.TelephoneActivity;
 import com.simon.sample.third_login.ThirdLoginActivity;
+import com.simon.sample.time.TimeActivity;
 import com.simon.sample.titlebar.TitleBarActivity;
 import com.simon.sample.toolbar.ToolbarActivity;
 import com.simon.sample.webview.WebViewActivity;
@@ -102,6 +101,8 @@ public class MainActivity extends BaseActivity {
     Button simpleBtnToFragment;
     @BindView(R.id.simple_btn_to_amap)
     Button simpleBtnToAmap;
+    @BindView(R.id.simple_btn_to_time)
+    Button simpleBtnToTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
+//        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
 
         try {
             StatService.startStatService(this, "A6WA4JVMD33X", StatConstants.VERSION);
@@ -163,7 +164,7 @@ public class MainActivity extends BaseActivity {
             R.id.simple_btn_to_navigation, R.id.simple_btn_to_scrolling, R.id.simple_btn_to_setting,
             R.id.simple_btn_to_tab, R.id.simple_btn_to_async, R.id.simple_btn_to_toolbar, R.id.simple_btn_to_dialog,
             R.id.simple_btn_to_webview, R.id.simple_btn_to_third_login, R.id.simple_btn_to_file,
-            R.id.simple_btn_to_fragment, R.id.simple_btn_to_amap})
+            R.id.simple_btn_to_fragment, R.id.simple_btn_to_amap, R.id.simple_btn_to_time})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.simple_btn_to_draw:
@@ -245,12 +246,15 @@ public class MainActivity extends BaseActivity {
             case R.id.simple_btn_to_amap:
                 AMapActivity.launch(MainActivity.this);
                 break;
+            case R.id.simple_btn_to_time:
+                TimeActivity.launch(MainActivity.this);
+                break;
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PushManager.stopWork(getApplicationContext());
+//        PushManager.stopWork(getApplicationContext());
     }
 }

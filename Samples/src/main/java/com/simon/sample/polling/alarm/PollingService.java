@@ -14,7 +14,7 @@ import com.simon.baseandroid.util.LogUtil;
 public class PollingService extends Service {
     public static String TAG = PollingService.class.getSimpleName();
 
-    public static final String POLLING_SERVICE_ACTION = "com.simon.simple.action.POLLING_SERVICE";
+    public static final String POLLING_SERVICE_ACTION = "com.simon.sample.action.POLLING_SERVICE";
 
     private int count = 0;
 

@@ -1,13 +1,10 @@
 package com.simon.sample;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.simon.baseandroid.util.LogUtil;
-import com.simon.baseandroid.util.ToastUtil;
 
 /**
  * Created by xw on 2016/9/28.
@@ -23,10 +20,10 @@ public class TheApplication extends Application {
         super.onCreate();
         LogUtil.i(TAG, "onCreate: TheApplication");
 
-        lifecycleCallbacks();
+//        lifecycleCallbacks();
 
 //        getCurProcessName(getApplicationContext());
-        initAMapNavi();
+//        initAMapNavi();
     }
 
     private void initAMapNavi() {

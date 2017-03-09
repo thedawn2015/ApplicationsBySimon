@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.simon.baseandroid.BaseActivity;
+import com.simon.baseandroid.listener.IViewListener;
 import com.simon.cardsgame.R;
 import com.simon.cardsgame.adapter.CardTypeRecyclerViewAdapter;
 import com.simon.cardsgame.model.CardType;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
  * author：simon
  * date：2017/2/16
  */
-public class GameCenterActivity extends BaseActivity {
+public class GameCenterActivity extends BaseActivity implements IViewListener {
     public static final String TAG = GameCenterActivity.class.getSimpleName();
 
     @BindView(R.id.game_recycler_view)
