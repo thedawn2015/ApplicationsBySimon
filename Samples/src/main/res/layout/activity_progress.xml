@@ -66,21 +66,21 @@
         android:progress="50"
         android:progressDrawable="@drawable/seek_bar_bg"
         android:splitTrack="false"
-        android:thumb="@drawable/thumb1"
+        android:thumb="@drawable/seekbar_thumb_selector"
         />
 
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_marginTop="10dp"
         android:max="100"
+        android:maxHeight="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:progress="50"
         android:progressDrawable="@drawable/seek_bar_bg2"
-        android:maxHeight="8dp"
         android:splitTrack="false"
-        android:thumb="@drawable/bar_slider"
+        android:thumb="@drawable/seekbar_thumb_selector"
         />
 
     <SeekBar
@@ -92,5 +92,26 @@
         android:progressDrawable="@drawable/seek_bar_bmp_bg"
         android:splitTrack="false"
         android:thumb="@drawable/bar_slider"/>
+
+
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:thumb="@drawable/switch_thumb_selector"
+        app:track="@drawable/switch_track_selector"/>
+
+    <android.support.v7.widget.SwitchCompat
+        style="@style/CustomerSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_green"
+        android:src="@mipmap/bar_on"
+        android:scaleType="center"
+        android:layout_height="30dp"/>
 
 </LinearLayout>

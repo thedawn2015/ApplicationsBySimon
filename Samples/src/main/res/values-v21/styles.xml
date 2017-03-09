@@ -17,4 +17,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <!--无效-->
+    <style name="CustomerSwitch">
+        <item name="android:colorControlActivated">@color/blue</item>
+        <item name="colorSwitchThumbNormal">@color/green</item>
+        <item name="android:colorForeground">@color/red</item>
+    </style>
 </resources>
