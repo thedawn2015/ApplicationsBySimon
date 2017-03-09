@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ApplicationsBySimon.iml" filepath="$PROJECT_DIR$/ApplicationsBySimon.iml" />
       <module fileurl="file://$PROJECT_DIR$/Base/Base.iml" filepath="$PROJECT_DIR$/Base/Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/BaseAndroid/BaseAndroid.iml" filepath="$PROJECT_DIR$/BaseAndroid/BaseAndroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cardsgame/CardsGame.iml" filepath="$PROJECT_DIR$/cardsgame/CardsGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CardsGame/CardsGame.iml" filepath="$PROJECT_DIR$/CardsGame/CardsGame.iml" />
       <module fileurl="file://$PROJECT_DIR$/Constant/Constant.iml" filepath="$PROJECT_DIR$/Constant/Constant.iml" />
       <module fileurl="file://$PROJECT_DIR$/MapService/MapService.iml" filepath="$PROJECT_DIR$/MapService/MapService.iml" />
       <module fileurl="file://$PROJECT_DIR$/Samples/Samples.iml" filepath="$PROJECT_DIR$/Samples/Samples.iml" />
