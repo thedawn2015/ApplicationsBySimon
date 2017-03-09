@@ -13,6 +13,7 @@
 
         <com.simon.baseandroid.widget.PickerView
             android:id="@+id/picker_view"
+            android:background="@color/aqua"
             android:layout_width="100dp"
             android:layout_height="130dp" />
 

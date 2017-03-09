@@ -49,7 +49,7 @@ public class WheelViewsActivity extends AppCompatActivity {
         wheels1.setData(list);
         wheels1.setOnSelectListener(new WheelViewS.OnSelectListener() {
             @Override
-            public void endSelect(int id, String text) {
+            public void selected(int id, String text) {
 
             }
 

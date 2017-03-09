@@ -177,8 +177,9 @@ public class PickerView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // 根据index绘制view
-        if (isInit)
+        if (isInit) {
             drawData(canvas);
+        }
     }
 
     private void drawData(Canvas canvas) {

@@ -31,7 +31,7 @@
 
     <!--自定义WheelView的attrs-->
     <declare-styleable name="WheelView">
-        <attr name="unitHeight" format="dimension"/>
+        <attr name="itemHeight" format="dimension" />
         <attr name="itemNumber" format="integer"/>
 
         <attr name="normalTextSize" format="dimension"/>

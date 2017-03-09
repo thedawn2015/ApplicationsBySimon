@@ -30,11 +30,11 @@ public class WheelViewS extends View {
     /**
      * 控件宽度
      */
-    private float controlWidth;
+    private float wholeViewWidth;
     /**
      * 控件高度
      */
-    private float controlHeight;
+    private float wholeViewHeight;
     /**
      * 是否滑动中
      */
@@ -86,7 +86,7 @@ public class WheelViewS extends View {
     /**
      * 单元格高度
      */
-    private int unitHeight = 50;
+    private int itemHeight = 50;
     /**
      * 显示多少个内容
      */
@@ -155,7 +155,7 @@ public class WheelViewS extends View {
     private void init(Context context, AttributeSet attrs) {
 
         TypedArray attribute = context.obtainStyledAttributes(attrs, R.styleable.WheelView);
-        unitHeight = (int) attribute.getDimension(R.styleable.WheelView_unitHeight, DensityUtil.dp2px(context, unitHeight));
+        itemHeight = (int) attribute.getDimension(R.styleable.WheelView_itemHeight, DensityUtil.dp2px(context, itemHeight));
         itemNumber = attribute.getInt(R.styleable.WheelView_itemNumber, itemNumber);
 
         normalFont = attribute.getDimension(R.styleable.WheelView_normalTextSize, DensityUtil.dp2px(context, normalFont));
@@ -172,7 +172,7 @@ public class WheelViewS extends View {
 
         attribute.recycle();
 
-        controlHeight = itemNumber * unitHeight;
+        wholeViewHeight = itemNumber * itemHeight;
     }
 
     /**
@@ -186,7 +186,7 @@ public class WheelViewS extends View {
             itemObject.id = i;
             itemObject.itemText = dataList.get(i);
             itemObject.x = 0;
-            itemObject.y = i * unitHeight;
+            itemObject.y = i * itemHeight;
             itemList.add(itemObject);
         }
         isClearing = false;
@@ -195,9 +195,9 @@ public class WheelViewS extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        controlWidth = getMeasuredWidth();
-        if (controlWidth != 0) {
-            setMeasuredDimension(getMeasuredWidth(), itemNumber * unitHeight);
+        wholeViewWidth = getMeasuredWidth();
+        if (wholeViewWidth != 0) {
+            setMeasuredDimension(getMeasuredWidth(), itemNumber * itemHeight);
         }
     }
 
@@ -224,10 +224,10 @@ public class WheelViewS extends View {
             linePaint.setStrokeWidth(lineHeight);
         }
 
-        canvas.drawLine(0, controlHeight / 2 - unitHeight / 2 + lineHeight,
-                controlWidth, controlHeight / 2 - unitHeight / 2 + lineHeight, linePaint);
-        canvas.drawLine(0, controlHeight / 2 + unitHeight / 2 - lineHeight,
-                controlWidth, controlHeight / 2 + unitHeight / 2 - lineHeight, linePaint);
+        canvas.drawLine(0, wholeViewHeight / 2 - itemHeight / 2 + lineHeight,
+                wholeViewWidth, wholeViewHeight / 2 - itemHeight / 2 + lineHeight, linePaint);
+        canvas.drawLine(0, wholeViewHeight / 2 + itemHeight / 2 - lineHeight,
+                wholeViewWidth, wholeViewHeight / 2 + itemHeight / 2 - lineHeight, linePaint);
     }
 
     private synchronized void drawList(Canvas canvas) {
@@ -251,14 +251,14 @@ public class WheelViewS extends View {
                 0x00f2f2f2, TileMode.MIRROR);
         Paint paint = new Paint();
         paint.setShader(lg);
-        canvas.drawRect(0, 0, controlWidth, maskHeight, paint);
+        canvas.drawRect(0, 0, wholeViewWidth, maskHeight, paint);
 
-        LinearGradient lg2 = new LinearGradient(0, controlHeight - maskHeight,
-                0, controlHeight, 0x00f2f2f2, 0x00f2f2f2, TileMode.MIRROR);
+        LinearGradient lg2 = new LinearGradient(0, wholeViewHeight - maskHeight,
+                0, wholeViewHeight, 0x00f2f2f2, 0x00f2f2f2, TileMode.MIRROR);
         Paint paint2 = new Paint();
         paint2.setShader(lg2);
-        canvas.drawRect(0, controlHeight - maskHeight, controlWidth,
-                controlHeight, paint2);
+        canvas.drawRect(0, wholeViewHeight - maskHeight, wholeViewWidth,
+                wholeViewHeight, paint2);
     }
 
     @Override
@@ -302,7 +302,7 @@ public class WheelViewS extends View {
             @Override
             public void run() {
                 int distance = 0;
-                while (distance < unitHeight * MOVE_NUMBER) {
+                while (distance < itemHeight * MOVE_NUMBER) {
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException e) {
@@ -338,7 +338,7 @@ public class WheelViewS extends View {
         for (ItemObject item : itemList) {
             if (item.isSelected()) {
                 if (onSelectListener != null)
-                    onSelectListener.endSelect(item.id, item.itemText);
+                    onSelectListener.selected(item.id, item.itemText);
                 break;
             }
         }
@@ -382,7 +382,7 @@ public class WheelViewS extends View {
                 if (itemList.get(i).isSelected()) {
                     newMove = (int) itemList.get(i).moveToSelected();
                     if (onSelectListener != null)
-                        onSelectListener.endSelect(itemList.get(i).id,
+                        onSelectListener.selected(itemList.get(i).id,
                                 itemList.get(i).itemText);
                     break;
                 }
@@ -392,7 +392,7 @@ public class WheelViewS extends View {
                 if (itemList.get(i).isSelected()) {
                     newMove = (int) itemList.get(i).moveToSelected();
                     if (onSelectListener != null)
-                        onSelectListener.endSelect(itemList.get(i).id,
+                        onSelectListener.selected(itemList.get(i).id,
                                 itemList.get(i).itemText);
                     break;
                 }
@@ -454,7 +454,7 @@ public class WheelViewS extends View {
                 for (ItemObject item : itemList) {
                     if (item.isSelected()) {
                         if (onSelectListener != null)
-                            onSelectListener.endSelect(item.id, item.itemText);
+                            onSelectListener.selected(item.id, item.itemText);
                         break;
                     }
                 }
@@ -609,7 +609,6 @@ public class WheelViewS extends View {
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
-
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -687,7 +686,7 @@ public class WheelViewS extends View {
                 moveToSelect = moveToSelect > 0 ? moveToSelect : moveToSelect * (-1);
                 // 计算当前字体大小
                 float textSize = normalFont
-                        + ((selectedFont - normalFont) * (1.0f - moveToSelect / (float) unitHeight));
+                        + ((selectedFont - normalFont) * (1.0f - moveToSelect / (float) itemHeight));
                 textPaint.setTextSize(textSize);
             } else {
                 textPaint.setColor(normalColor);
@@ -698,13 +697,13 @@ public class WheelViewS extends View {
             itemText = (String) TextUtils.ellipsize(itemText, textPaint, containerWidth, TextUtils.TruncateAt.END);
             textPaint.getTextBounds(itemText, 0, itemText.length(), textRect);
             // 判断是否可视
-            if (!isInView())
+            if (!isInView()) {
                 return;
+            }
 
             // 绘制内容
-            canvas.drawText(itemText, x + controlWidth / 2 - textRect.width() / 2,
-                    y + move + unitHeight / 2 + textRect.height() / 2, textPaint);
-
+            canvas.drawText(itemText, x + wholeViewWidth / 2 - textRect.width() / 2,
+                    y + move + itemHeight / 2 + textRect.height() / 2, textPaint);
         }
 
         /**
@@ -713,7 +712,7 @@ public class WheelViewS extends View {
          * @return
          */
         public boolean isInView() {
-            if (y + move > controlHeight || (y + move + unitHeight / 2 + textRect.height() / 2) < 0)
+            if (y + move > wholeViewHeight || (y + move + itemHeight / 2 + textRect.height() / 2) < 0)
                 return false;
             return true;
         }
@@ -743,16 +742,16 @@ public class WheelViewS extends View {
          * @return
          */
         public boolean isSelected() {
-            if ((y + move) >= controlHeight / 2 - unitHeight / 2 + lineHeight
-                    && (y + move) <= controlHeight / 2 + unitHeight / 2 - lineHeight) {
+            if ((y + move) >= wholeViewHeight / 2 - itemHeight / 2 + lineHeight
+                    && (y + move) <= wholeViewHeight / 2 + itemHeight / 2 - lineHeight) {
                 return true;
             }
-            if ((y + move + unitHeight) >= controlHeight / 2 - unitHeight / 2 + lineHeight
-                    && (y + move + unitHeight) <= controlHeight / 2 + unitHeight / 2 - lineHeight) {
+            if ((y + move + itemHeight) >= wholeViewHeight / 2 - itemHeight / 2 + lineHeight
+                    && (y + move + itemHeight) <= wholeViewHeight / 2 + itemHeight / 2 - lineHeight) {
                 return true;
             }
-            if ((y + move) <= controlHeight / 2 - unitHeight / 2 + lineHeight
-                    && (y + move + unitHeight) >= controlHeight / 2 + unitHeight / 2 - lineHeight) {
+            if ((y + move) <= wholeViewHeight / 2 - itemHeight / 2 + lineHeight
+                    && (y + move + itemHeight) >= wholeViewHeight / 2 + itemHeight / 2 - lineHeight) {
                 return true;
             }
             return false;
@@ -762,7 +761,7 @@ public class WheelViewS extends View {
          * 获取移动到标准位置需要的距离
          */
         public float moveToSelected() {
-            return (controlHeight / 2 - unitHeight / 2) - (y + move);
+            return (wholeViewHeight / 2 - itemHeight / 2) - (y + move);
         }
     }
 
@@ -778,7 +777,7 @@ public class WheelViewS extends View {
          * @param id
          * @param text
          */
-        void endSelect(int id, String text);
+        void selected(int id, String text);
 
         /**
          * 选中的内容

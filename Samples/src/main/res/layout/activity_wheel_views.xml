@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
+    android:background="@color/white"
     tools:context="com.simon.sample.time.WheelViewsActivity">
 
     <com.simon.baseandroid.widget.WheelViewS
         android:id="@+id/wheels1"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:background="@color/beige"
+        android:layout_height="200dp"
+        android:background="@color/green"
         android:layout_weight="1"
         app:itemNumber="3"/>
 
@@ -20,13 +21,15 @@
         android:id="@+id/wheels2"
         android:layout_width="0dp"
         app:itemNumber="5"
-        android:layout_height="100dp"
+        android:background="@color/aqua"
+        android:layout_height="400dp"
         android:layout_weight="1"/>
 
     <com.simon.baseandroid.widget.WheelViewS
         android:id="@+id/wheels3"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="250dp"
+        android:background="@color/cadetblue"
         app:itemNumber="7"
         android:layout_weight="1"/>
 
