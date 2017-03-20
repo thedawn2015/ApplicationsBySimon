@@ -529,5 +529,50 @@ public class CreateUtil {
 
     }
 
+    public static void methodStep() {
+        Observable.just(10, 24, 83, 44, 75)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<Integer, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Integer integer) {
+                        Log.i(TAG, "call: integer = " + integer);
+                        if (integer == 44) {
+                            return Observable.create(new Observable.OnSubscribe<String>() {
+                                @Override
+                                public void call(Subscriber<? super String> subscriber) {
+                                    subscriber.onError(new Throwable("错误了"));
+                                }
+                            });
+                        }
+                        return Observable.just("" + integer);
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<String, Observable<Integer>>() {
+                    @Override
+                    public Observable<Integer> call(String o) {
+                        Log.i(TAG, "call: o = " + o);
+                        return Observable.just(Integer.parseInt(o));
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "onError: e=" + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(Integer o) {
+                        Log.i(TAG, "onNext: o=" + o);
+                    }
+                });
+    }
 
 }

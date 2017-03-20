@@ -166,7 +166,8 @@ public class RxActivity extends BaseActivity {
                 break;
             case R.id.rx_btn_login:
 //                CreateUtil.testMethod();
-                CreateUtil.testCombineLatest();
+//                CreateUtil.testCombineLatest();
+                CreateUtil.methodStep();
                 break;
         }
     }
