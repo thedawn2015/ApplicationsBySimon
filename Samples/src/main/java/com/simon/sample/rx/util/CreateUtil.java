@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -479,6 +480,53 @@ public class CreateUtil {
                     }
                 });
         return integerObservable;
+    }
+
+
+    public static Subscriber integerSubscriber;
+    public static Subscriber stringSubscriber;
+
+    /**
+     * CombineLatest
+     */
+    public static void testCombineLatest() {
+        Observable<Integer> integerObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                integerSubscriber = subscriber;
+            }
+        });
+        Observable<String> stringObservable = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                stringSubscriber = subscriber;
+            }
+        });
+        Observable.combineLatest(integerObservable, stringObservable, new Func2<Integer, String, String>() {
+            @Override
+            public String call(Integer integer, String s) {
+                return integer + s;
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "testCombineLatest onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "testCombineLatest onError: ");
+                    }
+
+                    @Override
+                    public void onNext(String o) {
+                        Log.i(TAG, "testCombineLatest onNext: " + o);
+                    }
+                });
+
     }
 
 

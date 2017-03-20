@@ -51,6 +51,7 @@ public class RxActivity extends BaseActivity {
 
     private Subscriber subscriber;
 
+    int i = 10;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, RxActivity.class);
@@ -151,15 +152,21 @@ public class RxActivity extends BaseActivity {
                 });
                 break;
             case R.id.rx_binding:
-                CreateUtil.rxBindingMethod(rxBinding, new OnRequestCompletedListener<Integer>() {
+                /*CreateUtil.rxBindingMethod(rxBinding, new OnRequestCompletedListener<Integer>() {
                     @Override
                     public void onCompleted(Integer response, String msg) {
                         rxTextContent.setText(msg);
                     }
-                });
+                });*/
+                if (i % 2 == 0) {
+                    CreateUtil.integerSubscriber.onNext(i++);
+                } else {
+                    CreateUtil.stringSubscriber.onNext("" + i++);
+                }
                 break;
             case R.id.rx_btn_login:
-                CreateUtil.testMethod();
+//                CreateUtil.testMethod();
+                CreateUtil.testCombineLatest();
                 break;
         }
     }
