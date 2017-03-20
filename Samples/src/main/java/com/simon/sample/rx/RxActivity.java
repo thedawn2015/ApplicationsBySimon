@@ -74,6 +74,16 @@ public class RxActivity extends BaseActivity {
             }
         });
         rxEditName.addTextChangedListener(new UpperCaseTextWatcher(rxEditName));
+        /*RxTextView.textChanges(rxEditName)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<CharSequence>() {
+                    @Override
+                    public void call(CharSequence charSequence) {
+                        String key = charSequence.toString().toUpperCase();
+                        Log.i(TAG, "call: key = "+key);
+
+                    }
+                });*/
     }
 
     @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps,
