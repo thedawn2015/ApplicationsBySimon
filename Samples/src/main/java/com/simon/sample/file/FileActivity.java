@@ -1,6 +1,7 @@
 package com.simon.sample.file;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -85,12 +86,18 @@ public class FileActivity extends BaseActivity {
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.provider", file);
+        Uri outputUri = FileProvider.getUriForFile(getApplicationContext(), "com.simon.sample.fileprovider", file);
         //通过FileProvider创建一个content类型的Uri
-        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.provider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+        Uri imageUri = FileProvider.getUriForFile(getApplicationContext(), "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490017457520.jpg"));
+//        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+
+//        grantUriPermission(getPackageName(), outputUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        grantUriPermission(getPackageName(), imageUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        grantUriPermission("com.google.android.apps.photos", imageUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -109,7 +116,7 @@ public class FileActivity extends BaseActivity {
             file.getParentFile().mkdirs();
         }
 
-        String authorities = "com.simon.sample.provider";
+        String authorities = "com.simon.sample.fileprovider";
         //通过FileProvider创建一个content类型的Uri
         Uri imageUri = FileProvider.getUriForFile(this, authorities, file);
 
