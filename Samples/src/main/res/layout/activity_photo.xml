@@ -4,29 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".polling.PollingServiceActivity">
+    tools:context="com.simon.sample.photo.PhotoActivity">
 
     <Button
-        android:id="@+id/polling_service_btn_service"
+        android:id="@+id/photo_btn_photos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="service+Thread"/>
+        android:text="打开相册"/>
 
     <Button
-        android:id="@+id/polling_service_btn_timer"
+        android:id="@+id/photo_btn_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="timer"/>
+        android:text="打开相机"/>
 
-    <Button
-        android:id="@+id/polling_service_btn_alarm"
+    <ImageView
+        android:id="@+id/photo_image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="service+AlarmManager+Thread"/>
-
+        tools:src="@drawable/tree"/>
 </LinearLayout>
