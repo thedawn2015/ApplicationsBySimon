@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.simon.base.listener.OnRequestCompletedListener;
 import com.simon.baseandroid.BaseActivity;
+import com.simon.baseandroid.listener.UpperCaseTextWatcher;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.R;
 import com.simon.sample.rx.util.CreateUtil;
@@ -72,6 +73,7 @@ public class RxActivity extends BaseActivity {
                 LogUtil.i(TAG, "onCompleted: " + response);
             }
         });
+        rxEditName.addTextChangedListener(new UpperCaseTextWatcher(rxEditName));
     }
 
     @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps,
