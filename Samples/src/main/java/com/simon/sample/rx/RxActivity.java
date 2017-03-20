@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.simon.base.listener.OnRequestCompletedListener;
 import com.simon.baseandroid.BaseActivity;
+import com.simon.baseandroid.listener.UpperCaseTextWatcher;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.R;
 import com.simon.sample.rx.util.CreateUtil;
@@ -50,6 +51,7 @@ public class RxActivity extends BaseActivity {
 
     private Subscriber subscriber;
 
+    int i = 10;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, RxActivity.class);
@@ -72,6 +74,17 @@ public class RxActivity extends BaseActivity {
                 LogUtil.i(TAG, "onCompleted: " + response);
             }
         });
+        rxEditName.addTextChangedListener(new UpperCaseTextWatcher(rxEditName));
+        /*RxTextView.textChanges(rxEditName)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<CharSequence>() {
+                    @Override
+                    public void call(CharSequence charSequence) {
+                        String key = charSequence.toString().toUpperCase();
+                        Log.i(TAG, "call: key = "+key);
+
+                    }
+                });*/
     }
 
     @OnClick({R.id.rx_btn_create, R.id.rx_btn_just, R.id.rx_btn_from, R.id.rx_btn_action, R.id.rx_btn_map, R.id.rx_btn_maps,
@@ -139,15 +152,22 @@ public class RxActivity extends BaseActivity {
                 });
                 break;
             case R.id.rx_binding:
-                CreateUtil.rxBindingMethod(rxBinding, new OnRequestCompletedListener<Integer>() {
+                /*CreateUtil.rxBindingMethod(rxBinding, new OnRequestCompletedListener<Integer>() {
                     @Override
                     public void onCompleted(Integer response, String msg) {
                         rxTextContent.setText(msg);
                     }
-                });
+                });*/
+                if (i % 2 == 0) {
+                    CreateUtil.integerSubscriber.onNext(i++);
+                } else {
+                    CreateUtil.stringSubscriber.onNext("" + i++);
+                }
                 break;
             case R.id.rx_btn_login:
-                CreateUtil.testMethod();
+//                CreateUtil.testMethod();
+//                CreateUtil.testCombineLatest();
+                CreateUtil.methodStep();
                 break;
         }
     }

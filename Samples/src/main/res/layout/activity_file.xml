@@ -33,6 +33,18 @@
                 android:layout_height="wrap_content"
                 android:text="mkdirs"/>
 
+            <Button
+                android:id="@+id/file_btn_take_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="take photo"/>
+
+            <Button
+                android:id="@+id/file_btn_get_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="get photo"/>
+
             <TextView
                 android:id="@+id/file_text_cache_path"
                 android:layout_width="match_parent"

@@ -2,7 +2,12 @@ package com.simon.sample.file;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +18,8 @@ import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.R;
 import com.simon.sample.file.util.FileUtil;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,12 +27,16 @@ import butterknife.OnClick;
 public class FileActivity extends BaseActivity {
     public static String TAG = FileActivity.class.getSimpleName();
 
-    @BindView (R.id.file_btn_get_sd)
+    @BindView(R.id.file_btn_get_sd)
     Button fileBtnGetSd;
-    @BindView (R.id.file_text_cache_path)
+    @BindView(R.id.file_text_cache_path)
     TextView fileTextCachePath;
-    @BindView (R.id.file_btn_mkdirs)
+    @BindView(R.id.file_btn_mkdirs)
     Button fileBtnMkdirs;
+    @BindView(R.id.file_btn_take_photo)
+    Button fileBtnTakePhoto;
+    @BindView(R.id.file_btn_get_photo)
+    Button fileBtnGetPhoto;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, FileActivity.class);
@@ -40,7 +51,7 @@ public class FileActivity extends BaseActivity {
 
     }
 
-    @OnClick ({R.id.file_btn_get_sd, R.id.file_btn_mkdirs})
+    @OnClick({R.id.file_btn_get_sd, R.id.file_btn_mkdirs, R.id.file_btn_take_photo, R.id.file_btn_get_photo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.file_btn_get_sd:
@@ -60,6 +71,53 @@ public class FileActivity extends BaseActivity {
                 boolean isSuccess = FileUtil.createNewFile(DirectoryUtil.getSDCardPath() + "EngineerTools", "1.txt");
                 LogUtil.i(TAG, "onClick: isSuccess=" + isSuccess);
                 break;
+            case R.id.file_btn_take_photo:
+                takePhoto();
+                break;
+            case R.id.file_btn_get_photo:
+                getPhoto();
+                break;
         }
+    }
+
+    private void getPhoto() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.provider", file);
+        //通过FileProvider创建一个content类型的Uri
+        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.provider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(imageUri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent, 1008);
+    }
+
+    private void takePhoto() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
+
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        String authorities = "com.simon.sample.provider";
+        //通过FileProvider创建一个content类型的Uri
+        Uri imageUri = FileProvider.getUriForFile(this, authorities, file);
+
+        Intent intent = new Intent();
+        //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
+        startActivityForResult(intent, 1006);
     }
 }

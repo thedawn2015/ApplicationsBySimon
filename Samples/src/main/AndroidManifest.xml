@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <!--
         &lt;!&ndash; 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 &ndash;&gt;
         <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.simon.simple" />
@@ -38,6 +40,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Base">
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.simon.sample.provider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <!-- 腾讯统计 -->
         <!-- 请将value改为MTA分配的appkey < -->
         <meta-data
@@ -47,7 +59,6 @@
         <meta-data
             android:name="InstallChannel"
             android:value="${TENGXUN_CHANNEL_VALUE}"/>
-        <!-- 注意：若填写的渠道为纯数字字符串类型，请不要超过int表示的范围！ < -->
         <!-- 注意：若填写的渠道为纯数字字符串类型，请不要超过int表示的范围！ < -->
         <!-- mid-sdk-3.5以上版本增加 < -->
         <provider

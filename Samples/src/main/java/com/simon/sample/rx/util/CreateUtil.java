@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -481,5 +482,97 @@ public class CreateUtil {
         return integerObservable;
     }
 
+
+    public static Subscriber integerSubscriber;
+    public static Subscriber stringSubscriber;
+
+    /**
+     * CombineLatest
+     */
+    public static void testCombineLatest() {
+        Observable<Integer> integerObservable = Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                integerSubscriber = subscriber;
+            }
+        });
+        Observable<String> stringObservable = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                stringSubscriber = subscriber;
+            }
+        });
+        Observable.combineLatest(integerObservable, stringObservable, new Func2<Integer, String, String>() {
+            @Override
+            public String call(Integer integer, String s) {
+                return integer + s;
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "testCombineLatest onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "testCombineLatest onError: ");
+                    }
+
+                    @Override
+                    public void onNext(String o) {
+                        Log.i(TAG, "testCombineLatest onNext: " + o);
+                    }
+                });
+
+    }
+
+    public static void methodStep() {
+        Observable.just(10, 24, 83, 44, 75)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<Integer, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Integer integer) {
+                        Log.i(TAG, "call: integer = " + integer);
+                        if (integer == 44) {
+                            return Observable.create(new Observable.OnSubscribe<String>() {
+                                @Override
+                                public void call(Subscriber<? super String> subscriber) {
+                                    subscriber.onError(new Throwable("错误了"));
+                                }
+                            });
+                        }
+                        return Observable.just("" + integer);
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<String, Observable<Integer>>() {
+                    @Override
+                    public Observable<Integer> call(String o) {
+                        Log.i(TAG, "call: o = " + o);
+                        return Observable.just(Integer.parseInt(o));
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "onError: e=" + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(Integer o) {
+                        Log.i(TAG, "onNext: o=" + o);
+                    }
+                });
+    }
 
 }
