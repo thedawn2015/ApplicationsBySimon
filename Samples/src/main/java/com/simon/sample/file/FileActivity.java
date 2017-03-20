@@ -2,6 +2,7 @@ package com.simon.sample.file;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,6 +33,8 @@ public class FileActivity extends BaseActivity {
     TextView fileTextCachePath;
     @BindView(R.id.file_btn_mkdirs)
     Button fileBtnMkdirs;
+    @BindView(R.id.file_btn_take_photo)
+    Button fileBtnTakePhoto;
     @BindView(R.id.file_btn_get_photo)
     Button fileBtnGetPhoto;
 
@@ -48,7 +51,7 @@ public class FileActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.file_btn_get_sd, R.id.file_btn_mkdirs, R.id.file_btn_get_photo})
+    @OnClick({R.id.file_btn_get_sd, R.id.file_btn_mkdirs, R.id.file_btn_take_photo, R.id.file_btn_get_photo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.file_btn_get_sd:
@@ -68,6 +71,9 @@ public class FileActivity extends BaseActivity {
                 boolean isSuccess = FileUtil.createNewFile(DirectoryUtil.getSDCardPath() + "EngineerTools", "1.txt");
                 LogUtil.i(TAG, "onClick: isSuccess=" + isSuccess);
                 break;
+            case R.id.file_btn_take_photo:
+                takePhoto();
+                break;
             case R.id.file_btn_get_photo:
                 getPhoto();
                 break;
@@ -76,12 +82,34 @@ public class FileActivity extends BaseActivity {
 
     private void getPhoto() {
         File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.provider", file);
+        //通过FileProvider创建一个content类型的Uri
+        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.provider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(imageUri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent, 1008);
+    }
+
+    private void takePhoto() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
 
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
 
-        String authorities = "com.simon.sample";
+        String authorities = "com.simon.sample.provider";
         //通过FileProvider创建一个content类型的Uri
         Uri imageUri = FileProvider.getUriForFile(this, authorities, file);
 

@@ -34,6 +34,12 @@
                 android:text="mkdirs"/>
 
             <Button
+                android:id="@+id/file_btn_take_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="take photo"/>
+
+            <Button
                 android:id="@+id/file_btn_get_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
