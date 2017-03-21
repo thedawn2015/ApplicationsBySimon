@@ -11,10 +11,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Base" />
             <option value="$PROJECT_DIR$/BaseAndroid" />
-            <option value="$PROJECT_DIR$/CardsGame" />
             <option value="$PROJECT_DIR$/Constant" />
             <option value="$PROJECT_DIR$/MapService" />
             <option value="$PROJECT_DIR$/Samples" />
+            <option value="$PROJECT_DIR$/cardsgame" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,10 +1,10 @@
 package com.simon.sample.file;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -86,18 +86,32 @@ public class FileActivity extends BaseActivity {
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        Uri outputUri = FileProvider.getUriForFile(getApplicationContext(), "com.simon.sample.fileprovider", file);
-        //通过FileProvider创建一个content类型的Uri
-        Uri imageUri = FileProvider.getUriForFile(getApplicationContext(), "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490017457520.jpg"));
-//        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
 
-//        grantUriPermission(getPackageName(), outputUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        grantUriPermission(getPackageName(), imageUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        grantUriPermission("com.google.android.apps.photos", imageUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", file);
+            //通过FileProvider创建一个content类型的Uri
+//        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490017457520.jpg"));
+            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+            startPhotoZoom(outputUri, imageUri);
+        } else {
+            Uri outputUri = Uri.fromFile(file);
+            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+            startPhotoZoom(outputUri, imageUri);
+        }
+    }
 
+    /**
+     * 裁剪
+     *
+     * @param outputUri
+     * @param imageUri
+     */
+    private void startPhotoZoom(Uri outputUri, Uri imageUri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -105,7 +119,7 @@ public class FileActivity extends BaseActivity {
         intent.putExtra("scale", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.putExtra("noFaceDetection", true); // no face detection
+        intent.putExtra("noFaceDetection", false); //去除默认的人脸识别
         startActivityForResult(intent, 1008);
     }
 
