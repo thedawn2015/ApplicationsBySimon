@@ -10,16 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/aquamarine"
-        android:gravity="center">
+        android:background="@color/aquamarine">
 
-        <ImageView
-            android:id="@+id/iv_main"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:src="@mipmap/ic_launcher"/>
+        <include layout="@layout/fragment_toolbar"/>
     </LinearLayout>
     <!--侧滑菜单-->
     <LinearLayout

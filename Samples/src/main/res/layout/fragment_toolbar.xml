@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
-    xmlns:toolbar="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:toolbar="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/saddlebrown"
     android:minHeight="?attr/actionBarSize"
-    toolbar:navigationIcon="@mipmap/icon_back"
+    toolbar:navigationIcon="@drawable/abc_ic_ab_back_material"
     toolbar:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-    toolbar:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    tools:showIn="@layout/activity_toolbar">
+    toolbar:theme="@style/Theme.Base">
     <!--自定义控件-->
 
     <TextView

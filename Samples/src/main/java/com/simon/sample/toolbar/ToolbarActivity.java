@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class ToolbarActivity extends BaseActivity {
     public static String TAG = ToolbarActivity.class.getSimpleName();
 
-    @BindView (R.id.toolbar_drawer_layout)
+    @BindView(R.id.toolbar_drawer_layout)
     DrawerLayout toolbarDrawerLayout;
 
     public static void launch(Activity activity) {
@@ -37,20 +37,23 @@ public class ToolbarActivity extends BaseActivity {
         setContentView(R.layout.activity_toolbar);
         ButterKnife.bind(this);
 
-        setToolbar1();
+        setToolbar();
     }
 
-    private void setToolbar1() {
+    private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         //设置导航栏图标
-        toolbar.setNavigationIcon(R.mipmap.icon_back);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         //设置app logo
-        toolbar.setLogo(null);
+//        toolbar.setLogo(null);
+//        toolbar.setLogo(R.mipmap.ic_launcher);
         //设置主标题
         toolbar.setTitle("");
+//        toolbar.setTitle("toolbar title");
         //设置子标题
-        toolbar.setSubtitle("");
+//        toolbar.setSubtitle("toolbar title2");
+//        toolbar.setSubtitle("toolbar title2");
 
         /*toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -78,7 +81,7 @@ public class ToolbarActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //        getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
+//        getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
         return true;
     }
 

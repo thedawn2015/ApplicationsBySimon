@@ -3,8 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <!--toolbar-->
-    <include layout="@layout/fragment_toolbar"/>
     <!--drawer layout-->
     <include layout="@layout/fragment_drawerlayout"/>
+
 </LinearLayout>
