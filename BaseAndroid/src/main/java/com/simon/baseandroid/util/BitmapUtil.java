@@ -2,8 +2,11 @@ package com.simon.baseandroid.util;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
@@ -22,16 +25,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * desc: 图片处理
- * author: xw
- * time: 2017/2/10
- */
 public class BitmapUtil {
 
     /**
-     * @param bitmap     原图
-     * @param edgeLength 希望得到的正方形部分的边长
+     * @param bitmap
+     *         原图
+     * @param edgeLength
+     *         希望得到的正方形部分的边长
      * @return 缩放截取正中部分后的位图。
      */
     public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength) {
@@ -74,12 +74,13 @@ public class BitmapUtil {
     /**
      * 获得指定大小比例的缩略图(压缩)
      *
-     * @param bm 原图片位图对象
+     * @param bm
+     *         原图片位图对象
      * @return 缩略图
      */
     public static Bitmap getThumbBitmap(Bitmap bm, float width, float height) {
         if (bm != null) {
-            BitmapFactory.Options opts = new BitmapFactory.Options();
+            Options opts = new Options();
             opts.inJustDecodeBounds = true;
             byte[] data = Bitmap2Bytes(bm);
             BitmapFactory.decodeByteArray(data, 0, data.length, opts);
@@ -93,27 +94,21 @@ public class BitmapUtil {
     }
 
     public static Bitmap getThumbBitmap(String path, float width, float height) {
-        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Options opts = new Options();
         opts.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, opts);
         float x = opts.outWidth / width;
         float y = opts.outHeight / height;
         opts.inSampleSize = (int) ((x + y) / 2);
         opts.inJustDecodeBounds = false;
-/*
-        // 重新读入图片，读取缩放后的bitmap，注意这次要把options.inJustDecodeBounds 设为 false
-        bitmap = BitmapFactory.decodeFile(imagePath, options);
-        // 利用ThumbnailUtils来创建缩略图，这里要指定要缩放哪个Bitmap对象
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
-                ThumbnailUtils.OPTIONS_RECYCLE_INPUT);*/
-
         return BitmapFactory.decodeFile(path, opts);
     }
 
     /**
      * 将位图转为字节数组(JEPG)
      *
-     * @param bm 位图对象
+     * @param bm
+     *         位图对象
      * @return 图片字节数组
      */
     public static byte[] Bitmap2Bytes(Bitmap bm) {
@@ -139,14 +134,16 @@ public class BitmapUtil {
     /**
      * 获得圆角图片(ARGB_8888)
      *
-     * @param bitmap  原位图对象
-     * @param roundPx 圆角半径
+     * @param bitmap
+     *         原位图对象
+     * @param roundPx
+     *         圆角半径
      * @return 圆角位图
      */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
-        Bitmap output = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(w, h, Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         int color = 0xff424242;
         Paint paint = new Paint();
@@ -163,7 +160,7 @@ public class BitmapUtil {
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx, boolean roundTL, boolean roundTR, boolean roundBL, boolean roundBR) {
         try {
-            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
             Canvas canvas = new Canvas(output);
 
             final int color = 0xff424242;
@@ -233,7 +230,7 @@ public class BitmapUtil {
 
         Bitmap output = Bitmap.createBitmap(squareBitmap.getWidth(),
                 squareBitmap.getHeight(),
-                Bitmap.Config.ARGB_8888);
+                Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         Paint paint = new Paint();
 
@@ -252,8 +249,10 @@ public class BitmapUtil {
     /**
      * 位图质量压缩法，获得指定大小的图片，单位KB
      *
-     * @param bm   需要压缩的位图对象
-     * @param size 压缩后的大小(kb)
+     * @param bm
+     *         需要压缩的位图对象
+     * @param size
+     *         压缩后的大小(kb)
      * @return 压缩后的位图对象
      */
     public static Bitmap getThumbBitmapByQuality(Bitmap bm, int size) {
@@ -303,12 +302,49 @@ public class BitmapUtil {
     public static Bitmap drawableToBitmap(Drawable drawable) {
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable
                         .getIntrinsicHeight(),
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                        : Bitmap.Config.RGB_565);
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Config.ARGB_8888
+                        : Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    /**
+     * Drawable对象转Bitmap对象
+     */
+    public static Bitmap drawableToBitmapRoute(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable
+                .getIntrinsicHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * Drawable对象转Bitmap对象
+     */
+    public static Bitmap transBitmapColor(Bitmap orgBitmap, int color) {
+        int bitmap_w = orgBitmap.getWidth();
+        int bitmap_h = orgBitmap.getHeight();
+        int[] arrayColor = new int[bitmap_w * bitmap_h];
+        int count = 0;
+        for (int i = 0; i < bitmap_h; i++) {
+            for (int j = 0; j < bitmap_w; j++) {
+                /*int color1 = orgBitmap.getPixel(j, i);
+                //这里也可以取出 R G B 可以扩展一下 做更多的处理，
+                //暂时我只是要处理除了透明的颜色，改变其他的颜色
+                if (color1 != 0) {
+                } else {
+                    color1 = color;
+                }*/
+                arrayColor[count] = color;
+                count++;
+            }
+        }
+        orgBitmap = Bitmap.createBitmap(arrayColor, bitmap_w, bitmap_h, orgBitmap.getConfig());
+        return orgBitmap;
     }
 
     /**
@@ -373,7 +409,7 @@ public class BitmapUtil {
     }
 
     public static Bitmap compressImageFromFile(String photoPath) {
-        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        Options newOpts = new Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         newOpts.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeFile(photoPath, newOpts);//此时返回bm为空
@@ -382,8 +418,9 @@ public class BitmapUtil {
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-        float hh = 800f;//这里设置高度为800f
-        float ww = 480f;//这里设置宽度为480f
+        //Modified By xw at 2017/3/7：1280*720
+        float hh = 1280f;//这里设置高度为800f
+        float ww = 720f;//这里设置宽度为480f
         //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;//be=1表示不缩放
         if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
@@ -526,4 +563,58 @@ public class BitmapUtil {
         //下面这句是关键
         return Bitmap.createBitmap(bitmap, retX, retY, wh, wh, null, false);
     }
+
+    /**
+     * 旋转图片
+     *
+     * @param originMap
+     * @param degree
+     * @return
+     */
+    public static Bitmap getRotateBitmap(Bitmap originMap, int degree) {
+        if (originMap == null) {
+            return null;
+        }
+        int width = originMap.getWidth();
+        int height = originMap.getHeight();
+
+        Bitmap bitmapRotate;
+        //宽<高，旋转90度
+        if (width < height) {
+            Matrix matrix = new Matrix();
+            //默认90度旋转
+            matrix.postRotate(degree);
+            bitmapRotate = Bitmap.createBitmap(originMap, 0, 0, width, height, matrix, true);
+        } else {
+            bitmapRotate = originMap;
+        }
+
+        if (originMap != bitmapRotate) {
+            originMap.recycle();
+        }
+
+        return bitmapRotate;
+    }
+
+    /**
+     * 从path取图片文件
+     *
+     * @param filePath
+     * @return
+     */
+    public static Bitmap getBitmapFromPath(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists() || !file.isFile()) {
+            return null;
+        }
+        Bitmap bitmap;
+        //300K以下，进行缩放
+        if (file.length() <= 300 * 1024) {
+            bitmap = BitmapFactory.decodeFile(filePath);
+        } else {
+            bitmap = BitmapCompressUtil.doCommonCompress(filePath);
+        }
+        return bitmap;
+    }
+
 }

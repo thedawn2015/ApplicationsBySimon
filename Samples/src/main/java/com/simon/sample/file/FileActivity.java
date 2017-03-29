@@ -2,6 +2,7 @@ package com.simon.sample.file;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simon.baseandroid.BaseActivity;
+import com.simon.baseandroid.util.BitmapUtil;
 import com.simon.baseandroid.util.DirectoryUtil;
 import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.R;
@@ -42,6 +45,14 @@ public class FileActivity extends BaseActivity {
     Button fileBtnTakePhoto;
     @BindView(R.id.file_btn_get_photo)
     Button fileBtnGetPhoto;
+    @BindView(R.id.file_image_view)
+    ImageView fileImageView;
+
+    private String bitmapName;
+    private String filePath;
+
+    private File lastTakedPhoto;
+    private File cropPhoto;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, FileActivity.class);
@@ -54,6 +65,8 @@ public class FileActivity extends BaseActivity {
         setContentView(R.layout.activity_file);
         ButterKnife.bind(this);
 
+        bitmapName = "1490775040804.jpg";
+        filePath = Environment.getExternalStorageDirectory() + "/aaa/testa/";
     }
 
     @OnClick({R.id.file_btn_get_sd, R.id.file_btn_mkdirs, R.id.file_btn_take_photo, R.id.file_btn_get_photo})
@@ -89,22 +102,21 @@ public class FileActivity extends BaseActivity {
      * 读取照片，并裁剪
      */
     private void getPhoto() {
-        File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+        cropPhoto = new File(filePath, "crop" + bitmapName);
+
+        if (!cropPhoto.getParentFile().exists()) {
+            cropPhoto.getParentFile().mkdirs();
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //通过FileProvider创建一个content类型的Uri
-//            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490769124978.jpg"));
-            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490769124978.jpg"));
-            //
-            Uri outputUri = Uri.fromFile(file);
-//            Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", file);
+            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", lastTakedPhoto);
+            Uri outputUri = Uri.fromFile(cropPhoto);
             startPhotoZoom(outputUri, imageUri);
         } else {
-            Uri outputUri = Uri.fromFile(file);
-            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490769124978.jpg"));
+
+            Uri imageUri = Uri.fromFile(lastTakedPhoto);
+            Uri outputUri = Uri.fromFile(cropPhoto);
             startPhotoZoom(outputUri, imageUri);
         }
     }
@@ -127,7 +139,7 @@ public class FileActivity extends BaseActivity {
         intent.putExtra("aspectY", 1);
         intent.putExtra("outputX", 200);
         intent.putExtra("outputY", 200);
-        intent.putExtra("return-data", true);
+//        intent.putExtra("return-data", true);
         //you must setup this
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         startActivityForResult(intent, 1008);
@@ -137,29 +149,49 @@ public class FileActivity extends BaseActivity {
      * 相机拍照
      */
     private void takePhoto() {
-        File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
+        lastTakedPhoto = new File(filePath, System.currentTimeMillis() + ".jpg");
 
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+        if (!lastTakedPhoto.getParentFile().exists()) {
+            lastTakedPhoto.getParentFile().mkdirs();
         }
 
         String authorities = "com.simon.sample.fileprovider";
 
         Uri imageUri;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            //通过FileProvider创建一个content类型的Uri
-            imageUri = FileProvider.getUriForFile(this, authorities, file);
-        } else {
-            imageUri = Uri.fromFile(file);
-        }
 
         //设置Action为拍照
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, authorities, lastTakedPhoto);
+        } else {
+            imageUri = Uri.fromFile(lastTakedPhoto);
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, 1006);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_OK) {
+            switch (requestCode) {
+                //拍照返回
+                case 1006:
+                    Bitmap bitmap = BitmapUtil.getBitmapFromPath(lastTakedPhoto.getPath());
+                    if (bitmap != null) {
+                        fileImageView.setImageBitmap(bitmap);
+                    }
+                    break;
+                //取文件返回
+                case 1008:
+                    Bitmap bitmap2 = BitmapUtil.getBitmapFromPath(lastTakedPhoto.getPath());
+                    if (bitmap2 != null) {
+                        fileImageView.setImageBitmap(bitmap2);
+                    }
+                    break;
+            }
+        }
     }
 }
