@@ -2,7 +2,6 @@ package com.simon.sample.file;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +24,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * desc: 适配7.0 照相
+ * author: xw
+ * time: 2017/3/29
+ */
 public class FileActivity extends BaseActivity {
     public static String TAG = FileActivity.class.getSimpleName();
 
@@ -81,6 +85,9 @@ public class FileActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 读取照片，并裁剪
+     */
     private void getPhoto() {
         File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
         if (!file.getParentFile().exists()) {
@@ -88,14 +95,16 @@ public class FileActivity extends BaseActivity {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", file);
             //通过FileProvider创建一个content类型的Uri
-//        Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490017457520.jpg"));
-            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+//            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490759268898.jpg"));
+            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490759268898.jpg"));
+            //
+            Uri outputUri = Uri.fromFile(file);
+//            Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", file);
             startPhotoZoom(outputUri, imageUri);
         } else {
             Uri outputUri = Uri.fromFile(file);
-            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490008281414.jpg"));
+            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490759268898.jpg"));
             startPhotoZoom(outputUri, imageUri);
         }
     }
@@ -116,13 +125,17 @@ public class FileActivity extends BaseActivity {
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("scale", true);
+        intent.putExtra("outputX", 200);
+        intent.putExtra("outputY", 200);
+        intent.putExtra("return-data", true);
+        //you must setup this
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.putExtra("noFaceDetection", false); //去除默认的人脸识别
         startActivityForResult(intent, 1008);
     }
 
+    /**
+     * 相机拍照
+     */
     private void takePhoto() {
         File file = new File(Environment.getExternalStorageDirectory(), "/aaa/" + System.currentTimeMillis() + ".jpg");
 
@@ -131,13 +144,21 @@ public class FileActivity extends BaseActivity {
         }
 
         String authorities = "com.simon.sample.fileprovider";
-        //通过FileProvider创建一个content类型的Uri
-        Uri imageUri = FileProvider.getUriForFile(this, authorities, file);
 
-        Intent intent = new Intent();
-        //添加这一句表示对目标应用临时授权该Uri所代表的文件
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
+        Uri imageUri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, authorities, file);
+        } else {
+            imageUri = Uri.fromFile(file);
+        }
+
+        //设置Action为拍照
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, 1006);
     }

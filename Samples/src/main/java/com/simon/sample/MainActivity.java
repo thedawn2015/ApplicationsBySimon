@@ -36,9 +36,6 @@ import com.simon.sample.time.TimeActivity;
 import com.simon.sample.titlebar.TitleBarActivity;
 import com.simon.sample.toolbar.ToolbarActivity;
 import com.simon.sample.webview.WebViewActivity;
-import com.tencent.stat.MtaSDkException;
-import com.tencent.stat.StatService;
-import com.tencent.stat.common.StatConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,11 +109,11 @@ public class MainActivity extends BaseActivity {
 
 //        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "6Oi7On587s3aIG542lk3Rw7D");
 
-        try {
+        /*try {
             StatService.startStatService(this, "A6WA4JVMD33X", StatConstants.VERSION);
         } catch (MtaSDkException e) {
             e.printStackTrace();
-        }
+        }*/
         //        getRunningService(this);
         //        getRunningTask(this);
         //        getRecentTask(this);

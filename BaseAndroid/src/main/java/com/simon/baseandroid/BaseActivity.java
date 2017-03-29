@@ -5,11 +5,10 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.simon.baseandroid.broadcastreceiver.NetConnectChangeReceiver;
-import com.simon.baseandroid.listener.IViewListener;
-import com.tencent.stat.StatService;
 
 public class BaseActivity extends AppCompatActivity {
     public static String TAG = BaseActivity.class.getSimpleName();
@@ -18,11 +17,15 @@ public class BaseActivity extends AppCompatActivity {
 
     private NetConnectChangeReceiver netConnectChangeReceiver;
 
+    private LocalBroadcastManager localBroadcastManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         netConnectChangeReceiver = new NetConnectChangeReceiver();
+
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
     }
 
     @Override
@@ -32,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        StatService.onResume(this);
+//        StatService.onResume(this);
 
         registerReceiver();
     }
@@ -40,7 +43,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        StatService.onPause(this);
+//        StatService.onPause(this);
 
         unregisterReceiver();
     }
@@ -53,14 +56,14 @@ public class BaseActivity extends AppCompatActivity {
             netConnectChangeReceiver = new NetConnectChangeReceiver();
         }
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(netConnectChangeReceiver, filter);
+        localBroadcastManager.registerReceiver(netConnectChangeReceiver, filter);
     }
 
     /**
      * 取消监听
      */
     private void unregisterReceiver() {
-        unregisterReceiver(netConnectChangeReceiver);
+        localBroadcastManager.unregisterReceiver(netConnectChangeReceiver);
     }
 
     /**
