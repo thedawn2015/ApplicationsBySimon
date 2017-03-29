@@ -96,15 +96,15 @@ public class FileActivity extends BaseActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //通过FileProvider创建一个content类型的Uri
-//            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490759268898.jpg"));
-            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490759268898.jpg"));
+//            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490769124978.jpg"));
+            Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", new File("/storage/emulated/0/aaa/1490769124978.jpg"));
             //
             Uri outputUri = Uri.fromFile(file);
 //            Uri outputUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", file);
             startPhotoZoom(outputUri, imageUri);
         } else {
             Uri outputUri = Uri.fromFile(file);
-            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490759268898.jpg"));
+            Uri imageUri = Uri.fromFile(new File("/storage/emulated/0/aaa/1490769124978.jpg"));
             startPhotoZoom(outputUri, imageUri);
         }
     }
