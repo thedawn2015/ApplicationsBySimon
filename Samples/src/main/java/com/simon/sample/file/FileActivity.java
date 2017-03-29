@@ -47,6 +47,8 @@ public class FileActivity extends BaseActivity {
     Button fileBtnGetPhoto;
     @BindView(R.id.file_image_view)
     ImageView fileImageView;
+    @BindView(R.id.file_image_view_crop)
+    ImageView fileImageViewCrop;
 
     private String bitmapName;
     private String filePath;
@@ -112,22 +114,21 @@ public class FileActivity extends BaseActivity {
             //通过FileProvider创建一个content类型的Uri
             Uri imageUri = FileProvider.getUriForFile(this, "com.simon.sample.fileprovider", lastTakedPhoto);
             Uri outputUri = Uri.fromFile(cropPhoto);
-            startPhotoZoom(outputUri, imageUri);
+            startPhotoZoom(imageUri, outputUri);
         } else {
-
             Uri imageUri = Uri.fromFile(lastTakedPhoto);
             Uri outputUri = Uri.fromFile(cropPhoto);
-            startPhotoZoom(outputUri, imageUri);
+            startPhotoZoom(imageUri, outputUri);
         }
     }
 
     /**
      * 裁剪
      *
-     * @param outputUri
      * @param imageUri
+     * @param outputUri
      */
-    private void startPhotoZoom(Uri outputUri, Uri imageUri) {
+    private void startPhotoZoom(Uri imageUri, Uri outputUri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -175,7 +176,7 @@ public class FileActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 //拍照返回
                 case 1006:
@@ -186,9 +187,9 @@ public class FileActivity extends BaseActivity {
                     break;
                 //取文件返回
                 case 1008:
-                    Bitmap bitmap2 = BitmapUtil.getBitmapFromPath(lastTakedPhoto.getPath());
-                    if (bitmap2 != null) {
-                        fileImageView.setImageBitmap(bitmap2);
+                    Bitmap bitmapCrop = BitmapUtil.getBitmapFromPath(cropPhoto.getPath());
+                    if (bitmapCrop != null) {
+                        fileImageViewCrop.setImageBitmap(bitmapCrop);
                     }
                     break;
             }
