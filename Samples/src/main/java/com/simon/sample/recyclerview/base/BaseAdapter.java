@@ -4,8 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.simon.baseandroid.util.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +43,14 @@ public abstract class BaseAdapter<ITEM> extends RecyclerView.Adapter<BaseViewHol
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LogUtil.i(TAG, "onCreateViewHolder: ");
+//        LogUtil.i(TAG, "onCreateViewHolder: ");
         return createViewHolder(parent.getContext(), parent);
     }
 
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        LogUtil.i(TAG, "onBindViewHolder: ");
+//        LogUtil.i(TAG, "onBindViewHolder: ");
         holder.setData(valueList.get(position), position, onItemClickListener);
     }
 

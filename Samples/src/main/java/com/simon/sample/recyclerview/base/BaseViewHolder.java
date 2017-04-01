@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.simon.baseandroid.util.LogUtil;
-
 import butterknife.ButterKnife;
 
 /**
@@ -22,7 +20,7 @@ public abstract class BaseViewHolder<ITEM> extends RecyclerView.ViewHolder {
 
         //这里使用了ButterKnife来进行控件的绑定
         ButterKnife.bind(this, itemView);
-        LogUtil.i(TAG, "BaseViewHolder: ");
+//        LogUtil.i(TAG, "BaseViewHolder: ");
     }
 
     /**

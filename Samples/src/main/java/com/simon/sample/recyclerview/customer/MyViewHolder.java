@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simon.sample.R;
-import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.recyclerview.base.BaseViewHolder;
 import com.simon.sample.recyclerview.base.OnItemClickListener;
 
@@ -24,12 +23,12 @@ public class MyViewHolder extends BaseViewHolder<String> {
 
     public MyViewHolder(Context context, ViewGroup root) {
         super(context, root, R.layout.adapter_holder_name);
-        LogUtil.i(TAG, "MyViewHolder: ");
+//        LogUtil.i(TAG, "MyViewHolder: ");
     }
 
     @Override
     protected void bindData(final String itemValue, final int position, final OnItemClickListener listener) {
-        LogUtil.i(TAG, "bindData: ");
+//        LogUtil.i(TAG, "bindData: ");
 
         if (itemValue != null) {
             textName.setText(itemValue);

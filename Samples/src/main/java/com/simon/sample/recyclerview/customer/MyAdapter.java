@@ -3,7 +3,6 @@ package com.simon.sample.recyclerview.customer;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.simon.baseandroid.util.LogUtil;
 import com.simon.sample.recyclerview.base.BaseAdapter;
 import com.simon.sample.recyclerview.base.BaseViewHolder;
 
@@ -16,7 +15,7 @@ public class MyAdapter extends BaseAdapter<String> {
 
     @Override
     protected BaseViewHolder createViewHolder(Context context, ViewGroup parent) {
-        LogUtil.i(TAG, "createViewHolder: ");
+//        LogUtil.i(TAG, "createViewHolder: ");
         return new MyViewHolder(context, parent);
     }
 }

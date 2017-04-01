@@ -57,6 +57,11 @@ public class RecyclerViewActivity extends BaseActivity {
             public void onItemClick(String itemValue, int viewID, int position) {
                 ToastUtil.showShort(RecyclerViewActivity.this, itemValue);
             }
+
+            @Override
+            public void onItemLongClick(String itemValue, int viewID, int position) {
+
+            }
         });
     }
 
