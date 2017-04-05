@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/tab_horizontal_scroll"
+                      android:layout_width="wrap_content"
+                      android:layout_height="40dp"
+                      android:background="@color/slategrey"
+                      android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/tab_linear_processing"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待处理"
+                android:textSize="16sp"/>
+
+            <View
+                android:id="@+id/tab_view_processing"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tab_linear_exception"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="近7天设备异常"
+                android:textSize="16sp"/>
+
+            <View
+                android:id="@+id/tab_view_exception"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tab_linear_unaudited"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="近7天资料未审核"
+                android:textSize="16sp"/>
+
+            <View
+                android:id="@+id/tab_view_unaudited"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tab_linear_validation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上线验证统计"
+                android:textSize="16sp"/>
+
+            <View
+                android:id="@+id/tab_view_validation"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</HorizontalScrollView>
