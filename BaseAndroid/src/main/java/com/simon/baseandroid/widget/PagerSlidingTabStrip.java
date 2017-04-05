@@ -40,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.simon.baseandroid.R;
+import com.simon.baseandroid.util.Util;
 
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +72,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private LinearLayout tabsContainer;
     private ViewPager viewPager;
 
-    private List<Integer> countList;
+    private List<Integer> msgCountList;
 
     private int tabCount;
 
@@ -183,9 +184,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         }
     }
 
-    public void setViewPager(ViewPager pager, List<Integer> countList) {
+    public void setViewPager(ViewPager pager, List<Integer> msgMsgCountList) {
         this.viewPager = pager;
-        this.countList = countList;
+        this.msgCountList = msgMsgCountList;
 
         if (pager.getAdapter() == null) {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
@@ -196,12 +197,21 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         notifyDataSetChanged();
     }
 
+    /**
+     * 重新设置数量，并刷新
+     *
+     * @param msgMsgCountList
+     */
+    public void setMsgCountList(List<Integer> msgMsgCountList) {
+        this.msgCountList = msgMsgCountList;
+        notifyDataSetChanged();
+    }
+
     public void addOnPageChangeListener(OnPageChangeListener listener) {
         this.delegatePageListener = listener;
     }
 
     public void notifyDataSetChanged() {
-
         tabsContainer.removeAllViews();
 
         tabCount = viewPager.getAdapter().getCount();
@@ -210,7 +220,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             if (viewPager.getAdapter() instanceof IconTabProvider) {
                 addIconTab(i, ((IconTabProvider) viewPager.getAdapter()).getPageIconResId(i));
             } else {
-                addTextTab(i, viewPager.getAdapter().getPageTitle(i).toString());
+                addTab(i);
+//                addTextTab(i, viewPager.getAdapter().getPageTitle(i).toString());
             }
         }
 
@@ -233,6 +244,23 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             }
         });
 
+    }
+
+    /**
+     * 添加Tab
+     *
+     * @param position
+     */
+    private void addTab(final int position) {
+        View view = View.inflate(getContext(), R.layout.fragment_pager_tab, null);
+        TextView textTitle = (TextView) view.findViewById(R.id.pager_tab_text_title);
+        TextView textCount = (TextView) view.findViewById(R.id.pager_tab_text_count);
+        textTitle.setText(viewPager.getAdapter().getPageTitle(position).toString());
+        if (!Util.isNullOrEmpty(msgCountList) && msgCountList.size() > position) {
+            textCount.setText(msgCountList.get(position) + "");
+        }
+
+        addTab(position, view);
     }
 
     private void addTextTab(final int position, String title) {

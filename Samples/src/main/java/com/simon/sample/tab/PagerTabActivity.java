@@ -32,6 +32,7 @@ public class PagerTabActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private List<Fragment> fragmentList;
     private List<String> titleList;
+    private List<Integer> countList;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, PagerTabActivity.class);
@@ -47,7 +48,7 @@ public class PagerTabActivity extends AppCompatActivity {
         initData();
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(adapter);
-        pagerTabTitle.setViewPager(viewPager);
+        pagerTabTitle.setViewPager(viewPager, countList);
     }
 
     private void initData() {
@@ -62,5 +63,11 @@ public class PagerTabActivity extends AppCompatActivity {
         titleList.add("近7天设备异常");
         titleList.add("近7天资料未审核");
         titleList.add("上线验证统计");
+
+        countList = new ArrayList<>();
+        countList.add(10);
+        countList.add(3);
+        countList.add(5);
+        countList.add(6);
     }
 }
