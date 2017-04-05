@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -47,10 +48,11 @@ public class MyFragmentActivity extends BaseActivity {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
-    private ViewPagerAdapter adapter;
+    //    private ViewPagerAdapter adapter;
     private int checkdedPosition;
 
     private List<Fragment> fragmentList;
+    private List<String> titleList;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, MyFragmentActivity.class);
@@ -64,9 +66,26 @@ public class MyFragmentActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initData();
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//        adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+        FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+
+            @Override
+            public int getCount() {
+                return fragmentList.size();
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                return fragmentList.get(position);
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titleList.get(position);
+            }
+
+        };
+        /*viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 //                Log.i(TAG, "onPageScrolled: ");
@@ -85,7 +104,8 @@ public class MyFragmentActivity extends BaseActivity {
                     setCheckedTab(checkdedPosition);
                 }
             }
-        });
+        });*/
+        viewPager.setAdapter(adapter);
     }
 
     private void initData() {
@@ -94,6 +114,12 @@ public class MyFragmentActivity extends BaseActivity {
         fragmentList.add(new BFragment());
         fragmentList.add(new CFragment());
         fragmentList.add(new DFragment());
+
+        titleList = new ArrayList<>();
+        titleList.add("最新推荐");
+        titleList.add("游戏娱乐11111111111");
+        titleList.add("影音视频");
+        titleList.add("影音视频222222");
     }
 
     private void setCheckedTab(int index) {
