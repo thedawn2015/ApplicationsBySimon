@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simon.sample">
+          package="com.simon.sample">
 
     <!-- Push service 运行需要的权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".TheApplication"
@@ -26,7 +25,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Base">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.simon.sample.fileprovider"
@@ -34,12 +32,13 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
+                android:resource="@xml/provider_paths"/>
         </provider>
 
         <!-- 腾讯统计 -->
         <!-- 请将value改为MTA分配的appkey < -->
-        <!--<meta-data
+        <!--
+        <meta-data
             android:name="TA_APPKEY"
             android:value="A6WA4JVMD33X" />
         &lt;!&ndash; 请将value改为app发布对应的渠道，不同的发布渠道使用不同的名字 < &ndash;&gt;
@@ -51,70 +50,73 @@
         <provider
             android:name="com.tencent.mid.api.MidProvider"
             android:authorities="com.simon.sample.TENCENT.MID.V3.1"
-            android:exported="true" />-->
+            android:exported="true" />
+        -->
 
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".download.DownloadActivity" />
-        <activity android:name=".titlebar.TitleBarActivity" />
-        <activity android:name=".animator.AnimatorActivity" />
-        <activity android:name=".notify.NotificationActivity" />
-        <activity android:name=".db.DBActivity" />
-        <activity android:name=".polling.PollingServiceActivity" />
+        <activity android:name=".download.DownloadActivity"/>
+        <activity android:name=".titlebar.TitleBarActivity"/>
+        <activity android:name=".animator.AnimatorActivity"/>
+        <activity android:name=".notify.NotificationActivity"/>
+        <activity android:name=".db.DBActivity"/>
+        <activity android:name=".polling.PollingServiceActivity"/>
 
-        <service android:name=".polling.alarm.PollingService" />
-        <service android:name=".polling.service.RequestService" />
+        <service android:name=".polling.alarm.PollingService"/>
+        <service android:name=".polling.service.RequestService"/>
 
-        <receiver android:name=".polling.alarm.AlarmReceiver" />
+        <receiver android:name=".polling.alarm.AlarmReceiver"/>
 
-        <activity android:name=".recyclerview.RecyclerViewActivity" />
-        <activity android:name=".progress.ProgressActivity" />
-        <activity android:name=".telephone.TelephoneActivity" />
-        <activity android:name=".keyboard.KeyBoardActivity" />
+        <activity android:name=".recyclerview.RecyclerViewActivity"/>
+        <activity android:name=".progress.ProgressActivity"/>
+        <activity android:name=".telephone.TelephoneActivity"/>
+        <activity android:name=".keyboard.KeyBoardActivity"/>
         <activity
             android:name=".nati.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/FullscreenTheme"/>
         <activity
             android:name=".nati.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"/>
         <activity
             android:name=".nati.NavigationActivity"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".nati.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".nati.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"/>
         <activity
             android:name=".nati.TabActivity"
             android:label="@string/title_activity_tab"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".async.AsyncActivity" />
-        <activity android:name=".toolbar.ToolbarActivity" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".async.AsyncActivity"/>
+        <activity android:name=".toolbar.ToolbarActivity"/>
 
         <!-- android:theme="@style/TransparentTheme" -->
-        <activity android:name=".dialog.DialogActivity" />
-        <activity android:name=".rx.RxActivity" />
+        <activity android:name=".dialog.DialogActivity"/>
+        <activity android:name=".rx.RxActivity"/>
         <activity
             android:name=".webview.WebViewActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".third_login.ThirdLoginActivity" />
-        <activity android:name=".file.FileActivity" />
-        <activity android:name=".fragment.MyFragmentActivity" />
-        <activity android:name=".amap.AMapActivity" />
-        <activity android:name=".time.TimeActivity" />
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".third_login.ThirdLoginActivity"/>
+        <activity android:name=".file.FileActivity"/>
+        <activity android:name=".fragment.MyFragmentActivity"/>
+        <activity android:name=".amap.AMapActivity"/>
+        <activity android:name=".time.TimeActivity"/>
         <activity android:name=".time.WheelViewActivity"/>
         <activity android:name=".time.WheelViewsActivity"/>
+        <activity android:name=".tab.PagerTabActivity">
+        </activity>
     </application>
 
 </manifest>

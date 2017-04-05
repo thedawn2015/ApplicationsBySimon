@@ -25,7 +25,7 @@ public class DFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_c, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_d, container, false);
         return view;
     }
 }

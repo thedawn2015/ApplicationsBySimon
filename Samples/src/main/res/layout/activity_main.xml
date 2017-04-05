@@ -194,7 +194,13 @@
             android:id="@+id/simple_btn_to_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="time" />
+            android:text="time"/>
+
+        <Button
+            android:id="@+id/simple_btn_to_pager_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pager tab"/>
 
         <android.support.v7.widget.SearchView
             android:layout_width="match_parent"
