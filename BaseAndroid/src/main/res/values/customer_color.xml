@@ -151,4 +151,7 @@
     <color name="black">#000000</color><!--黑色 -->
 
     <color name="white88">#88ffffff</color><!--黑色 -->
+
+    <color name="background_tab_pressed">#6633B5E5</color>
 </resources>
+

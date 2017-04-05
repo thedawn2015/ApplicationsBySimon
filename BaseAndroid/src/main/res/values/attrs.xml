@@ -47,4 +47,19 @@
         <attr name="isEnable" format="boolean"/>
     </declare-styleable>
 
+    <!--PagerSlidingTabStrip-->
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pagerTabIndicatorColor" format="color"/>
+        <attr name="pagerTabUnderlineColor" format="color"/>
+        <attr name="pagerTabDividerColor" format="color"/>
+        <attr name="pagerTabIndicatorHeight" format="dimension"/>
+        <attr name="pagerTabUnderlineHeight" format="dimension"/>
+        <attr name="pagerTabDividerPadding" format="dimension"/>
+        <attr name="pagerTabTabPaddingLeftRight" format="dimension"/>
+        <attr name="pagerTabScrollOffset" format="dimension"/>
+        <attr name="pagerTabTabBackground" format="reference"/>
+        <attr name="pagerTabShouldExpand" format="boolean"/>
+        <attr name="pagerTabTextAllCaps" format="boolean"/>
+    </declare-styleable>
+
 </resources>
