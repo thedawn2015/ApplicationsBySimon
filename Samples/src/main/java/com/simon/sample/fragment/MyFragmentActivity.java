@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -70,18 +69,18 @@ public class MyFragmentActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i(TAG, "onPageScrolled: ");
+//                Log.i(TAG, "onPageScrolled: ");
                 checkdedPosition = position;
             }
 
             @Override
             public void onPageSelected(int position) {
-                Log.i(TAG, "onPageSelected: position=" + position);
+//                Log.i(TAG, "onPageSelected: position=" + position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Log.i(TAG, "onPageScrollStateChanged: state=" + state);
+//                Log.i(TAG, "onPageScrollStateChanged: state=" + state);
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     setCheckedTab(checkdedPosition);
                 }
@@ -101,6 +100,7 @@ public class MyFragmentActivity extends BaseActivity {
         initTab();
         switch (index) {
             case 0:
+                tabHorizontalScroll.scrollTo(0, 0);
                 tabViewProcessing.setVisibility(View.VISIBLE);
                 break;
             case 1:
@@ -110,6 +110,7 @@ public class MyFragmentActivity extends BaseActivity {
                 tabViewUnaudited.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                tabHorizontalScroll.scrollTo(tabHorizontalScroll.getWidth(), 0);
                 tabViewValidation.setVisibility(View.VISIBLE);
                 break;
         }
