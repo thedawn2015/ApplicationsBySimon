@@ -4,10 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 
 import com.simon.baseandroid.BaseActivity;
 import com.simon.sample.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * desc: Fragment 手动addView
@@ -16,8 +22,12 @@ import com.simon.sample.R;
  */
 public class MyFragmentActivity extends BaseActivity {
     public static final String TAG = MyFragmentActivity.class.getSimpleName();
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
 
-    private Fragment myFragment;
+    private ViewPagerAdapter adapter;
+
+    private List<Fragment> fragmentList;
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, MyFragmentActivity.class);
@@ -28,30 +38,17 @@ public class MyFragmentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_fragment);
+        ButterKnife.bind(this);
 
-        refreshFragment();
-        replaceFragment();
+        initData();
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+        viewPager.setAdapter(adapter);
     }
 
-    private void refreshFragment() {
-        myFragment = getSupportFragmentManager().findFragmentByTag(MyFragment.TAG);
-    }
-
-    private void replaceFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (myFragment == null) {
-            myFragment = new MyFragment();
-            transaction.add(R.id.fragment_content, myFragment, MyFragment.TAG);
-        }
-        hideAll(transaction)
-                .show(myFragment)
-                .commit();
-    }
-
-    private FragmentTransaction hideAll(FragmentTransaction transaction) {
-        if (myFragment != null) {
-            transaction.hide(myFragment);
-        }
-        return transaction;
+    private void initData() {
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new AFragment());
+        fragmentList.add(new BFragment());
+        fragmentList.add(new CFragment());
     }
 }
