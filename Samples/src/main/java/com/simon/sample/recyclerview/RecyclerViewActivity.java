@@ -3,6 +3,7 @@ package com.simon.sample.recyclerview;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -27,6 +28,8 @@ public class RecyclerViewActivity extends BaseActivity {
     public static String TAG = RecyclerViewActivity.class.getSimpleName();
     @BindView(R.id.recycler_view_name)
     RecyclerView recyclerViewName;
+    @BindView(R.id.recycler_view_pager)
+    ViewPager recyclerViewPager;
 
     private List<String> strList;
     private MyAdapter adapter;
